@@ -1,0 +1,4 @@
+._jTips_holder{display:inline-block; border:solid black 1px; padding:20px;border-radius: 5px;}
+._jTips_blue{border-color:#3DC1DC; background-color:#BEEAF3; color:#4D9FBF;}
+._jTips_red{border:0; background-color:#f4bedf; background-image: linear-gradient(90deg, rgb(190, 90, 247),rgb(22, 91, 145));color:#fff;}
+._jTips_green{border-color:#7ed619; background-color:#c3f28d; color:#58792E;}

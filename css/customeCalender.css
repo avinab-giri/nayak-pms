@@ -1,0 +1,114 @@
+/* * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+} */
+
+
+/* Basis */
+
+
+
+
+
+.text-field {
+    padding: 10px;
+    height: 50px;
+    width: 200px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin: 0px 10px 0 0;
+}
+
+.title {
+    font-size: 1.3em;
+}
+
+.subtitle {
+    font-size: 1.1em;
+}
+
+/* Calendar */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #ecf1f8;
+}
+
+.calendar-assets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+#currentDate {
+    text-align: center;
+    font-size: 20px;
+}
+
+.field {
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.field label {
+    margin: 2px;
+}
+
+.form-input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-assets {
+    display: flex;
+    justify-content: space-between;
+    width: 324px;
+}
+
+
+
+.day-assets .btn:nth-child(2) i {
+    padding: 0 10px 0 0 !important;
+}
+
+
+
+
+
+
+
+#calendar {
+    width: 100%;
+}
