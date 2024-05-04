@@ -582,14 +582,23 @@ function reservationRightNav(){
     return $rightNav;
 }
 
-function clrPreviewHtml(){
+function clrPreviewHtml($type=''){
 
     $clrHtml = '';
-    foreach (checkGuestCheckInStatus() as $checkInStatusList) {
-        $name = $checkInStatusList['name'];
-        $clr = $checkInStatusList['bg'];
-        $clrHtml .= "<li><span>$name</span> <span style='background:$clr' class='clrRev'></span></li>";
+    if($type == 'resType'){
+        foreach (fetchData('sys_reservationtype',array(),'id','ASC') as $checkInStatusList) {
+            $name = $checkInStatusList['name'];
+            $clr = $checkInStatusList['bg'];
+            $clrHtml .= "<li><span>$name</span> <span style='background:$clr' class='clrRev'></span></li>";
+        }
+    }else{
+        foreach (checkGuestCheckInStatus() as $checkInStatusList) {
+            $name = $checkInStatusList['name'];
+            $clr = $checkInStatusList['bg'];
+            $clrHtml .= "<li><span>$name</span> <span style='background:$clr' class='clrRev'></span></li>";
+        }
     }
+    
 
     $html = "<div class='reverenceClr dFlex jce'>
                 <ul>
@@ -2674,7 +2683,7 @@ function getBookingData($bid = '', $rNum = '', $checkIn = '', $id = '', $onlyChe
     if (mysqli_num_rows($sql) > 0) {
         while ($row = mysqli_fetch_assoc($sql)) {
             $couponCode = $row['couponCode'];
-            $roomDetailArry = getRoomDetailData($row['roomDId'])[0];
+            $roomDetailArry = getSysPropertyRatePlaneList($row['roomDId'])[0];
             $addByArray = getAddByData($row['addBy'],'yes');
             $coompanyArray = isset(getOrganisationData($row['organisation'], 'yes')[0]) ? getOrganisationData($row['organisation'],'yes')[0] : array();
             $totalAdult = 0;
@@ -2716,8 +2725,8 @@ function getBookingData($bid = '', $rNum = '', $checkIn = '', $id = '', $onlyChe
                 'totalRoomPrice' => $totalRoomPrice,
                 'totalCouponPrice' => $totalCouponPrice,
                 'roomType' => (isset(getRoomData($row['roomId'])[0])) ? getRoomData($row['roomId'])[0]['header'] : '',
-                'roomPlanSrt' => (isset($roomDetailArry)) ? getSysPropertyRatePlaneList($roomDetailArry['title'])[0]['srtcode'] : '',
-                'roomPlanFull' => (isset($roomDetailArry)) ? getSysPropertyRatePlaneList($roomDetailArry['title'])[0]['fullForm'] : '',
+                'roomPlanSrt' => (isset($roomDetailArry)) ? $roomDetailArry['srtcode'] : '',
+                'roomPlanFull' => (isset($roomDetailArry)) ? $roomDetailArry['fullForm'] : '',
             ];
             $data[] = array_merge($row, $advance);
         }
@@ -2889,6 +2898,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
 
     if (isset(getBookingData($bid)[0])) {
         $bookingArray = getBookingData($bid)[0];
+        
         $checkIn = $bookingArray['checkIn'];
         $checkOut = $bookingArray['checkOut'];
         $bookinId = $bookingArray['bookinId'];
@@ -2939,6 +2949,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
 
     if (mysqli_num_rows($bookingSql) > 0) {
         while ($row = mysqli_fetch_assoc($bookingSql)) {
+            
             $subTotalPrice = 0;
             $checkInDate = $row['checkIn'];
             $checkOutDate = $row['checkOut'];
@@ -2960,11 +2971,11 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
             $roomDId = $row['roomDId'];
             $roomNum[] = $row['room_number'];
 
-            $roomPrice = getRoomPriceById($roomId, $roomDId, $adult, $checkIn);
-            $adultPrice = getAdultPriceByNoAdult($adult, $roomId, $roomDId, $checkIn);
-            $childPrice = getChildPriceByNoChild($child, $roomId, $roomDId, $checkIn);
-            $couponPrice = couponActualPrice($couponCode, $roomPrice);
-            $totalCouponPrice = $totalCouponPrice + $couponPrice;
+            $roomPrice = $row['roomPrice'];
+            $adultPrice = 0;
+            $childPrice = 0;
+            $couponPrice = 0;
+            $totalCouponPrice = 0;
             $roomWithCoupon = $roomPrice - $couponPrice;
             $totalRoomPrice += $roomPrice;
             $totalDiscount += $couponPrice;
@@ -2977,12 +2988,14 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
 
             $sumSubTotalPrice += $subTotalPrice;
 
-            $gstPer = 12;
+            $gstPer = $row['gstPer'];
             $gst = getPercentageValu($roomPrice, $gstPer);
             $totalGst += $gst * $night;
-            $rateTypeS = getRatePlanTitleData('', $roomDId)[0]['srtcode'];
-            $rateTypeF = getRatePlanTitleData('', $roomDId)[0]['fullForm'];
-            $totalPrice = $subTotalPrice + $gst;
+
+            $rateTypeS = getSysPropertyRatePlaneList($roomDId)[0]['srtcode'];
+            $rateTypeF = getSysPropertyRatePlaneList($roomDId)[0]['fullForm'];
+
+            $totalPrice = $sumSubTotalPrice + $totalGst;
 
             $roomDetailArry[] = [
                 'rdid' => $roomDId,
@@ -3570,17 +3583,17 @@ function getRoomChildCountById($rid)
 
 function getRoomExtraAdultPriceById($rdid, $date = '')
 {
-    global $conDB;
-    $invenSql = mysqli_query($conDB, "select eAdult from inventory where room_detail_id = '$rdid' and add_date = '$date' and eAdult != '0'");
-    if (mysqli_num_rows($invenSql) > 0) {
-        $row = mysqli_fetch_assoc($invenSql);
-        $price = $row['eAdult'];
-    } else {
-        $sql = mysqli_fetch_assoc(mysqli_query($conDB, "select extra_adult from roomratetype where id = '$rdid'"));
-        $price = $sql['extra_adult'];
-    }
+    // global $conDB;
+    // $invenSql = mysqli_query($conDB, "select eAdult from inventory where room_detail_id = '$rdid' and add_date = '$date' and eAdult != '0'");
+    // if (mysqli_num_rows($invenSql) > 0) {
+    //     $row = mysqli_fetch_assoc($invenSql);
+    //     $price = $row['eAdult'];
+    // } else {
+    //     $sql = mysqli_fetch_assoc(mysqli_query($conDB, "select extra_adult from roomratetype where id = '$rdid'"));
+    //     $price = $sql['extra_adult'];
+    // }
 
-    return $price;
+    return 0;
 }
 
 function getAdultPriceByNoAdult($n, $rid, $rdid, $date = '')
@@ -3844,9 +3857,10 @@ function roomMoveOptionByRoomId($roomId, $opType, $bdid, $roomNum=''){
 
 // Reservation
 
-function reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate, $nAdult, $nChild, $total, $paid, $preview = '', $rTab = '', $BDId = '', $clickBtn = '', $couponCode = '',$couponPrice='',$couponType='',$couponPer='')
+function reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate, $nAdult, $nChild, $total, $paid, $preview = '', $rTab = '', $BDId = '', $clickBtn = '', $couponCode = '',$couponPrice='',$couponType='',$couponPer='',$resType='')
 {
     // pr($paid);
+    
     if ($checkIn == '') {
         $checkIn = date('Y-m-d');
     }
@@ -3910,6 +3924,14 @@ function reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate
         <strong>Rs $pending</strong>";
     }
 
+    $resStatusArray = fetchData('sys_reservationtype', ['id'=>$resType])[0];
+
+    $statusName = $resStatusArray['name'];
+    $statusBg = $resStatusArray['bg'];
+    $statusClr = $resStatusArray['clr'];
+
+    $statusHtml = '<div class="checkinStatus center"><span style="background: '.$statusBg.';color: '.$statusClr.';">'.$statusName.'</span></div>';
+
     $viewDetailBtn = '<a class="reservationViewBtn" data-bookingId="' . $bid . '" data-reservationTab="' . $rTab . '" data-bdid="' . $BDId . '" href="javascript:void(0)"><button>View Booking</button></a>';
 
     if ($preview == 'yes') {
@@ -3951,7 +3973,7 @@ function reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate
                             <span> $reciptNo / $bidCode </span>
                         </div>
                     </div>
-                    <div class='rightSide'>$actionBtn</div>
+                    <div class='rightSide'>$statusHtml</div>
                 </div>
 
                 <div class='body'>
@@ -13537,8 +13559,7 @@ function buildQuery($tableName, $conditions=array(), $orderByColumn = 'id', $ord
 
 function fetchData($tableName, $conditions=array(), $orderByColumn = 'id', $orderDirection = 'DESC'){
     global $conDB;
-    $sql = buildQuery($tableName, $conditions, $orderByColumn, $orderDirection);
-   
+    $sql = buildQuery($tableName, $conditions, $orderByColumn, $orderDirection);   
     $query = mysqli_query($conDB, $sql);
     $data = array();
     while($row = mysqli_fetch_assoc($query)){
@@ -13625,6 +13646,9 @@ function sendDataReservation($key,$url,$table,$data){
         echo 'Response: ' . $response;
     }
 }
+
+
+
 
  ?>
 

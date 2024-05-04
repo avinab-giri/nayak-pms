@@ -58,9 +58,11 @@ $grcLink = FRONT_SITE . '/grc';
             </div>
             
             <div class="row">
+                <div class="col-12 mb-1">
+                    <?= clrPreviewHtml('resType') ?>
+                </div>
                 <div class="col-12">
                     <div id="resorvationContent"></div>
-                    <div id="loadAddResorvation"></div>
                 </div>
             </div>
         </div>

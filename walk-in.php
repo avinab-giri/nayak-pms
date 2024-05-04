@@ -103,11 +103,11 @@ $grcLink = FRONT_SITE . '/grc';
                                                             <div class="row align-items-center" style="width: 100%;margin: 0;">
                                                                 <div class="col-6">
                                                                     <label for="">Check In</label>
-                                                                    <input id="checkInInut" type="text" class="input-sm form-control" name="checkIn" readonly>
+                                                                    <input id="checkInInut" type="text" class="input-sm form-control" name="checkIn" value="<?= date('d-m-Y') ?>" readonly>
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <label for="">Check Out</label>
-                                                                    <input id="checkOutInput" type="text" class="input-sm form-control" name="checkOut" readonly>
+                                                                    <input id="checkOutInput" type="text" class="input-sm form-control" name="checkOut" value="<?= date('d-m-Y', strtotime('+1 day')) ?>" readonly>
                                                                 </div>
                                                             </div>
 
@@ -212,7 +212,7 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                                     <td>
                                                                         <div class="form-group reservationRateArea">
-                                                                            <input type="number" disabled value="0" class="form-control totalPriceWithGst" name="totalPriceWithGst[]">
+                                                                            <input type="number" value="0" class="form-control totalPriceWithGst disabled" name="totalPriceWithGst[]" readonly>
                                                                         </div>
                                                                     </td>
 
@@ -266,7 +266,8 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <option value="other">Other</option>
                                                             </select>
 
-                                                            <a href="javascript:void(0)" onclick="addTravelAgentForm()" style="color:blue; text-decoration: underline;">Create a Travel Agent <svg class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                                            <a href="javascript:void(0)" onclick="addTravelAgentForm()" style="color:blue; text-decoration: underline;">Create a Travel Agent 
+                                                            <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                                                     <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
                                                                 </svg></a>
                                                         </div>
@@ -335,7 +336,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <div class="form-group">
                                                                     <label for="guestWhatsApp">WhatsApp</label>
                                                                     <div class="inputLabel left">
-                                                                        <input type="number" placeholder="guestWhatsApp" class="form-control" name="guestWhatsApp" id="guestWhatsApp">
+                                                                        <input type="number" placeholder="WhatsApp number" class="form-control" name="guestWhatsApp" id="guestWhatsApp">
                                                                         <div class="iconBox left">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                                                 <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
@@ -482,21 +483,24 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                 <div class="head dFlex aic jcsb">
                                                     <div class="leftSide dFlex aic">
-                                                        <div class="icon"><svg class="svg-inline--fa fa-user fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                                                        <div class="icon">
+                                                            <svg style="width: 16px;height: 16px;" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                                                 <path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
-                                                            </svg><!-- <i class="fas fa-user"></i> Font Awesome fontawesome.com --></div>
+                                                            </svg></div>
                                                         <div class="userName">
                                                             <h4>_ _ _</h4>
-                                                            <span> 7 / balkrishna-a940ab </span>
+                                                            <span> - / --- </span>
                                                         </div>
                                                     </div>
-                                                    <div class="rightSide"></div>
+                                                    <div class="rightSide">
+                                                        <div class="checkinStatus center"><span style="background: #008000;color: #ffffff;">Confirm</span></div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="body">
                                                     <div class="checkInDetail">
                                                         <div class="left">
-                                                            <strong>May 01 - 02</strong>
+                                                            <strong><?= getDateFormatByTwoDate(date('Y-m-d'), date('Y-m-d', strtotime('+1 day'))); ?></strong>
                                                         </div>
                                                         <div class="right">
                                                             <span>Night </span>
@@ -511,15 +515,15 @@ $grcLink = FRONT_SITE . '/grc';
                                                         <div class="right">
                                                             <ul>
                                                                 <li>
-                                                                    <svg class="svg-inline--fa fa-male fa-w-6" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="male" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-fa-i2svg="">
+                                                                    <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-male fa-w-6" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="male" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-fa-i2svg="">
                                                                         <path fill="currentColor" d="M96 0c35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64S60.654 0 96 0m48 144h-11.36c-22.711 10.443-49.59 10.894-73.28 0H48c-26.51 0-48 21.49-48 48v136c0 13.255 10.745 24 24 24h16v136c0 13.255 10.745 24 24 24h64c13.255 0 24-10.745 24-24V352h16c13.255 0 24-10.745 24-24V192c0-26.51-21.49-48-48-48z"></path>
-                                                                    </svg><!-- <i class="fas fa-male"></i> Font Awesome fontawesome.com -->
+                                                                    </svg>
                                                                     <strong>0</strong>
                                                                 </li>
                                                                 <li>
-                                                                    <svg class="svg-inline--fa fa-child fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="child" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                                    <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-child fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="child" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
                                                                         <path fill="currentColor" d="M120 72c0-39.765 32.235-72 72-72s72 32.235 72 72c0 39.764-32.235 72-72 72s-72-32.236-72-72zm254.627 1.373c-12.496-12.497-32.758-12.497-45.254 0L242.745 160H141.254L54.627 73.373c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.497-12.497 32.758 0 45.255L104 213.254V480c0 17.673 14.327 32 32 32h16c17.673 0 32-14.327 32-32V368h16v112c0 17.673 14.327 32 32 32h16c17.673 0 32-14.327 32-32V213.254l94.627-94.627c12.497-12.497 12.497-32.757 0-45.254z"></path>
-                                                                    </svg><!-- <i class="fas fa-child"></i> Font Awesome fontawesome.com -->
+                                                                    </svg>
                                                                     <strong>0</strong>
                                                                 </li>
                                                             </ul>

@@ -360,6 +360,9 @@ function generatePriceBreakup($roomPrice = '', $roomGst = '', $roomTotal = '', $
 
 
 function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate, $nAdult, $nChild, $total, $paid, $preview = '', $rTab = '', $BDId = '', $clickBtn = '', $bookingSource = '', $reportview = '', $bidCode = '', $status = []){
+    $onlyBookingArray = fetchData('booking', ['id'=>$bid])[0];
+    
+    $resType = $onlyBookingArray['status'];
 
     $totlaRoom = count(getBookingDetailTableData('', $bid));
     if ($checkIn == '') {
@@ -398,9 +401,11 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
         $nChild = 0;
     }
 
-    $statusName = $status['name'];
-    $statusBg = $status['bg'];
-    $statusClr = $status['clr'];
+    $resStatusArray = fetchData('sys_reservationtype', ['id'=>$resType])[0];
+
+    $statusName = $resStatusArray['name'];
+    $statusBg = $resStatusArray['bg'];
+    $statusClr = $resStatusArray['clr'];
 
     $statusHtml = "<span style='background: $statusBg;color: $statusClr;'>$statusName</span>";
 
@@ -457,9 +462,17 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
         ";
 
         $actionBtn = 
-            "<a onclick=\"reservationDetailPopUp($bid, $BDId,'$rTab')\" href='javascript:void(0)' class='reservationDetailActionBtn'><span></span><span></span><span></span>
-                        
-            </a>";
+            '
+                <div class="customDropdown">
+                    <button class="btnCD reservationDetailActionBtn">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <ul>
+                        <li><button onclick="makeNoShowReservation('.$bid.')">Mark As No Show</button></li>
+                        <li><button onclick="makeCancelReservation('.$bid.')">Cancel Reservation</button></li>
+                    </ul>
+                </div>
+            ';
 
     }
 
@@ -479,6 +492,9 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
         $reservationBtn = 'reservationContentPreview';
     }
 
+    if($onlyBookingArray['status'] == 5 || $onlyBookingArray['status'] == 6){
+        $actionBtn = '';
+    }
 
 
     $html = "

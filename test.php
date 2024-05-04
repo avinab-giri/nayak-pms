@@ -11,8 +11,7 @@ include(SERVER_INCLUDE_PATH . 'add_to_kot.php');
 include(SERVER_INCLUDE_PATH . 'add_to_stock.php');
 include(SERVER_INCLUDE_PATH . 'calendar.php');
 
-
-echo $msg = generateInvoice('reservationGuest','Avinab',25);
+pr(getBookingDetailById(1));
 
 
 

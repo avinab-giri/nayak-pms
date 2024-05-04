@@ -1,4 +1,4 @@
-var webUrl = 'http://localhost/nayak_hotel/';
+var webUrl = 'http://localhost/nayak-pms/';
 var loadingGif = webUrl + 'img/loading.gif';
 
 window.loader = `<div class="loadingCon"><div class="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;
@@ -4820,3 +4820,13 @@ $('#travelagent').on('click', function(){
 
 
 
+$(document).on('click', '.customDropdown .btnCD', function(e) {
+    e.preventDefault();
+    $(this).siblings('ul').toggleClass('show');
+});
+
+$(document).on('click', function(e) {
+    if (!$(e.target).closest('.customDropdown').length) {
+        $('.customDropdown ul').removeClass('show');
+    }
+});

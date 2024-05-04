@@ -42,7 +42,8 @@ $selectRateType = $_POST['selectRateType'];
 $selectAdult = $_POST['selectAdult'];
 $selectChild = $_POST['selectChild'];
 $roomGst = $_POST['roomGst'];
-$totalPrice = $_POST['totalPrice'];
+$roomPriceArray = $_POST['totalPrice'];
+$totalPriceWithGstArray = $_POST['totalPriceWithGst'];
 
 $travelagent = $_POST['travelagent'];
 $bookByName = (isset($_POST['bookByName'])) ? $_POST['bookByName'] : '';
@@ -94,6 +95,8 @@ $bookingDataArray = [
     'billingMode' => $billingMode,
     'organisation' => $organisation,
     'status' => $reservationType,
+    'mainCheckIn' => $checkIn,
+    'mainCheckOut' => $checkOut,
     'add_on' => $time,
 ];
 
@@ -110,7 +113,8 @@ if (isset($selectRoom)) {
         $adult = $selectAdult[$key];
         $child = $selectChild[$key];
         $gst = $roomGst[$key];
-        $totalPrice = $totalPrice[$key];
+        $roomPrice = $roomPriceArray[$key];
+        $totalPriceWithGst = $totalPriceWithGstArray[$key];
 
         $bookingDetailsDataArray = [
             'hotelId' => $_SESSION['HOTEL_ID'],
@@ -120,8 +124,11 @@ if (isset($selectRoom)) {
             'adult' => $adult,
             'child' => $child,
             'gstPer' => $gst,
-            'totalPrice' => $totalPrice,
+            'roomPrice' => $roomPrice,
+            'totalPrice' => $totalPriceWithGst,
             'addOn' => $time,
+            'checkIn' => $checkIn,
+            'checkOut' => $checkOut,
         ];
 
         $lastBookingDetailId = insertData('bookingdetail', $bookingDetailsDataArray);

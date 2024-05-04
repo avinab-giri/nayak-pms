@@ -55,7 +55,7 @@ if ($type == 'load_resorvation') {
 
 
     $clrPreviewHtml = clrPreviewHtml();
-    $html = '<div class="row"> <div class="col-12 mb-1">' . $clrPreviewHtml . '</div>';
+    $html = '<div class="row">';
    
     $query = mysqli_query($conDB, $sql);
     // $si = $si + ($limit_per_page *  $page) - $limit_per_page;
@@ -599,7 +599,7 @@ if ($type == 'getRoomDetailByRoomNo') {
 
                 <td>
                     <div class="form-group reservationRateArea">
-                        <input type="number" disabled value="0" class="form-control totalPriceWithGst" name="totalPriceWithGst[]">
+                        <input type="number" readonly  value="0" class="form-control totalPriceWithGst disabled" name="totalPriceWithGst[]">
                     </div>
                 </td>
             </tr>
@@ -1602,6 +1602,8 @@ if ($type == 'loadReservationPreview') {
     $selectAdult = '';
     $selectChild = '';
 
+    $reservationType = safeData($_POST['reservationType']);
+
     if (isset($_POST['guestName'])) {
         $gname = safeData($_POST['guestName']);
     }
@@ -1659,7 +1661,7 @@ if ($type == 'loadReservationPreview') {
     
 
 
-    $html = reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate, $adultSum, $childSum, $sumTotalPrice, $paid, '', '', '', 'no', $couponCode, $couponPrice, $couponType, $couponPer);
+    $html = reservationContent($bid, $reciptNo, $gname, $checkIn, $checkOut, $bDate, $adultSum, $childSum, $sumTotalPrice, $paid, '', '', '', 'no', $couponCode, $couponPrice, $couponType, $couponPer,$reservationType);
 
     echo $html;
 }

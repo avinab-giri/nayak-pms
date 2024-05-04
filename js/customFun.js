@@ -108,6 +108,7 @@ function viewBookingReport($bid = '', $bdid = '') {
         
 
         var generateInvoiceLink = getInvoiceLink(bid);
+        var voucherLink = `${webUrl}voucher.php?oid=${bid}`;
         
         var bSourceHtml = '';
         if (bussinessSource == 1) {
@@ -308,7 +309,7 @@ function viewBookingReport($bid = '', $bdid = '') {
                         <div class="form-group text-center m0 py-2">
                             <div class="col-sm-12">
                                 <button class="btn btn-info m0" onclick="generateEmailSent(${bid})">Email Booking Voucher</button>
-                                <button class="btn btn-danger m0"><a class="text-white" target="_blank" href="https://login.retrod.in/voucher.php?oid=${bid}">Download Booking Voucher</a></button>
+                                <button class="btn btn-danger m0"><a class="text-white" target="_blank" href="${voucherLink}">Download Booking Voucher</a></button>
                                 <a target="_blank" href="${generateInvoiceLink}" class="btn btn-info m0">Print Invoice</a>
                             </div>
                         </div>
@@ -3834,8 +3835,24 @@ function userPermission(uid) {
 }
 
 
-function makeNoShowReservation(bdid) {
-    var data = `request_type=makeNoShowReservation&bdid=${bdid}`;
+function makeNoShowReservation(bid) {
+    var data = `request_type=makeNoShowReservation&bid=${bid}`;
+    ajax_request(data).done(function (response) {
+        if (response == 1) {
+            sweetAlert('done');
+            $('#bookindDetail').removeClass('show');
+            loadResorvation('all');
+            loadRoomView();
+        } else {
+            sweetAlert('Sorry Something Went Wrong!', 'error')
+        }
+
+
+    });
+}
+
+function makeCancelReservation(bid) {
+    var data = `request_type=makeCancelReservation&bid=${bid}`;
     ajax_request(data).done(function (response) {
         if (response == 1) {
             sweetAlert('done');
@@ -3989,14 +4006,14 @@ function userDelete(uid) {
 
 
 function reservationDetailPopUp(bookingId='', bdid='', rTab='', roomNumber='') {
-    $('#bookindDetail').addClass('show');
-    if(bookingId == ''){
-        $('#bookindDetail').removeClass('show');
-        $('#loadAddResorvation').show();
-        loadAddResorvation('', 'roomView','','',roomNumber);
-    }else{
-        showGuestDetailPopUp('', bookingId, '', '', rTab, bdid, '');
-    }
+    // $('#bookindDetail').addClass('show');
+    // if(bookingId == ''){
+    //     $('#bookindDetail').removeClass('show');
+    //     $('#loadAddResorvation').show();
+    //     loadAddResorvation('', 'roomView','','',roomNumber);
+    // }else{
+    //     showGuestDetailPopUp('', bookingId, '', '', rTab, bdid, '');
+    // }
     
 }
 

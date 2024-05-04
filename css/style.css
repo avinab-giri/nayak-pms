@@ -10790,4 +10790,47 @@ footer {
   margin: 0;
 }
 
+.customDropdown{
+  z-index: 15;
+}
 
+.customDropdown ul {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  width: max-content;
+  height: auto;
+  z-index: 15;
+  background: white;
+  padding: 10px 0;
+  display: none;
+  border: 1px solid #d7d7d7;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #d7d7d7;
+}
+
+.customDropdown ul li {
+  display: block;
+  text-align: left;
+}
+
+.customDropdown ul button {
+  border: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 700;
+  background: white;
+  opacity: .9;
+}
+
+.customDropdown ul.show {
+  display: block;
+}
+
+.customDropdown li button:hover {
+  background: #ededed;
+  opacity: 1;
+}

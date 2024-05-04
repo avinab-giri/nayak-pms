@@ -3127,10 +3127,30 @@
 
     function makeNoShowReservation(){
         global $conDB;
-        $bdid = $_POST['bdid'];
-        $sql = "update bookingdetail set checkinstatus = '6' where id = '$bdid'";
+        $bid = $_POST['bid'];
+        $sql = "update booking set status = '5' where id = '$bid'";
         $data = '';
         if(mysqli_query($conDB, $sql)){
+            foreach(fetchData('bookingdetail',['bid'=>$bid]) as $item){
+                updateData('bookingdetail', ['checkinstatus'=> 6], ['id'=>$item['id']]);
+            }
+            $data = 1;
+        }else{
+            $data = 0;
+        }
+
+        return $data;
+    }
+
+    function makeCancelReservation(){
+        global $conDB;
+        $bid = $_POST['bid'];
+        $sql = "update booking set status = '6' where id = '$bid'";
+        $data = '';
+        if(mysqli_query($conDB, $sql)){
+            foreach(fetchData('bookingdetail',['bid'=>$bid]) as $item){
+                updateData('bookingdetail', ['checkinstatus'=> 7], ['id'=>$item['id']]);
+            }
             $data = 1;
         }else{
             $data = 0;
