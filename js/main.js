@@ -434,6 +434,7 @@ function loadGuest($page = '', $search = '', limit=15) {
                     var email = val.email;
                     var phone = val.phone;
                     var block = (val.block == null) ? '' : val.block;
+                    var district = (val.district == null) ? '' : val.district;
                     var guestImg = val.guestImg;
                     
                     var deleteHtml = `<a data-gid="${gId}" class='tableIcon delete bg-gradient-warning guestDetailBtn'  href='javascript:void(0)' data-tooltip-top='Detail Log'><i class='fas fa-info'></i></a>`;
@@ -446,6 +447,7 @@ function loadGuest($page = '', $search = '', limit=15) {
                                 <td data-label="Email" class="text-center">${email}</td>
                                 <td data-label="Phone" class="text-center">${phone}</td>
                                 <td data-label="Block" class="text-center">${block}</td>
+                                <td data-label="Block" class="text-center">${district}</td>
                                 <td data-label="Action" class="iconCon ">
                                     <div class="tableCenter">
                                         <span class="tableHide"><i class="fas fa-ellipsis-h"></i></span>
@@ -472,6 +474,7 @@ function loadGuest($page = '', $search = '', limit=15) {
                             <th scope="col" class="text-center">Email</th>
                             <th scope="col" class="text-center">Phone</th>
                             <th scope="col" class="text-center">Block</th>
+                            <th scope="col" class="text-center">District</th>
                             <th scope="col" class="text-right"></th>
                         </tr>
                     </thead>
@@ -3565,12 +3568,20 @@ function paymentLinkSubmit(hid, pid, perName, perEmail, perPhone, paymentAmount,
             var status = data.status;
             var msg = data.msg;
             var link = data.link;
+            var paymentId = data.paymentId;
+            var returnData = `request_type=paymentLinkSubmit&link=${link}&hid=${hid}&pid=${pid}&perName=${perName}&perEmail=${perEmail}&perPhone=${perPhone}&paymentAmount=${paymentAmount}&paymentReason=${paymentReason}&paymentId=${paymentId}`;
+            console.log(returnData);
 
-            if (status == 'success') {
-                $('#popUpModal').modal('hide');
-                sweetAlert(msg);
-                loadPaymentLink();
-            }
+            ajax_request(returnData).done(function () {
+                if (status == 'success') {
+                    $('#popUpModal').modal('hide');
+                    sweetAlert(msg);
+                    loadPaymentLink();
+                }
+            });
+
+            
+
         }
     });
 }

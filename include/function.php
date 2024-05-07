@@ -278,49 +278,6 @@ function websiteNav(){
 
                     <ul class="navbar-nav  justify-content-end align-items-center">
 
-                        <li id="quickLinkSecrion" class="nav-item dropdown pe-2 d-flex align-items-center">
-                            <a href="javascript:void(0);" class="nav-link text-body p-0 dropdownBtn" id="quickMenuBtn">
-                                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path></svg>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end me-sm-n4" id="quickMenuBtnContent">
-                                <div class="row">
-
-                                    '.$reservationLinkHtml.'
-
-                                    '.$stayViewLinkHtml.'
-
-                                    '.$inventoryLinkHtml.'
-
-                                    <div class="col-md-6">
-                                        <a href="'.$deshboardLink.'">Dashboard</a>
-                                    </div>
-
-                                    '.$guestDataHtml.'
-
-                                    <div class="col-md-6">
-                                        <a href="'.$paymentLink.'">Payment Link</a>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="'.$cashieringLink.'">Cashiering</a>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="'.$reportLink.'">Instalytics</a>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="'.$roomViewLink.'">Room View</a>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="'.$channelManagerLink.'">Channel Manager</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-
                         <li id="supportSection" class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="'.$paymentLink.'" class="nav-link text-body p-0 dropdownBtn" id="supportBtn">
                                 <svg class="w28 h28"><use xlink:href="#paymentClrIcon"></use></svg>
@@ -498,11 +455,6 @@ function websiteScript(){
 function cashNavHtml($active=''){
     $array = [
         [
-            'slug'=>'wi',
-            'link'=> FRONT_SITE.'/cashiering',
-            'name'=>'Walk In',
-        ],
-        [
             'slug'=>'travel-agent',
             'link'=> FRONT_SITE.'/cashiering/travel-agent',
             'name'=>'Travel Agent',
@@ -511,12 +463,7 @@ function cashNavHtml($active=''){
             'slug'=>'company',
             'link'=> FRONT_SITE.'/cashiering/company',
             'name'=>'Company',
-        ],
-        [
-            'slug'=>'pos',
-            'link'=> FRONT_SITE.'/cashiering/pos',
-            'name'=>'POS',
-        ],
+        ]
     ];
     
     $body = '';
@@ -1126,7 +1073,7 @@ function getBookingDetail($id = '', $bid = '', $rid = '', $rnum = '', $checkIn =
 
 function getPaymentLink($id = '', $paymentId = '', $transactionId = '', $paymentStatus = '', $status = '1', $deletRec = '1', $addOn = '')
 {
-    $array = array();
+    $array = ['hotelId' => HOTEL_ID];
 
     if ($id != '') {
         $array[] = ['id' => $id];
@@ -11551,7 +11498,7 @@ function setPaymentLinkGenerate($pid = '', $proId = '0', $accessId = '0', $perNa
     $linkIdCode = (count(getHotelServiceData('', $hotelId, 6)) > 0) ? getHotelServiceData('', $hotelId, 6)[0]['voucher'] : '';
     $paymentId = "$linkIdCode-" . rand(100, 999999);
     $data = array();
-
+    
     if ($paymentAmount == '') {
         $data = [
             'status' => 'error',
@@ -12562,7 +12509,7 @@ function getOrganisationListData(){
     global $hotelId;
     $html ='';
      $query = "SELECT * FROM organisations where hotelId = '$hotelId' and status = 1";
-
+     $data = array();
      $sql = mysqli_query($conDB,$query);
      if(mysqli_num_rows($sql)>0){
         while($row = mysqli_fetch_assoc($sql)){
@@ -12582,9 +12529,6 @@ function getOrganisationListData(){
 
             $data[] = array_merge($row,$advance);
         }
-     }
-     else{
-        $html.='No Data';
      }
      return $data;
 }
@@ -13647,6 +13591,47 @@ function sendDataReservation($key,$url,$table,$data){
     }
 }
 
+
+
+function listOfOdishaDistric(){
+    $districts = [
+        "Khurda",
+        "Navaragpur",
+        "Navapada",
+        "Gajapati",
+        "Boudh",
+        "Bhadrak",
+        "Ganjam",
+        "Dhenkanal",
+        "Angul",
+        "Puri",
+        "Cuttak",
+        "Sambalpur",
+        "Kalhandi",
+        "Koraput",
+        "Phulbani",
+        "Balangir",
+        "Bargah",
+        "Deogarh",
+        "Jagatsinghpur",
+        "Jajpur",
+        "Jharsuguda",
+        "Kendrapara",
+        "Malkangiri",
+        "Nayagarh",
+        "Rayagada",
+        "Sonepur",
+        "Balasore",
+        "Mayurbhanj",
+        "Keonjhar",
+        "Sundergarh"
+    ];
+    
+    $json_data = json_encode($districts);
+    
+    return $json_data;
+    
+}
 
 
 

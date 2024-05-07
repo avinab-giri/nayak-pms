@@ -714,9 +714,28 @@
         $perPhone = $_POST['perPhone'];
         $paymentAmount = $_POST['paymentAmount'];
         $paymentReason = $_POST['paymentReason'];
+        $link = $_POST['link'];
+        $hid = HOTEL_ID;
+        $paymentId = $_POST['paymentId'];
+
+        $paymentArray = [
+            'hotelId'=>$hid,
+            'paymentId'=>$paymentId,
+            'accessId'=>$pid,
+            'transactionId'=>$hid,
+            'paymentSrtLink'=>'',
+            'paymentLink'=>$link,
+            'name'=>$perName,
+            'email'=>$perEmail,
+            'phone'=>$perPhone,
+            'amount'=>$paymentAmount,
+            'reason'=>$paymentReason,
+            'addOn'=>date('Y-m-d'),
+        ];
        
-              
-        return setPaymentLinkGenerate($pid,'','',$perName,$perEmail,$perPhone,$paymentAmount,$paymentReason);
+        insertData('payment_link', $paymentArray);
+        return 1;
+        // return setPaymentLinkGenerate($pid,'','',$perName,$perEmail,$perPhone,$paymentAmount,$paymentReason);
 
     }
 

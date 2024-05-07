@@ -11,7 +11,7 @@ include(SERVER_INCLUDE_PATH . 'add_to_kot.php');
 include(SERVER_INCLUDE_PATH . 'add_to_stock.php');
 include(SERVER_INCLUDE_PATH . 'calendar.php');
 
-pr(getBookingDetailById(1));
+pr(listOfOdishaDistric());
 
 
 
