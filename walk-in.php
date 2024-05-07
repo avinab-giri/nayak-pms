@@ -259,15 +259,15 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <?php
                                                                 foreach (fetchData('travel_agents', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
                                                                     $taId = $item['id'];
-                                                                    $name = $item['name'];
+                                                                    $name = $item['travelagentname'];
                                                                     echo '<option value="' . $taId . '">' . $name . '</option>';
                                                                 }
                                                                 ?>
                                                                 <option value="other">Other</option>
                                                             </select>
 
-                                                            <a href="javascript:void(0)" onclick="addTravelAgentForm()" style="color:blue; text-decoration: underline;">Create a Travel Agent 
-                                                            <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                                            <a href="javascript:void(0)" onclick="addTravelAgentForm()" style="color:blue; text-decoration: underline;">Create a Travel Agent
+                                                                <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                                                     <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
                                                                 </svg></a>
                                                         </div>
@@ -424,7 +424,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Organisation</label>
-                                                                <select class="selectOrganisation customSelect" name="organisation" data-rno="0">
+                                                                <select class="selectOrganisation customSelect" name="organisation" data-rno="0" id="organisation">
                                                                     <option value="0" selected="">-Select Organisation</option>
                                                                     <?php
                                                                     foreach (fetchData('organisations', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
@@ -434,6 +434,10 @@ $grcLink = FRONT_SITE . '/grc';
                                                                     }
                                                                     ?>
                                                                 </select>
+                                                                <a href="javascript:void(0)" onclick="loadAddOrganisation()" style="color:blue; text-decoration: underline;">Create a organisation
+                                                                    <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                                                        <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
+                                                                    </svg></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -486,7 +490,8 @@ $grcLink = FRONT_SITE . '/grc';
                                                         <div class="icon">
                                                             <svg style="width: 16px;height: 16px;" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                                                 <path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
-                                                            </svg></div>
+                                                            </svg>
+                                                        </div>
                                                         <div class="userName">
                                                             <h4>_ _ _</h4>
                                                             <span> - / --- </span>
@@ -628,11 +633,11 @@ $grcLink = FRONT_SITE . '/grc';
         }).on('changeDate', function(selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#checkOutInput').datepicker('setStartDate', minDate);
-            
+
             var nextDate = new Date(minDate);
-            
+
             nextDate.setDate(nextDate.getDate() + 1);
-            
+
             $('#checkOutInput').datepicker('setStartDate', nextDate);
             $('#checkOutInput').datepicker('setDate', nextDate);
         });
@@ -642,7 +647,7 @@ $grcLink = FRONT_SITE . '/grc';
             format: 'dd-mm-yyyy',
             todayHighlight: true,
         });
-        
+
 
         function handleIndicator(el) {
             items.forEach(item => {

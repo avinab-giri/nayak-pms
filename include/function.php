@@ -12572,17 +12572,15 @@ function getOrganisationList(){
      return $html;
 }
 
-    function setOrganisationDetails($organisationName, $organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote){
+    function setOrganisationDetails($organisationName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote=''){
         global $hotelId;
         global $conDB;
         $query = "INSERT INTO organisations (hotelId,name,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
         VALUES ('$hotelId','$organisationName','$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote');
         ";
         $sql = mysqli_query($conDB,$query);
-        if($sql){
-            return 'ok';
-        }
-        return 'no';
+        
+        return $sql;
     }
 
     function getGstNumberFromOrganisationName($name='',$dataid=''){
@@ -12649,11 +12647,9 @@ function setTraveAgentData($travelagentname, $travelagentemail, $travelagentAddr
 
     $query = "INSERT INTO travel_agents (hotelId,travelagentname, travelagentemail, travelagentAddress, travelagrntCity, travelagentState, travelagentCountry, travelagentPostCode, travelagentPhoneno, travelagentGstNo, travelagentcommission, travelaaagentGstonCommision, travelaaagentTcs, travelaaagentTds, travelagentNote) VALUES('$hotelId','$travelagentname', '$travelagentemail', '$travelagentAddress', '$travelagrntCity', '$travelagentState', '$travelagentCountry', '$travelagentPostCode', '$travelagentPhoneno', '$travelagentGstNo', $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, '$travelagentNote')";
     $sql = mysqli_query($conDB,$query);
+
     if($sql){
-        return true;
-    }
-    else{
-        return false;
+        return mysqli_insert_id($conDB);
     }
 
 

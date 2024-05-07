@@ -4347,7 +4347,6 @@ $('.supportSec .content').on('click', function () {
 
 
 $(document).on('click', '#addOrganisation', function () {
-    $('#addOrganisationModal').modal('show');
     loadAddOrganisation();
 });
 $('.closeOrganisation').click(function () {
@@ -4359,17 +4358,167 @@ $('.closeTravelAgent').click(function () {
 });
 
 
-function loadAddOrganisation() {
-    $.ajax({
-        url: webUrl+"/include/ajax/resorvation.php",
-        type: 'post',
-        data: {
-            type: 'load_form_organisation'
-        },
-        success: function (data) {
-            $('#organisationbody').html(data);
-        }
-    });
+function loadAddOrganisation(id='') {
+    var data = `request_type=load_form_organisation&id=${id}`;
+    var title = (id == '') ? 'Add Organisation' : 'Update Organisation';
+    var rateList = '';
+
+    ajax_request(data).done(function(request) {
+        var response = JSON.parse(request);
+        var ratePlan = response.ratePlan;
+        var data = response.data;
+
+        $.each(ratePlan, (key,val)=>{
+            var name = val.srtcode;
+            var id = val.id;
+            rateList += `<option value="${id}">${name}</option>`;
+        })
+
+        html =`
+        <div class="organisation-modal-body">
+        <form action="" id="organisationForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Name</label>                     
+                        <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Email</label>                     
+                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail">
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Address</label>                     
+                        <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress">
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">City</label>                     
+                        <input type="text" placeholder="City" class="form-control" name="organisationcity">
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">State</label>                     
+                        <input type="text" placeholder="State" class="form-control" name="organisationState">
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Country</label>                     
+                        <input type="text" placeholder="Country" class="form-control" name="organisationCountry">
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Post Code</label>                     
+                        <input type="text" placeholder="Post Code" class="form-control" name="organisationPostCode">
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Phone Number</label>                     
+                        <input type="text" placeholder="eg:+91 ***** *****" class="form-control" name="organisationNumber">
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">GST Number</label>                     
+                        <input type="text" id="gstNoField" placeholder="GST Number" class="form-control" name="organisationGstNo">
+
+                    </div>
+                </div>       
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Rate Plan</label>       
+
+                        <select class="form-control" name="rateplan" id="rateplan">                        
+                        
+                        <option value="0" select="selected">Select</option>   
+                        ${rateList}                          
+
+                        </select>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Sales Manager</label>                  
+                        <input type="text" id="salesManager" placeholder="Sales Manager" class="form-control" name="salesManager">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Discount</label>     
+
+                        <input type="number" placeholder="eg:5%" class="form-control" name="organisationDiscount">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="control-label">Notes</label>                    
+                        <input type="text" placeholder="note" class="form-control" name="organisationNote">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+        `;
+
+        showModalBox(title, 'Save', html, 'submitOrganisation', 'modal-xl');
+        var myModal = new bootstrap.Modal(document.getElementById('popUpModal'));
+        myModal.show();
+    })
 }
 
 $(document).on('click', '#submitOrganisation', function () {
@@ -4384,13 +4533,17 @@ $(document).on('click', '#submitOrganisation', function () {
         data: formData,
         success: function (response) {
             var res = JSON.parse(response);
-            if (res.status == 'ok') {
+            var id = res.id;
+            var status = res.status;
+            var name = res.name;
+            var msg = res.name;
+
+            if (res.status == 'success') {
                 sweetAlert(res.msg);
                 $('#organisationForm')[0].reset();
-                $('#addOrganisationModal').modal('hide');
-                var page = $('#addReservationBtn').data('page');
-                loadAddResorvation('', page);
-
+                $('#popUpModal').modal('hide');
+                var html = `<option seleted value="${id}" selected="">${name}</option>`;
+                $('#organisation').append(html);
             } else {
                 sweetAlert('error', res.msg);
             }

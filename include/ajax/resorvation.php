@@ -1365,173 +1365,22 @@ if ($type == 'add_travelagent') {
     $travelagentNote = $_POST["travelagentNote"];
 
     $result = setTraveAgentData($travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote);
+    
+    $data = [
+        'status'=> 'error',
+        'id'=> 0,
+        'name'=>''
+    ];
 
-    if ($result) {
-        echo 'ok';
-    } else {
-        echo 'no';
-    }
-}
+    if ($result != '') {
+        $data = [
+            'status'=> 'success',
+            'id'=>$result,
+            'name'=>$travelagentname
+        ];
+    } 
 
-if ($type == 'load_form_organisation') {
-
-    $rateplanList =  getSysPropertyRatePlaneList();
-    $rateList = '';
-    foreach ($rateplanList as $data) {
-
-        $shortcodeData = $data['srtcode'];
-        $id = $data['id'];
-        $rateList .= '<option value=' . $id . '>' . $shortcodeData . '</option>   ';
-    }
-
-
-    $html = '
-        <div class="organisation-modal-body">
-            <form action="" id="organisationForm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Name</label>                     
-                            <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Email</label>                     
-                            <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail">
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Address</label>                     
-                            <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">City</label>                     
-                            <input type="text" placeholder="City" class="form-control" name="organisationcity">
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">State</label>                     
-                            <input type="text" placeholder="State" class="form-control" name="organisationState">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Country</label>                     
-                            <input type="text" placeholder="Country" class="form-control" name="organisationCountry">
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Post Code</label>                     
-                            <input type="text" placeholder="Post Code" class="form-control" name="organisationPostCode">
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Phone Number</label>                     
-                            <input type="text" placeholder="eg:+91 ***** *****" class="form-control" name="organisationNumber">
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">GST Number</label>                     
-                            <input type="text" id="gstNoField" placeholder="GST Number" class="form-control" name="organisationGstNo">
-
-                        </div>
-                    </div>       
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Rate Plan</label>       
-
-                            <select class="form-control" name="rateplan" id="rateplan">                        
-                            
-                            <option value="0" select="selected">Select</option>   
-                            ' . $rateList . '                           
-
-                            </select>
-                            
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Sales Manager</label>                  
-                            <input type="text" id="salesManager" placeholder="Sales Manager" class="form-control" name="salesManager">
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">Discount</label>       
-
-                            <input type="number" placeholder="eg:5%" class="form-control" name="organisationDiscount">
-                        </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label class="control-label">Notes</label>                     
-                                            
-                            <input type="text" placeholder="note" class="form-control" name="organisationNote">
-                                                        
-
-                        
-                    
-
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </form>
-        </div>
-';
-    echo $html;
+    echo json_encode($data);
 }
 
 if ($type == 'addNewOrganisation') {
@@ -1547,23 +1396,30 @@ if ($type == 'addNewOrganisation') {
     $organisationGstNo = $_POST['organisationGstNo'];
     $ratePlan = $_POST['rateplan'];
     $salesManager = $_POST['salesManager'];
-    $organisationDiscount = $_POST['organisationDiscount'];
+    $organisationDiscount = ($_POST['organisationDiscount'] == '') ? 0 : $_POST['organisationDiscount'];
     $organisationNote = $_POST['organisationNote'];
     $data = array();
 
     $response = setOrganisationDetails($organisationName, $organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote);
-    if ($response == 'ok') {
 
-        $data = array(
-            'status' => 'ok',
-            'msg' => 'Organisation Details Updated'
-        );
-    } else {
-        $data = array(
-            'status' => 'no',
-            'msg' => 'Sorry Something Went Wrong!'
-        );
+    $data = [
+        'status'=>'error',
+        'id'=>'',
+        'name'=>'',
+        'msg'=>'Something went wrong!',
+    ];
+
+    if ($response != '') {
+
+        $data = [
+            'status'=>'success',
+            'id'=>$response,
+            'name'=>$organisationName,
+            'msg'=>'Add Record.',
+        ];
+
     }
+
     echo json_encode($data);
 }
 

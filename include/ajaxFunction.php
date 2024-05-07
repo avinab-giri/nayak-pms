@@ -4011,4 +4011,18 @@ function pinChangeToFetch(){
 }
 
 
+function load_form_organisation(){
+
+    $rateplanList =  getSysPropertyRatePlaneList();
+    
+    $data = [
+        'ratePlan'=>$rateplanList,
+        'data'=>''
+    ];
+    
+    
+    return $data;
+}
+
+
 ?>

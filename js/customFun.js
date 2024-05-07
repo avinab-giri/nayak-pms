@@ -4614,12 +4614,15 @@ function submitTravelAgent(){
             }
             return response.text();
         }).then(data => {
-            if (data.trim() === 'ok') {
+            var responce = JSON.parse(data);
+            var lastId = responce.id;
+            var name = responce.name;
+            if (responce.status === 'success') {
                 sweetAlert('Travel Agent Details Updated');
                 $('#travelagent-add-form')[0].reset();
-                $('#addTravelAgentModal').modal('hide');
-                var page = $('#addReservationBtn').data('page');
-                loadAddResorvation('', page);
+                $('#popUpModal').modal('hide');
+                var html = `<option selected value="${lastId}">${name}</option>`;
+                $('#travelagent').append(html);
             }
             else {
                 sweetAlert('error', 'Sorry Something Went Wrong!')
