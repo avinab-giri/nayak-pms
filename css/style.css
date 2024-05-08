@@ -10776,7 +10776,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   width: 215px;
-  background: #dddddd;
+  background: #f30330;
   border-radius: 3px;
   height: 35px;
   padding: 0 10px !important;
@@ -10788,6 +10788,11 @@ footer {
   font-weight: 700;
   letter-spacing: .05em;
   margin: 0;
+  color: #fff;
+}
+
+.propertyArea svg path{
+  fill: #fff;
 }
 
 .customDropdown{
@@ -10833,4 +10838,8 @@ footer {
 .customDropdown li button:hover {
   background: #ededed;
   opacity: 1;
+}
+
+.linkBtn.active svg{
+  fill: white;
 }

@@ -4591,6 +4591,7 @@ function submitTravelAgent(){
     
     var name = $("#travelagentname").val();
     var travelagentPhoneno = $('#travelagentPhoneno').val();
+
     
     if(name == ''){
         sweetAlert('Name is required','error');
@@ -4617,16 +4618,24 @@ function submitTravelAgent(){
             var responce = JSON.parse(data);
             var lastId = responce.id;
             var name = responce.name;
+            
             if (responce.status === 'success') {
                 sweetAlert('Travel Agent Details Updated');
                 $('#travelagent-add-form')[0].reset();
                 $('#popUpModal').modal('hide');
-                var html = `<option selected value="${lastId}">${name}</option>`;
-                $('#travelagent').append(html);
-            }
-            else {
+                
+                
+                if (window.filePath == 'travel-agent') {
+                    loadTravelAgent();
+                }else if (window.filePath == 'walk-in'){
+                    var html = `<option selected value="${lastId}">${name}</option>`;
+                    $('#travelagent').append(html);
+                }
+                
+            }else {
                 sweetAlert('error', 'Sorry Something Went Wrong!')
             }
+            
         }).catch(error => {
             console.log('Error:', error);
         });
@@ -4924,7 +4933,7 @@ function addCompanyForm(id=''){
             </form>
         `;
 
-        showModalBox(title, 'Save', html, 'addTravelAgentFormSubmit', 'modal-xl');
+        showModalBox(title, 'Save', html, 'submitOrganisation', 'modal-xl');
         var myModal = new bootstrap.Modal(document.getElementById('popUpModal'));
         myModal.show();
     })

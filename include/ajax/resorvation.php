@@ -25,6 +25,8 @@ if ($type == 'load_resorvation') {
     $bookingType = $_POST['bookingType'];
     $currentDate = ($_POST['currentDate'] == '') ? date('Y-m-d') : $_POST['currentDate'];
     $paymentStatus = isset($_POST['payment_status']) ? $_POST['payment_status'] : '';
+    
+    $newResLink = FRONT_SITE.'/walk-in';
 
     if ($bookingType == '') {
         $bookingType = 1;
@@ -124,7 +126,7 @@ if ($type == 'load_resorvation') {
                 <div class="noDataContent">
                     <div class="content">
                         <h4>No Data</h4>
-                        <button id="noDataClickToReservation" class="btn bg-gradient-info">Add Reservation</button>
+                        <a href="'.$newResLink.'" id="noDataClickToReservation" class="btn bg-gradient-info">Add Reservation</a>
                     </div>
                 </div>
             ';

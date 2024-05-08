@@ -234,7 +234,7 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <h4> Booking By :</h4>
+                                                        <h4> Booking Details :</h4>
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -253,7 +253,7 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="control-label">Travel Agent</label>
+                                                            <label class="control-label">Book By</label>
                                                             <select class="customSelect" name="travelagent" id="travelagent">
                                                                 <option value="0">Select</option>
                                                                 <?php

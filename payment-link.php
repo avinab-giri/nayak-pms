@@ -106,7 +106,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
 
     <script>
         $('.linkBtn').removeClass('active');
-        $('.pmsLink').addClass('active');
+        $('.paymentLink').addClass('active');
 
         $('#currentDateStart').datepick({
             maxDate: '0',

@@ -1118,8 +1118,8 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
     });
 
 
-    // $(this).html('Loading...');
-    // $(this).addClass('disabled');
+    $(this).html('Loading...');
+    $(this).addClass('disabled');
 
     if (roomId == '') {
         sweetAlert("Please select Room.", "error");
@@ -1152,26 +1152,26 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
             type: 'post',
             data: $('#addReservationForm').serialize(),
             success: function (data) {
-                // $('#loadAddResorvation').html('').hide();
-                // $('#addReservationForm').trigger('reset');
+                $('#loadAddResorvation').html('').hide();
+                $('#addReservationForm').trigger('reset');
                 sweetAlert("Successfull Add Reservation.");
 
-                // $(this).html('Save');
-                // $(this).removeClass('disabled');
+                $(this).html('Save');
+                $(this).removeClass('disabled');
 
-                // if (page == 'reservations') {
-                //     $('#loadReservationCountContent a').removeClass('active');
-                //     loadResorvation('all');
-                //     $('#loadReservationCountContent #all').addClass('active');
-                //     $('.nav-indicator').css({"width": "99px", "left": "45px"});
-                // }else if (page == 'walk-in'){
-                //     window.location.href = `${webUrl}reservations`;
-                // }else if (page == 'stay-view'){
-                //     var date = $('#currentDateStart').val();
-                //     loadStayView(date);
-                // }else if(page == 'room-view'){
-                //     loadRoomView();
-                // }
+                if (page == 'reservations') {
+                    $('#loadReservationCountContent a').removeClass('active');
+                    loadResorvation('all');
+                    $('#loadReservationCountContent #all').addClass('active');
+                    $('.nav-indicator').css({"width": "99px", "left": "45px"});
+                }else if (page == 'walk-in'){
+                    window.location.href = `${webUrl}reservations`;
+                }else if (page == 'stay-view'){
+                    var date = $('#currentDateStart').val();
+                    loadStayView(date);
+                }else if(page == 'room-view'){
+                    loadRoomView();
+                }
 
             }
         });
@@ -4542,8 +4542,14 @@ $(document).on('click', '#submitOrganisation', function () {
                 sweetAlert(res.msg);
                 $('#organisationForm')[0].reset();
                 $('#popUpModal').modal('hide');
-                var html = `<option seleted value="${id}" selected="">${name}</option>`;
-                $('#organisation').append(html);
+                
+                
+                if (window.filePath == 'company') {
+                    loadCompanyDataBase();
+                }else if (window.filePath == 'walk-in'){
+                    var html = `<option seleted value="${id}" selected="">${name}</option>`;
+                    $('#organisation').append(html);
+                }
             } else {
                 sweetAlert('error', res.msg);
             }
