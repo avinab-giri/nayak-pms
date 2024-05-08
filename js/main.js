@@ -5000,3 +5000,14 @@ $(document).on('click', function(e) {
         $('.customDropdown ul').removeClass('show');
     }
 });
+
+$(document).on('click', '.propertyAreaList .propertyArea', function(e) {
+    e.preventDefault();
+    $(this).siblings('.propertyAreaList ul').toggleClass('show');
+});
+
+$(document).on('click', function(e) {
+    if (!$(e.target).closest('.propertyAreaList').length) {
+        $('.propertyAreaList ul').removeClass('show');
+    }
+});

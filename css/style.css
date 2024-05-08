@@ -1197,7 +1197,6 @@ table.dummystuf tr:nth-child(even) {
 }
 #topNavBar li:not(.toggleNav),
 #topNavBar li:not(#userSecrion) {
-  padding: 5px 5px !important;
   border-radius: 50px;
   transition: 0.3s ease-in-out;
 }
@@ -10776,7 +10775,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   width: 215px;
-  background: #f30330;
+  background: #e10d55;
   border-radius: 3px;
   height: 35px;
   padding: 0 10px !important;
@@ -10842,4 +10841,69 @@ footer {
 
 .linkBtn.active svg{
   fill: white;
+}
+
+
+.propertyAreaList {
+  position: relative;
+}
+
+.propertyAreaList ul {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: calc(100% + 10px);
+  background: #f7f7f7;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  display: none;
+}
+
+.propertyAreaList ul.show{
+  display: block;
+}
+
+.propertyAreaList ul:before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  height: 12px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.propertyAreaList ul:after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: -16px;
+  height: 0;
+  width: 0;
+  border: 8px solid transparent;
+  border-bottom-color: #cccccc;
+}
+
+.propertyAreaList li {
+  padding: 0 !important;
+}
+
+.propertyAreaList ul li {
+  display: block;
+}
+
+.propertyAreaList li a {
+  border-radius: 3px;
+}
+
+#userDropdownContent h6 {
+  margin-bottom: 0 !important;
+}
+
+.propertyAreaList .dropdown-item:hover {
+  color: #000;
+  background-color: #f6f6f6;
 }

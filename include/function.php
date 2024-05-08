@@ -114,8 +114,7 @@ function websiteLink(){
 }
 
 function websiteNav(){
-    // $logo = FRONT_SITE_IMG."logo/".LOGO('',1);
-    $logo = '';
+    $logo = getHotelImageData('','','','',LOGO('',1))[0]['fullUrl'];
     $deshboardLink = FO_FRONT_SITE.'/dashboard';
     $pmsLink = FO_FRONT_SITE.'/pms';
     $posLink = POS_FRONT_SITE;
@@ -284,11 +283,11 @@ function websiteNav(){
                         </ul>
                     </div>
 
-                    <ul class="navbar-nav  justify-content-end align-items-center propertyAreaList">
+                    <ul class="d-flex justify-content-end align-items-center propertyAreaList">
 
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <li class="d-flex align-items-center">
                             '.$proListCon.'                
-                            <ul class="dropdown-menu dropdown-menu-end me-sm-n4" id="userDropdownContent">
+                            <ul class="" id="userDropdownContent">
                                 '.$proListItem.'
                             </ul>
                         </li>
