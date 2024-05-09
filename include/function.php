@@ -13637,35 +13637,35 @@ function sendDataReservation($key,$url,$table,$data){
 
 function listOfOdishaDistric(){
     $districts = [
-        "Khurda",
-        "Navaragpur",
-        "Navapada",
-        "Gajapati",
-        "Boudh",
-        "Bhadrak",
-        "Ganjam",
-        "Dhenkanal",
         "Angul",
-        "Puri",
-        "Cuttak",
-        "Sambalpur",
-        "Kalhandi",
-        "Koraput",
-        "Phulbani",
         "Balangir",
+        "Balasore",
         "Bargah",
+        "Bhadrak",
+        "Boudh",
+        "Cuttak",
         "Deogarh",
+        "Dhenkanal",
+        "Ganjam",
+        "Gajapati",
         "Jagatsinghpur",
         "Jajpur",
         "Jharsuguda",
-        "Kendrapara",
-        "Malkangiri",
-        "Nayagarh",
-        "Rayagada",
-        "Sonepur",
-        "Balasore",
-        "Mayurbhanj",
+        "Kalhandi",
         "Keonjhar",
+        "Kendrapara",
+        "Khurda",
+        "Koraput",
+        "Malkangiri",
+        "Mayurbhanj",
+        "Nayagarh",
+        "Navapada",
+        "Navaragpur",
+        "Phulbani",
+        "Puri",
+        "Rayagada",
+        "Sambalpur",
+        "Sonepur",
         "Sundergarh"
     ];
     
@@ -13673,6 +13673,64 @@ function listOfOdishaDistric(){
     
     return $json_data;
     
+}
+
+
+function loadTableSkeleton(){
+    $html = '`<table class="tg">
+                <tr>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                    <th class="tg-cly1"><div class="tb_line"></div></th>
+                </tr>
+                <tr>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                </tr>
+                <tr>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                </tr>
+                <tr>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                </tr>
+                <tr>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                    <td class="tg-cly1"><div class="tb_line"></div></td>
+                </tr>
+            </table>`;';
+
+    return $html;
 }
 
 

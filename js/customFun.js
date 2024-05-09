@@ -5359,8 +5359,14 @@ function pinChangeToFetch(e){
         console.log('true');
         sweetAlert('Pin code should contain only digits.','error')
         e.target.value = ''; 
+        blockDiv.value ='';
+        districtDiv.value ='';
+        stateDiv.value ='';
     }else if(value.length > 6){
-        sweetAlert('Pin code should be exactly 6 characters.','error')
+        sweetAlert('Pin code should be exactly 6 characters.','error');
+        blockDiv.value ='';
+        districtDiv.value ='';
+        stateDiv.value ='';
     } else {
         if (value.length === 6) {
             var data = `request_type=pinChangeToFetch&pinCode=${value}`;
@@ -5395,4 +5401,48 @@ function calculateTotal() {
 
         $(this).find(".totalPriceWithGst").val(totalPriceWithGst.toFixed(2));
     });
+}
+
+
+function validateNumberField(inputField,num=10) {
+    var mobileNumber = inputField.value.trim();
+    var error = '';
+    var counterDiv = inputField.parentElement.parentElement.querySelector('.charCount');
+    var errorDiv = inputField.parentElement.parentElement.querySelector('.error');
+    counterDiv.textContent = mobileNumber.length;
+
+    if (mobileNumber === '') {
+        error = 'Mobile number is required.';
+    } else {
+        if (!/^\d+$/.test(mobileNumber)) {
+            error = 'Only numeric input is allowed.';
+        } else {
+            if (mobileNumber.length > num) {
+                error = `Mobile number should be exactly ${num} digits.`;
+            }
+        }
+    }
+    errorDiv.textContent = error;
+}
+
+
+function checkNumber(inputField,num=10) {
+    var mobileNumber = inputField.value.trim();
+    var error = '';
+    var counterDiv = inputField.parentElement.parentElement.querySelector('.charCount');
+    var errorDiv = inputField.parentElement.parentElement.querySelector('.error');
+    counterDiv.textContent = mobileNumber.length;
+
+    if (mobileNumber === '') {
+        error = 'Mobile number is required.';
+    } else {
+        if (!/^\d+$/.test(mobileNumber)) {
+            error = 'Only numeric input is allowed.';
+        } else {
+            if (mobileNumber.length !== num) {
+                error = `Mobile number should be exactly ${num} digits.`;
+            }
+        }
+    }
+    errorDiv.textContent = error;
 }

@@ -18,15 +18,29 @@ if($type == 'loadGuest'){
     $pagination = '';
     $search = safeData($_POST['search']);
     $page = safeData($_POST['page']);
+    $limit = safeData($_POST['limit']);
+    $date = safeData($_POST['date']);
+    $district = safeData($_POST['district']);
+
     $hotelId = $_SESSION['HOTEL_ID'];
     
     $sql = "select * from guest where  hotelId = '$hotelId'";
         
     $sql .= " and name != ''";
+
+    if($date != ''){
+        $sql .= " and addOn Like '%$date%'";
+    }
+
+    if($district != ''){
+        $sql .= " and district Like '%$district%'";
+    }
+
     if($search != ''){
         $sql .= " and name  LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' " ;
     }
-    $limit_per_page = 15;
+
+    $limit_per_page = $limit;
     
     $page = '';
     if(isset($_POST['page_no'])){

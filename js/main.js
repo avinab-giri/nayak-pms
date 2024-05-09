@@ -399,13 +399,17 @@ function convertArryToJSON($arry) {
     });
 }
 
-function loadGuest($page = '', $search = '', limit=15) {
-    var search = $search;
+function loadGuest($page = '', limit=15) {
     var page = $page;
+    var date = $('#filterWithDate').val();
+    var district = $('#filterWithDis').val();
+    var search = $('#filterWithSearch').val();
+    var loadTable = window.tableSkeleton;
+    $('#guestListTableContent').html(loadTable);
     $.ajax({
         url: webUrl + 'include/ajax/guest.php',
         type: 'post',
-        data: { type: 'loadGuest', search: search, page: page, limit: limit },
+        data: { type: 'loadGuest', search: search, page: page, limit: limit,date: date,district: district },
         success: function (data) {
             var response = JSON.parse(data);
             var data = response.data;
@@ -460,7 +464,7 @@ function loadGuest($page = '', $search = '', limit=15) {
                             </tr>`;
                 })
             }else{
-
+                tableBody += '<tr><td colspan="100%">No Data</td></tr>'
             }
 
 
@@ -488,7 +492,6 @@ function loadGuest($page = '', $search = '', limit=15) {
 
             `;
             $('#guestListTableContent').html(html);
-            $('#guestListTable').DataTable();
         }
     });
 
@@ -1107,9 +1110,19 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
     var page = window.filePath;
 
     var roomNumArray = $('.roomNumSelect').toArray();
+    var errorArray = $('.error').toArray();
 
-    
+    var hasError = false;
+
+    $.each(errorArray, (index, element) => {
+        var innerHTMLContent = $(element).html();
+        if(innerHTMLContent.trim() != ''){
+            hasError = true;
+        }
+    });
+
     var hasZeroValue = false;
+
     $.each(roomNumArray, (index, element) => {
         if (element.value === "0") {
             hasZeroValue = true;
@@ -1118,64 +1131,73 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
     });
 
 
-    $(this).html('Loading...');
-    $(this).addClass('disabled');
+    if (hasError) {
+        event.preventDefault();
+        console.log('false');
+    }else{
+        console.log('true');
 
-    if (roomId == '') {
-        sweetAlert("Please select Room.", "error");
+        $(this).html('Loading...');
+        $(this).addClass('disabled');
 
-        $(this).html('Save');
-        $(this).removeClass('disabled');
-
-    } else if (hasZeroValue) {
-        sweetAlert("Please select Room.", "error");
-
-        $(this).html('Save');
-        $(this).removeClass('disabled');
-
-    } else if (roomNum == 0) {
-        sweetAlert("Please Select Room Number.", "error");
-
-        $(this).html('Save');
-        $(this).removeClass('disabled');
-
-    } else if (guestName == '') {
-        sweetAlert("Please Enter Guest Detail.", "error");
-
-        $(this).html('Save');
-        $(this).removeClass('disabled');
-
-    } else {
-        
-        $.ajax({
-            url: webUrl + 'include/ajax/resorvationSubmit.php',
-            type: 'post',
-            data: $('#addReservationForm').serialize(),
-            success: function (data) {
-                $('#loadAddResorvation').html('').hide();
-                $('#addReservationForm').trigger('reset');
-                sweetAlert("Successfull Add Reservation.");
-
-                $(this).html('Save');
-                $(this).removeClass('disabled');
-
-                if (page == 'reservations') {
-                    $('#loadReservationCountContent a').removeClass('active');
-                    loadResorvation('all');
-                    $('#loadReservationCountContent #all').addClass('active');
-                    $('.nav-indicator').css({"width": "99px", "left": "45px"});
-                }else if (page == 'walk-in'){
-                    window.location.href = `${webUrl}reservations`;
-                }else if (page == 'stay-view'){
-                    var date = $('#currentDateStart').val();
-                    loadStayView(date);
-                }else if(page == 'room-view'){
-                    loadRoomView();
+        if (roomId == '') {
+            sweetAlert("Please select Room.", "error");
+    
+            $(this).html('Save');
+            $(this).removeClass('disabled');
+    
+        } else if (hasZeroValue) {
+            sweetAlert("Please select Room.", "error");
+    
+            $(this).html('Save');
+            $(this).removeClass('disabled');
+    
+        } else if (roomNum == 0) {
+            sweetAlert("Please Select Room Number.", "error");
+    
+            $(this).html('Save');
+            $(this).removeClass('disabled');
+    
+        } else if (guestName == '') {
+            sweetAlert("Please Enter Guest Detail.", "error");
+    
+            $(this).html('Save');
+            $(this).removeClass('disabled');
+    
+        } else {
+            
+            $.ajax({
+                url: webUrl + 'include/ajax/resorvationSubmit.php',
+                type: 'post',
+                data: $('#addReservationForm').serialize(),
+                success: function (data) {
+                    $('#loadAddResorvation').html('').hide();
+                    $('#addReservationForm').trigger('reset');
+                    sweetAlert("Successfull Add Reservation.");
+    
+                    $(this).html('Save');
+                    $(this).removeClass('disabled');
+    
+                    if (page == 'reservations') {
+                        $('#loadReservationCountContent a').removeClass('active');
+                        loadResorvation('all');
+                        $('#loadReservationCountContent #all').addClass('active');
+                        $('.nav-indicator').css({"width": "99px", "left": "45px"});
+                    }else if (page == 'walk-in'){
+                        window.location.href = `${webUrl}reservations`;
+                    }else if (page == 'stay-view'){
+                        var date = $('#currentDateStart').val();
+                        loadStayView(date);
+                    }else if(page == 'room-view'){
+                        loadRoomView();
+                    }
+    
                 }
-
-            }
-        });
+            });
+        }
     }
+
+    
 
 
 });

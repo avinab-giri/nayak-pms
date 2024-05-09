@@ -61,16 +61,41 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
 
                     <div class="card" id="guestDatabaseContent">
                         <div class="card-head">
-                            <div class="dFlex jcsb aic">
-                                <div class="left dFlex" style="width:50%">
-                                    <h4 class="mr10">Guest Database</h4>
+                            <div class="table_nav">
+                                <div class="dFlex">
+                                    <div class="leftSide">
+                                        <ul>
+                                            <li class="dib">
+                                                <label for="filterWithDate">Date</label>
+                                                <input class="customInput" type="date" id="filterWithDate">
+                                            </li>
+                                            <li class="dib">
+                                                <label for="filterWithDis">District</label>
+                                                <select class="customInput" name="filterWithDis" id="filterWithDis">
+                                                    <option value="">---</option>
+                                                    <?php
+                                                    foreach (json_decode(listOfOdishaDistric()) as $item) {
+                                                        echo "<option value='$item'>$item</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </li>
+                                            <li class="dib">
+                                                <label for="filterWithSearch">Search</label>
+                                                <input class="customInput" type="text" placeholder="Enter name, email or phone" id="filterWithSearch">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="rightSide">
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
+
                             <div id="guestListTableContent" class="table table-responsive">
-                                
+                                <?= loadTableSkeleton() ?>
                             </div>
                             <div class="s25"></div>
                             <ul id="pagination" class="pagination pagination-sm pagination-primary"></ul>
@@ -315,9 +340,25 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
             });
         }
 
-      $(document).on('click','#exportData',function(){
-        exportFile();
-      });
+        $(document).on('click', '#exportData', function() {
+            exportFile();
+        });
+
+
+        $(document).on('change', '#filterWithDate', function(e) {
+            e.preventDefault();
+            loadGuest();
+        });
+
+        $(document).on('change', '#filterWithDis', function(e) {
+            e.preventDefault();
+            loadGuest();
+        });
+
+        $(document).on('change', '#filterWithSearch', function(e) {
+            e.preventDefault();
+            loadGuest();
+        });
     </script>
 
 </body>

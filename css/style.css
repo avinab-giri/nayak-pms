@@ -10907,3 +10907,25 @@ footer {
   color: #000;
   background-color: #f6f6f6;
 }
+
+#guestDatabaseContent {
+  height: 81vh;
+}
+#guestDatabaseContent .card-head {
+  border-bottom: 1px solid #dfdfdf;
+  padding: .8em 1em;
+}
+.customInput {
+  height: 35px;
+  border-radius: 3px;
+  border: 1px solid #c5c5c5;
+  padding: 0 10px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+  height: 20px;
+  line-height: 20px;
+}
