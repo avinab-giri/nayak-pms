@@ -4025,4 +4025,26 @@ function load_form_organisation(){
 }
 
 
+function userAccessChange(){
+    $userId = $_POST['userId'];
+    $pageId = $_POST['pageId'];
+    $role = $_POST['role'];
+    $addBy = dataAddBy();
+    global $time;
+    $userName = fetchData('hoteluser', ['id'=> $userId])[0]['name'];
+    $data = '';
+    if(count(fetchData('user_access', ['userId'=>$userId, 'pageId'=>$pageId])) > 0){
+        $data = updateData('user_access', ['activityRole'=> $role], ['userId'=>$userId, 'pageId'=>$pageId]);
+        $alert = "Update $userName Role to $role";
+        insertData('activityfeed',['hotelId'=> HOTEL_ID, 'type'=> 32, 'reason'=> $alert]);
+    }else{
+        $data = insertData('user_access',['hotelId'=> HOTEL_ID, 'userId'=> $userId, 'pageId'=> $pageId, 'activityRole'=> $role,'addBy'=> $addBy,'addOn'=> $time]);
+        $alert = "Add $userName Role to $role";
+        insertData('activityfeed',['hotelId'=> HOTEL_ID, 'type'=> 32, 'reason'=> $alert]);
+    }
+
+    return $data;
+}
+
+
 ?>

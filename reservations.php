@@ -56,10 +56,102 @@ $grcLink = FRONT_SITE . '/grc';
                 echo backNavbarUi('', '', $rightNav, $leftNav);
                 ?>
             </div>
-            
+
             <div class="row">
                 <div class="col-12 mb-1">
                     <?= clrPreviewHtml('resType') ?>
+                </div>
+                <div class="col-3">
+                <div class="reservationContent skeleton">
+                        <div class="head dFlex aic jcsb">
+                            <div class="leftSide dFlex aic">
+                                <div class="icon"><svg class="svg-inline--fa fa-user fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                                        <path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
+                                    </svg></div>
+                                <div class="userName">
+                                    <h4></h4>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="rightSide"></div>
+                        </div>
+
+                        <div class="body">
+                            <div class="checkInDetail">
+                                <span></span>
+                                <strong class="zi5"><img style="width:20px" src="http://localhost/nayak-pms/img/icon/source/pms.png"></strong>
+                            </div>
+                            <div class="checkinStatus center"><span style="background: #00a1a1;color: #ffffff;"></span></div>
+                            <div class="bookingDate">
+                                <div class="left">
+                                    <strong></strong>
+                                    <span></span>
+                                </div>
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            <svg style="width: 15px;height: 15px;" class="svg-inline--fa fa-male fa-w-6" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="male" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" data-fa-i2svg="">
+                                                <path fill="currentColor" d="M96 0c35.346 0 64 28.654 64 64s-28.654 64-64 64-64-28.654-64-64S60.654 0 96 0m48 144h-11.36c-22.711 10.443-49.59 10.894-73.28 0H48c-26.51 0-48 21.49-48 48v136c0 13.255 10.745 24 24 24h16v136c0 13.255 10.745 24 24 24h64c13.255 0 24-10.745 24-24V352h16c13.255 0 24-10.745 24-24V192c0-26.51-21.49-48-48-48z"></path>
+                                            </svg>
+                                            <strong></strong>
+                                        </li>
+                                        <li>
+                                            <svg style="width: 15px;height: 15px;" class="svg-inline--fa fa-child fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="child" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                <path fill="currentColor" d="M120 72c0-39.765 32.235-72 72-72s72 32.235 72 72c0 39.764-32.235 72-72 72s-72-32.236-72-72zm254.627 1.373c-12.496-12.497-32.758-12.497-45.254 0L242.745 160H141.254L54.627 73.373c-12.496-12.497-32.758-12.497-45.254 0-12.497 12.497-12.497 32.758 0 45.255L104 213.254V480c0 17.673 14.327 32 32 32h16c17.673 0 32-14.327 32-32V368h16v112c0 17.673 14.327 32 32 32h16c17.673 0 32-14.327 32-32V213.254l94.627-94.627c12.497-12.497 12.497-32.757 0-45.254z"></path>
+                                            </svg>
+                                            <strong></strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="bookingDetail">
+                                <ul class="dFlex aic jcsb">
+                                    <li class="dFlex aic jcc fdc dif wAuto">
+                                        <small></small>
+                                        <div class="badge badge-secondary item dFlex aic jcc fdc">
+                                            <strong></strong>
+                                        </div>
+                                    </li>
+                                    <li class="dFlex aic jcc fdc dif wAuto">
+                                        <small></small>
+                                        <div class="dFlex aic jcc fdc dif wAuto badge badge-success item">
+                                            <span></span>
+                                            <strong></strong>
+                                            <span></span>
+                                        </div>
+                                    </li>
+                                    <li class="dFlex aic jcc fdc dif wAuto">
+                                        <small></small>
+                                        <div class="badge badge-dark item dFlex aic jcc fdc">
+                                            <strong></strong>
+                                        </div>
+                                    </li>
+                                    <li class="dFlex aic jcc fdc dif wAuto">
+                                        <small></small>
+                                        <div class="dFlex aic jcc fdc dif wAuto badge badge-danger item">
+                                            <span></span>
+                                            <strong></strong>
+                                            <span></span>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+
+                        <div class="foot resevationFooter">
+                            <div class="dFlex aic jcsb item withOutHover">
+                                <div><span class="clrBlack"></span> <strong class="totalPrice"></strong></div>
+                                <div><span class="clrBlack"></span> <strong class="paidPrice"></strong></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    
+
                 </div>
                 <div class="col-12">
                     <div id="resorvationContent"></div>
@@ -78,179 +170,13 @@ $grcLink = FRONT_SITE . '/grc';
 
 
     <script>
-
-        function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '') {
-
-            var rTab = $rTab;
-            var search = $search;
-            var reserveType = $reserveType;
-            var bookingType = $bookingType;
-            var currentDate = $currentDate;
-
-            if (rTab == '') {
-                rTab = 'reservation';
-            }
-
-            $('#resorvationContent').html(`<div class="loadingIcon">
-                            <img src="<?= FRONT_SITE_IMG . '/loading.gif' ?>" alt="">
-                        </div>`);
-
-            if (rTab === 'New') {
-                console.log(rTab);
-                loadAddResorvation('', 'reservation');
-            } else {
-                $('#loadAddResorvation').html('').hide();
-                $.ajax({
-                    url: "<?= FRONT_SITE . '/include/ajax/resorvation.php' ?>",
-                    type: 'post',
-                    data: {
-                        type: 'load_resorvation',
-                        rTab: rTab,
-                        search: search,
-                        reserveType: reserveType,
-                        bookingType: bookingType,
-                        currentDate: currentDate
-                    },
-                    success: function(data) {
-                        $('#resorvationContent').html(data);
-                    }
-                });
-            }
-
-        }
-
         $('.linkBtn').removeClass('active');
         $('.resLink').addClass('active');
-
-        const indicator = document.querySelector('.nav-indicator');
-        const items = document.querySelectorAll('.reservationTab');
-
-        function handleIndicator(el) {
-
-            items.forEach(item => {
-                item.classList.remove('active');
-                item.removeAttribute('style');
-            });
-
-            indicator.style.width = `${el.offsetWidth}px`;
-            indicator.style.left = `${el.offsetLeft}px`;
-
-            el.classList.add('active');
-        }
-
-        $(document).on('click', '#fullPayment', function() {
-            if ($('#fullPayment').is(':checked')) {
-                $("#paymentAmount").prop('disabled', true);
-            } else {
-                $("#paymentAmount").prop('disabled', false);
-            }
-        });
-
-        $(document).on('click', '.reservationPaymentBtn', function(e) {
-            e.preventDefault();
-            var bookingId = $(this).data('bookingid');
-            var reservationtab = $(this).data('reservationtab');
-            var bdid = $(this).data('bdid');
-            var formData = `request_type=reservationPaymentSubmit&bookingId=${bookingId}&bdid=${bdid}`;
-            ajax_request(formData).done((data) => {
-                var response = JSON.parse(data);
-                var totalPrice = response.totalPrice;
-                var userPay = response.userPay;
-                var pendding = numberWithCommas(totalPrice - userPay);
-                var html = `
-                            <form id="reservationPaymentForm" class="priceSec">
-                                <p>Total payment is Rs <strong>${pendding}</strong></p>
-                                <input type="hidden" name="bookingId" value="${bdid}"/>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <input name="fullPayment" class="form-check-input" type="checkbox" value="" id="fullPayment" checked="">
-                                        <label class="custom-control-label" for="fullPayment">Full payment</label>
-                                    </div>
-                                    <div class="col-8">
-                                        <label for="paymentAmount">Enter Amount</label>
-                                        <input name="paymentAmount" disabled class="form-control" type="text" id="paymentAmount" placeholder="Enter payment amount.">
-                                    </div>
-                                </div>
-                            </form>`;
-
-                showModalBox('Get paid', 'Create link', html, 'reservationPaymentLinkSubmitBtn');
-                var myModal = new bootstrap.Modal(document.getElementById('popUpModal'));
-                myModal.show();
-            });
-        });
 
 
 
         $(document).ready(() => {
             loadResorvation('all');
-            reservationCountNavBar();
-
-
-            $('#currentDateStart').datepick({
-                onSelect: function(dates) {
-                    var currentDate = $(this).val();
-                    var rTab = $('.reservationTab.active').attr('id');
-                    loadResorvation(rTab, '', '', '1', currentDate);
-                },
-                dateFormat: 'yyyy-mm-dd',
-            });
-
-            $(document).on('click', '.reservationTab', function(e) {
-                var tag = e.target.tagName.toLowerCase();
-                if (tag == 'a') {
-                    var tabName = $(this).attr('id');
-                    var singleGroupBtn = $(".singleGroupToggleBtn").hasClass("active");
-                    var currentDate = $('#currentDateStart').val();
-                    handleIndicator(e.target);
-                    if (singleGroupBtn == true) {
-                        loadResorvation(tabName, '', '', '1', currentDate);
-                        reservationCountNavBar(tabName, '', currentDate);
-                    } else {
-                        loadResorvation(tabName, '', '', '1', currentDate);
-                        reservationCountNavBar(tabName, '', currentDate);
-                    }
-                }
-
-            });
-
-            items.forEach((item, index) => {
-                item.addEventListener('click', e => {
-                    console.log(e.target);
-                    handleIndicator(e.target);
-                });
-                item.classList.contains('active') && handleIndicator(item);
-            });
-
-            $(document).on('click', '.reservationRemoveRateArea', function(e) {
-                e.preventDefault();
-                var target = $(this).parent().parent();
-                target.remove();
-                loadReservationPreview();
-            });
-
-            $(document).on('click', '#reservationPaymentLinkSubmitBtn', function(e) {
-                e.preventDefault();
-                var formData = $('#reservationPaymentForm').serialize() + '&request_type=reservationPaymentLinkSubmitBtn';
-                ajax_request(formData).done((data) => {
-                    var response = JSON.parse(data);
-                    var link = response.link;
-                    var msg = response.msg;
-                    var status = response.status;
-                    var paymentId = response.paymentId;
-                    var amount = numberWithCommas(response.amount);
-
-                    if (status == 'success') {
-                        var title = `Rs ${amount} Payment.`;
-                        var html = previewPaymentLink(paymentId, link);
-                        customModal(title, html);
-                    }
-
-                    if (status == 'error') {
-                        sweetAlert(msg, 'error');
-                    }
-
-                });
-            });
 
 
 

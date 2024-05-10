@@ -62,13 +62,21 @@ if($type == 'loadGuest'){
 
     $query = mysqli_query($conDB, $sql);
     $si = $si + ($limit_per_page *  $page) - $limit_per_page;
+
+    $userId = $_SESSION['ADMIN_ID'];
+    $userArry = fetchData('hoteluser', ['id'=>$userId])[0];
+    $userRole = $userArry['role'];
+    $userAccess = (isset(fetchData('user_access', ['userId'=>$userId, 'pageId'=>5])[0])) ? fetchData('user_access', ['userId'=>$userId, 'pageId'=>5])[0]['activityRole'] :'';
+
     if(mysqli_num_rows($query) > 0){
         while($row = mysqli_fetch_assoc($query)){
             $gid = $row['id'];
             $getGuestDetail = getGuestDetail('','',$gid)[0];
             $guestImg = $getGuestDetail['profileImgFull'];
             $advance = [
-                'guestImg'=>$guestImg
+                'guestImg'=>$guestImg,
+                'userRole'=>$userRole,
+                'userAccess'=>$userAccess
             ];
             $data[] = array_merge($row, $advance);            
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 03:14 AM
+-- Generation Time: May 10, 2024 at 01:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,7 +52,24 @@ INSERT INTO `activityfeed` (`id`, `hotelId`, `type`, `bid`, `bdid`, `oldData`, `
 (3, '12345', '4', 3, 0, '', '', '', '', '<strong>5000</strong> payment received from <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/folios?id=3\">#000</a>', 'a_1', '2024-05-04 03:10:12'),
 (4, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=3\">nayak-e51445</a> has been created', 'a_1', '2024-05-04 03:10:12'),
 (5, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=1\">nayak-9e8b74</a> has been created', 'a_1', '2024-05-07 20:57:36'),
-(6, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-253667</a> has been created', 'a_1', '2024-05-07 20:58:47');
+(6, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-253667</a> has been created', 'a_1', '2024-05-07 20:58:47'),
+(7, '12346', '9', 0, 0, '', '', '', 'success', '<b></b> username is logout.', 'a_1', '2024-05-08 01:21:47'),
+(8, '', '1', 0, 0, '', '', '', 'failed', 'Username not exist', '', '2024-05-08 01:21:53'),
+(9, '12345', '1', 0, 0, '', '', '', 'success', '<b>avi</b> username is login.', 'a_1', '2024-05-08 01:21:58'),
+(10, '12346', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-09 16:33:51'),
+(11, '12345', '1', 0, 0, '', '', '', 'success', '<b>avinab</b> username is login.', 'a_3', '2024-05-09 05:10:20'),
+(12, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:17:52'),
+(13, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Add Avinab Role to view', '', '2024-05-10 09:19:01'),
+(14, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:19:37'),
+(15, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:28:14'),
+(16, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:28:51'),
+(17, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:56:07'),
+(18, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:56:29'),
+(19, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Add Avinab Role to full', '', '2024-05-10 09:57:38'),
+(20, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 09:57:51'),
+(21, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:59:05'),
+(22, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 10:01:03'),
+(23, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 10:02:18');
 
 -- --------------------------------------------------------
 
@@ -127,8 +144,8 @@ CREATE TABLE `booking` (
 --
 
 INSERT INTO `booking` (`id`, `hotelId`, `bookinId`, `reciptNo`, `openFolio`, `mainCheckIn`, `mainCheckOut`, `userPay`, `nroom`, `couponCode`, `pickUp`, `payment_status`, `payment_id`, `bookingSource`, `paymethodId`, `reservationType`, `salesType`, `bussinessSource`, `voucherNumber`, `comPlanId`, `comValue`, `coompanyId`, `paytypeId`, `commission`, `extra_amount`, `booking_attr`, `billingMode`, `organisation`, `companynameid`, `gstno`, `traveltype`, `bookingref`, `travelagent`, `totalPrice`, `roundTotalPrice`, `addBy`, `actionOn`, `add_on`, `status`, `deleteRec`) VALUES
-(1, '12345', 'nayak-9e8b74', 1, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-08 02:27:36', 1, 1),
-(2, '12345', 'nayak-253667', 2, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '1', NULL, NULL, 'a_1', NULL, '2024-05-08 02:28:47', 1, 1);
+(1, '12345', 'nayak-9e8b74', 1, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-08 02:27:36', 6, 1),
+(2, '12345', 'nayak-253667', 2, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '1', NULL, NULL, 'a_1', NULL, '2024-05-08 02:28:47', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -188,8 +205,8 @@ CREATE TABLE `bookingdetail` (
 --
 
 INSERT INTO `bookingdetail` (`id`, `hotelId`, `bid`, `openFolio`, `hkId`, `roomId`, `roomDId`, `smoking`, `room_number`, `checkIn`, `checkOut`, `adult`, `child`, `roomPrice`, `adultPrice`, `childPrice`, `gstPer`, `totalPrice`, `checkinstatus`, `checkinBy`, `checkOutBy`, `addOn`, `deleteRec`) VALUES
-(1, '12345', 1, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 1, NULL, NULL, '2024-05-07 20:57:36', 1),
-(2, '12345', 2, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 1, NULL, NULL, '2024-05-07 20:58:47', 1);
+(1, '12345', 1, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 7, NULL, NULL, '2024-05-07 20:57:36', 1),
+(2, '12345', 2, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 6, NULL, NULL, '2024-05-07 20:58:47', 1);
 
 -- --------------------------------------------------------
 
@@ -405,7 +422,7 @@ CREATE TABLE `guest` (
 
 INSERT INTO `guest` (`id`, `hotelId`, `type`, `accessId`, `bookId`, `kotId`, `bookingdId`, `verify`, `serial`, `nameTitle`, `name`, `email`, `whatsapp`, `phone`, `gender`, `company_name`, `comGst`, `country`, `state`, `city`, `block`, `district`, `zip`, `full_address`, `image`, `kyc_file`, `kyc_number`, `kyc_type`, `file_upload_type`, `proof_file_upload_type`, `groupadmin`, `birthday`, `anniversary`, `addBy`, `addOn`, `deleteRec`) VALUES
 (1, '12345', NULL, 0, 1, 0, 1, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '', '09439706344', NULL, NULL, NULL, NULL, 'Loading...', NULL, 'Loading...', 'Loading...', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-05-08 02:27:36', 1),
-(2, '12345', NULL, 0, 2, 0, 2, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '', '09439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, 'Basudebpur', 'Bhadrak', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-05-08 02:28:47', 1);
+(2, '12345', NULL, 0, 2, 0, 2, '', '1', 'Mr.', 'Arun', 'avinabgiri9439@gmail.com', '', '09439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, 'Basudebpur', 'Bhadrak', '756171', 'Kishore Prasad', NULL, NULL, '', '', NULL, NULL, 1, '0000-00-00', '0000-00-00', '1', '2024-05-08 02:28:47', 1);
 
 -- --------------------------------------------------------
 
@@ -542,8 +559,8 @@ CREATE TABLE `hotelprofile` (
 --
 
 INSERT INTO `hotelprofile` (`id`, `hotelId`, `lightlogo`, `darklogo`, `favicon`, `kotLogo`, `gst`, `pan`, `hsn`, `description`, `checkIn`, `checkOut`, `chatBoturl`, `addBy`) VALUES
-(1, '12345', '15', '16', '17', '18', '', '', '', '', '00:00:00', '00:00:00', '', NULL),
-(2, '12347', '3', '4', '5', '6', '', '', '', '', '00:00:00', '00:00:00', '', NULL);
+(1, '12345', '24', '27', '25', '26', '', '', '', '', '00:00:00', '00:00:00', '', NULL),
+(2, '12346', '20', '21', '22', '23', '', '', '', '', '00:00:00', '00:00:00', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -718,7 +735,16 @@ INSERT INTO `hotel_image` (`id`, `hotelId`, `accessId`, `accessValue`, `source`,
 (15, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-800912.png', NULL, NULL, 'public', 'a_1', '', '2024-05-07 21:11:27'),
 (16, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-386816.png', NULL, NULL, 'public', 'a_1', '', '2024-05-07 21:11:31'),
 (17, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-811675.png', NULL, NULL, 'public', 'a_1', '', '2024-05-07 21:11:35'),
-(18, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-724791.png', NULL, NULL, 'public', 'a_1', '', '2024-05-07 21:11:40');
+(18, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-724791.png', NULL, NULL, 'public', 'a_1', '', '2024-05-07 21:11:40'),
+(19, '12346', 0, 'logo', 'login.retrod.in', 'nayakhotel-765475.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:36:49'),
+(20, '12346', 0, 'logo', 'login.retrod.in', 'nbresort-698158.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:16'),
+(21, '12346', 0, 'logo', 'login.retrod.in', 'nbresort-700436.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:23'),
+(22, '12346', 0, 'logo', 'login.retrod.in', 'nbresort-469983.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:28'),
+(23, '12346', 0, 'logo', 'login.retrod.in', 'nbresort-691535.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:32'),
+(24, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-940224.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:39'),
+(25, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-479006.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:44'),
+(26, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-881442.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:48'),
+(27, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-307743.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 15:38:30');
 
 -- --------------------------------------------------------
 
@@ -1273,7 +1299,8 @@ INSERT INTO `payment_link` (`id`, `hotelId`, `paymentId`, `proId`, `accessId`, `
 (2, '41517', '225', 0, 0, '41517', '', 'https://mercury-t2.phonepe.com/transact/pg?token=OWQwNDQ4M2Y0NGQ0YTM4ZmY5MDk4YjI5OTVjNzYyYThkODRmZDI0MjA5ZDQyMmU3NzAzZDEzZGJhMzM3ODBiNzI4ZGE5OTMxYzk4NTk4OmQ3YWJkZDhhNGM5MTA5ZmI5Y2YxMWI2MzEwOTJkMjAz', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '0000-00-00 00:00:00'),
 (3, '41517', '226', 0, 0, '41517', '', 'https://mercury-t2.phonepe.com/transact/pg?token=MjNhNmE4MWM1NmY0OTJkMmQ0ZWI5M2Q0NTc1ZWViMjFiODJjMjRhMGFjNTY0ZWU0OTRhOGQ4YmRjYTUyMGRhYzYyZjc1MjA3NzgzNzE2OjNhZGY1ZDYwNTE2MWFmNGQzMDNiODQ4NWY5MTg3MjNk', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '0000-00-00 00:00:00'),
 (4, '12345', '227', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=Yjc5N2M2ZjZjZDc0MTYxNjlhYWQxMWViMTc1NDg2ZTE0YTYyYzY0M2U0MTllZTU2NGIxODYyN2M4MzM0NDU3MGU5OTgxMzE3NDE0OGNlOjk1ZTNiNzg1MjA2YTgyNzkxNDkyODE2NmQ4M2U5YTU1', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '0000-00-00 00:00:00'),
-(5, '12345', '228', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=Njk1ZTAwNzUxNDhmMGYzZGNkMTc0ZDgzOWY4NzBlZWFkNzg0NmIwYjQxODU5NjJlMjI3MjVhZmVlZTJjNWQyZDg0OGJlMGI3YjU1MWFjOjg3ZjcyNDIyZTdiYzBiZGUyN2M1MGZjYWYyNjE2ZTdh', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-06 18:30:00');
+(5, '12345', '228', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=Njk1ZTAwNzUxNDhmMGYzZGNkMTc0ZDgzOWY4NzBlZWFkNzg0NmIwYjQxODU5NjJlMjI3MjVhZmVlZTJjNWQyZDg0OGJlMGI3YjU1MWFjOjg3ZjcyNDIyZTdiYzBiZGUyN2M1MGZjYWYyNjE2ZTdh', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-06 18:30:00'),
+(6, '12345', '299', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=NzViMWU3NWY3ZjYxNDYzNWRlMzk5NGUzZGVlZmMzZDUyNmE1ZGI3Njc0YTBiNzYzMGI4ZjMyZWExMmU2M2UxYTgwMTYwMzk5ZGI5MjFjOjUxMzllMWExZTMwNDViNGZlNGExN2E1YmZiODI0ZDY2', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-09 18:30:00');
 
 -- --------------------------------------------------------
 
@@ -1444,7 +1471,7 @@ CREATE TABLE `propertysetting` (
 
 INSERT INTO `propertysetting` (`id`, `hotelId`, `adultRestriction`, `childRestriction`, `maxRoomCapacity`, `advancePay`, `pckupDropPrice`, `pckupDropCaption`, `PartialPaymentPrice`, `partialPaymentCaption`, `pckupDropStatus`, `partialPaymentStatus`, `advancePayStatus`, `payByRoomStatus`, `bookingCode`) VALUES
 (1, '12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, '12347', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(2, '12346', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1846,7 +1873,8 @@ INSERT INTO `sys_activitystatus` (`id`, `accessKey`, `title`, `svg`, `color`, `b
 (28, 'user', 'User', NULL, NULL, NULL, NULL),
 (29, 'extendedStay', 'Stay extended', NULL, NULL, NULL, NULL),
 (30, 'noShow', 'No Show', NULL, NULL, NULL, NULL),
-(31, 'blockRoom', 'Block Room', NULL, NULL, NULL, NULL);
+(31, 'blockRoom', 'Block Room', NULL, NULL, NULL, NULL),
+(32, 'permission', 'Permission', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2896,7 +2924,7 @@ CREATE TABLE `user_access` (
   `hotelId` varchar(50) NOT NULL DEFAULT '',
   `userId` int(11) NOT NULL DEFAULT 0,
   `pageId` int(11) NOT NULL DEFAULT 0,
-  `activityRole` enum('viewer','editor') NOT NULL DEFAULT 'viewer',
+  `activityRole` enum('viewer','editor','full') NOT NULL DEFAULT 'viewer',
   `addBy` varchar(12) NOT NULL DEFAULT '',
   `addOn` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -2906,32 +2934,8 @@ CREATE TABLE `user_access` (
 --
 
 INSERT INTO `user_access` (`id`, `hotelId`, `userId`, `pageId`, `activityRole`, `addBy`, `addOn`) VALUES
-(1, '41517', 1, 2, 'viewer', 'a_1', '2024-02-26 00:07:48'),
-(8, '41517', 1, 2, 'viewer', 'a_1', '2024-02-26 03:24:27'),
-(9, '41517', 1, 4, 'viewer', 'a_1', '2024-02-26 03:24:27'),
-(10, '41517', 1, 6, 'viewer', 'a_1', '2024-02-26 03:24:27'),
-(11, '41517', 1, 9, 'viewer', 'a_1', '2024-02-26 03:24:27'),
-(12, '41517', 2, 2, 'viewer', 'a_1', '2024-02-26 03:24:57'),
-(13, '41517', 2, 4, 'viewer', 'a_1', '2024-02-26 03:24:57'),
-(14, '41517', 2, 6, 'viewer', 'a_1', '2024-02-26 03:24:57'),
-(15, '41517', 2, 9, 'viewer', 'a_1', '2024-02-26 03:24:57'),
-(16, '41517', 2, 11, 'viewer', 'a_1', '2024-02-26 03:24:57'),
-(17, '41517', 2, 16, 'viewer', 'a_2', '2024-02-27 04:46:30'),
-(18, '41517', 2, 10, 'viewer', 'a_1', '2024-02-28 02:59:12'),
-(19, '41517', 2, 12, 'viewer', 'a_1', '2024-02-28 02:59:12'),
-(20, '41517', 2, 13, 'viewer', 'a_1', '2024-02-28 02:59:12'),
-(21, '41517', 2, 14, 'viewer', 'a_1', '2024-02-28 03:05:24'),
-(22, '41517', 3, 14, 'viewer', 'a_1', '2024-02-28 03:05:33'),
-(23, '41517', 3, 16, 'viewer', 'a_1', '2024-02-28 03:05:39'),
-(24, '41517', 3, 18, 'viewer', 'a_1', '2024-02-28 03:05:39'),
-(25, '41517', 3, 2, 'viewer', 'a_1', '2024-02-28 03:05:54'),
-(26, '41517', 3, 4, 'viewer', 'a_1', '2024-02-28 03:05:54'),
-(27, '41517', 3, 8, 'viewer', 'a_1', '2024-02-28 03:05:54'),
-(28, '41517', 4, 9, 'viewer', 'a_1', '2024-02-28 03:06:05'),
-(29, '41517', 4, 11, 'viewer', 'a_1', '2024-02-28 03:06:05'),
-(30, '41517', 2, 1, 'viewer', 'a_1', '2024-03-02 06:07:07'),
-(31, '41517', 2, 29, 'viewer', 'a_1', '2024-03-02 07:01:06'),
-(32, '41517', 2, 22, 'viewer', 'a_1', '2024-03-01 21:28:04');
+(1, '12345', 3, 2, 'editor', 'a_1', '2024-05-09 21:19:01'),
+(2, '12345', 3, 5, 'editor', 'a_1', '2024-05-09 21:57:38');
 
 -- --------------------------------------------------------
 
@@ -3968,7 +3972,7 @@ ALTER TABLE `wb_slider`
 -- AUTO_INCREMENT for table `activityfeed`
 --
 ALTER TABLE `activityfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `amenities`
@@ -4130,7 +4134,7 @@ ALTER TABLE `hotel_floor_plan`
 -- AUTO_INCREMENT for table `hotel_image`
 --
 ALTER TABLE `hotel_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `hotel_layout`
@@ -4304,7 +4308,7 @@ ALTER TABLE `package_policy`
 -- AUTO_INCREMENT for table `payment_link`
 --
 ALTER TABLE `payment_link`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payment_status`
@@ -4460,7 +4464,7 @@ ALTER TABLE `superadmin`
 -- AUTO_INCREMENT for table `sys_activitystatus`
 --
 ALTER TABLE `sys_activitystatus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `sys_addon_charge`
@@ -4700,7 +4704,7 @@ ALTER TABLE `url_mapping`
 -- AUTO_INCREMENT for table `user_access`
 --
 ALTER TABLE `user_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `visitor`

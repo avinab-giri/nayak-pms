@@ -440,10 +440,27 @@ function loadGuest($page = '', limit=15) {
                     var block = (val.block == null) ? '' : val.block;
                     var district = (val.district == null) ? '' : val.district;
                     var guestImg = val.guestImg;
-                    
-                    var deleteHtml = `<a data-gid="${gId}" class='tableIcon delete bg-gradient-warning guestDetailBtn'  href='javascript:void(0)' data-tooltip-top='Detail Log'><i class='fas fa-info'></i></a>`;
-                    var updateHtml = `<a class='tableIcon update bg-gradient-info editGuestOnGuestPage' data-gid="${gId}" data-page='guest' href='javascript:void(0)' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit'><i class='far fa-edit'></i></a>`;
+                    var userAccess = val.userAccess;
+                    var userRole = val.userRole;
 
+                    var deleteHtml = '';
+                    var updateHtml = '';
+
+                    if(userRole != 1){
+                        if(userAccess == 'editor'){
+                            updateHtml = `<a class='tableIcon update bg-gradient-info editGuestOnGuestPage' data-gid="${gId}" data-page='guest' href='javascript:void(0)' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit'><i class='far fa-edit'></i></a>`;
+                        }
+                        if(userAccess == 'full'){
+                            deleteHtml = `<a data-gid="${gId}" class='tableIcon delete bg-gradient-warning guestDetailBtn'  href='javascript:void(0)' data-tooltip-top='Detail Log'><i class='fas fa-info'></i></a>`;
+                            updateHtml = `<a class='tableIcon update bg-gradient-info editGuestOnGuestPage' data-gid="${gId}" data-page='guest' href='javascript:void(0)' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit'><i class='far fa-edit'></i></a>`;
+                        }
+                    }else{
+                        deleteHtml = `<a data-gid="${gId}" class='tableIcon delete bg-gradient-warning guestDetailBtn'  href='javascript:void(0)' data-tooltip-top='Detail Log'><i class='fas fa-info'></i></a>`;
+                        updateHtml = `<a class='tableIcon update bg-gradient-info editGuestOnGuestPage' data-gid="${gId}" data-page='guest' href='javascript:void(0)' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit'><i class='far fa-edit'></i></a>`;
+
+                    }
+                    
+                    
                     tableBody += `<tr id="guestNameCheckRow'.$si.'" class="guestCheckRow">
                                 <td class="text-center">${sn}</td>
                                 <td data-label="Image" class="text-left">
@@ -3724,31 +3741,39 @@ $(document).on('change', '#userImgUpload', function () {
 $(document).on('click', '#submitPersonalDetailsBtn', function (e) {
     e.preventDefault;
     var formData = $('#personDetailForm').serialize() + `&request_type=pesonalDetailSubmit`;
+    var userName = $('#personDetailForm #name').val().trim();
+    var userId = $('#personDetailForm #userId').val().trim();
+    var password = $('#personDetailForm #password').val().trim();
 
-    ajax_request(formData).done((data) => {
-        var response = JSON.parse(data);
-        var status = response.status;
-        var msg = response.msg;
-        var uid = response.uid;
 
-        if (status == 'success') {
-            sweetAlert(msg);
-            var filePath = $(window.location.pathname.split('/')).last()[0];
-
-            // if(filePath == 'users'){
-            //     loadUserDetail(uid);
-            // }else{
-            //     loadUserDetailData(uid)
-            // }
-            loadUserDetail(uid);
-
-            $('#popUpModal').modal('hide');
-            $('#personDetailForm').trigger("reset");
-        }
-        if (status == 'error') {
-            sweetAlert(msg, 'error');
-        }
-    });
+    if(userName == ''){
+        sweetAlert('Name is required!', 'error');
+    }else if(userId == ''){
+        sweetAlert('User ID is required!', 'error');
+    }else if(password == ''){
+        sweetAlert('Password is required!', 'error');
+    }
+    else{
+        ajax_request(formData).done((data) => {
+            var response = JSON.parse(data);
+            var status = response.status;
+            var msg = response.msg;
+            var uid = response.uid;
+    
+            if (status == 'success') {
+                sweetAlert(msg);
+                var filePath = $(window.location.pathname.split('/')).last()[0];
+                loadUserDetail(uid);
+    
+                $('#popUpModal').modal('hide');
+                $('#personDetailForm').trigger("reset");
+            }
+            
+            if (status == 'error') {
+                sweetAlert(msg, 'error');
+            }
+        });
+    }
 });
 
 
@@ -5031,5 +5056,11 @@ $(document).on('click', '.propertyAreaList .propertyArea', function(e) {
 $(document).on('click', function(e) {
     if (!$(e.target).closest('.propertyAreaList').length) {
         $('.propertyAreaList ul').removeClass('show');
+    }
+});
+
+$(document).on('click', function(e) {
+    if (!$(e.target).closest('.dropdown').length) {
+        $('.dropdown-menu').removeClass('show');
     }
 });

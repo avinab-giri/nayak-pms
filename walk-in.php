@@ -98,16 +98,34 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                 <div class="row">
 
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-10">
                                                         <div class="input-daterange input-group" id="datepicker">
                                                             <div class="row align-items-center" style="width: 100%;margin: 0;">
+
                                                                 <div class="col-6">
-                                                                    <label for="">Check In</label>
-                                                                    <input id="checkInInut" type="text" class="input-sm form-control" name="checkIn" value="<?= date('d-m-Y') ?>" readonly>
+                                                                    <div class="row align-items-baseline">
+                                                                        <div class="col-7 p0">
+                                                                            <label for="checkInInut">Check In</label>
+                                                                            <input id="checkInInut" type="text" class="input-sm form-control" name="checkIn" value="<?= date('d-m-Y') ?>" readonly>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <label></label>
+                                                                            <input class="form-control" type="time" id="checkInTime" name="checkInTime">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+
                                                                 <div class="col-6">
-                                                                    <label for="">Check Out</label>
-                                                                    <input id="checkOutInput" type="text" class="input-sm form-control" name="checkOut" value="<?= date('d-m-Y', strtotime('+1 day')) ?>" readonly>
+                                                                    <div class="row">
+                                                                        <div class="col-7 p0">
+                                                                            <label for="checkOutInput">Check Out</label>
+                                                                            <input id="checkOutInput" type="text" class="input-sm form-control" name="checkOut" value="<?= date('d-m-Y', strtotime('+1 day')) ?>" readonly>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <label></label>
+                                                                            <input class="form-control" type="time" id="checkOutTime" name="checkOutTime">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
@@ -115,7 +133,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-2" style="padding-left: 0;">
                                                         <div class="form-group mb0">
                                                             <label for="">Reservation type</label>
                                                             <select class="customSelect" name="reservationType" id="reservationType">
@@ -478,13 +496,8 @@ $grcLink = FRONT_SITE . '/grc';
                                 </div>
 
                                 <div class="col-md-4 rightSideAddReservation">
-                                    <div class="form-area">
-                                        <div class="cardTop">
-                                            <svg width="497" height="219" viewBox="0 0 497 219" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M-38.5 196C-38.5 196 34 91 133.5 91C233 91 427 159 532.5 30C638 -99 518 236 518 236L-49 246.5L-38.5 196Z" fill="#FF768E"></path>
-                                            </svg>
-                                        </div>
-                                        <div class="row insertContrnt">
+                                    <div class="content">
+                                        <div class="form-area">
                                             <div class="reservationContentPreview" data-bookingid="balkrishna-a940ab" data-reservationtab="" data-bdid="">
 
                                                 <div class="head dFlex aic jcsb">
@@ -559,49 +572,51 @@ $grcLink = FRONT_SITE . '/grc';
 
 
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form">
-                                                    <label for="paymentMethod">Payment Method</label>
-                                                    <select name="paymentMethod" id="paymentMethod" class="form-control">
-                                                        <option value="" selected="">-Select-</option>
-                                                        <option value="8">Other</option>
-                                                        <option value="7">Payment Gateway</option>
-                                                        <option value="6">Cash</option>
-                                                        <option value="5">UPI</option>
-                                                        <option value="4">NEFT/RTGS</option>
-                                                        <option value="3">Debit card</option>
-                                                        <option value="2">Credit card</option>
-                                                        <option value="1">Cheque</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form">
-                                                    <label for="paidAmount">Paid Amount</label>
-                                                    <input value="" name="paidAmount" id="paidAmount" class="form-control" placeholder="Enter Amount">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="form" style="position: relative;">
-                                                    <label for="paymentRemark">Payment Remark</label>
-                                                    <span class="form-group reservationRateArea w85p" style="position: absolute; display: inline-block !important;">
-                                                        <div class="content" style="position: absolute; padding: 2px; left: 8px;">
-                                                            <div class="overflowContent">
-                                                                A payment remark is a note or comment <br> associated with a payment transaction.
-                                                            </div>
-                                                            <span class="icon reservationRateAreaIcon" style="width: 20px; height: 22px; border-radius: 50%; padding-left: 2px;"><i class="bi bi-info-lg"></i></span>
+                                            <div class="billingCon">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form">
+                                                            <label for="paymentMethod">Payment Method</label>
+                                                            <select name="paymentMethod" id="paymentMethod" class="form-control">
+                                                                <option value="" selected="">-Select-</option>
+                                                                <option value="8">Other</option>
+                                                                <option value="7">Payment Gateway</option>
+                                                                <option value="6">Cash</option>
+                                                                <option value="5">UPI</option>
+                                                                <option value="4">NEFT/RTGS</option>
+                                                                <option value="3">Debit card</option>
+                                                                <option value="2">Credit card</option>
+                                                                <option value="1">Cheque</option>
+                                                            </select>
                                                         </div>
-                                                    </span>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form">
+                                                            <label for="paidAmount">Paid Amount</label>
+                                                            <input value="" name="paidAmount" id="paidAmount" class="form-control" placeholder="Enter Amount">
 
-                                                    <input name="paymentRemark" id="paymentRemark" class="form-control" placeholder="Enter voucher number, receipt number etc">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form" style="position: relative;">
+                                                            <label for="paymentRemark">Payment Remark</label>
+                                                            <span class="form-group reservationRateArea w85p" style="position: absolute; display: inline-block !important;">
+                                                                <div class="content" style="position: absolute; padding: 2px; left: 8px;">
+                                                                    <div class="overflowContent">
+                                                                        A payment remark is a note or comment <br> associated with a payment transaction.
+                                                                    </div>
+                                                                    <span class="icon reservationRateAreaIcon" style="width: 20px; height: 22px; border-radius: 50%; padding-left: 2px;"><i class="bi bi-info-lg"></i></span>
+                                                                </div>
+                                                            </span>
+
+                                                            <input name="paymentRemark" id="paymentRemark" class="form-control" placeholder="Enter voucher number, receipt number etc">
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -623,8 +638,6 @@ $grcLink = FRONT_SITE . '/grc';
         $('.linkBtn').removeClass('active');
         $('.resLink').addClass('active');
 
-        const indicator = document.querySelector('.nav-indicator');
-        const items = document.querySelectorAll('.reservationTab');
         var date = new Date();
 
         $('#checkInInut').datepicker({
@@ -651,66 +664,7 @@ $grcLink = FRONT_SITE . '/grc';
         });
 
 
-        function handleIndicator(el) {
-            items.forEach(item => {
-                item.classList.remove('active');
-                item.removeAttribute('style');
-            });
-
-            indicator.style.width = `${el.offsetWidth}px`;
-            indicator.style.left = `${el.offsetLeft}px`;
-
-            el.classList.add('active');
-        }
-
-        $(document).on('click', '#fullPayment', function() {
-            if ($('#fullPayment').is(':checked')) {
-                $("#paymentAmount").prop('disabled', true);
-            } else {
-                $("#paymentAmount").prop('disabled', false);
-            }
-        });
-
-        $(document).on('click', '.reservationPaymentBtn', function(e) {
-            e.preventDefault();
-            var bookingId = $(this).data('bookingid');
-            var reservationtab = $(this).data('reservationtab');
-            var bdid = $(this).data('bdid');
-            var formData = `request_type=reservationPaymentSubmit&bookingId=${bookingId}&bdid=${bdid}`;
-            ajax_request(formData).done((data) => {
-                var response = JSON.parse(data);
-                var totalPrice = response.totalPrice;
-                var userPay = response.userPay;
-                var pendding = numberWithCommas(totalPrice - userPay);
-                var html = `
-                            <form id="reservationPaymentForm" class="priceSec">
-                                <p>Total payment is Rs <strong>${pendding}</strong></p>
-                                <input type="hidden" name="bookingId" value="${bdid}"/>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <input name="fullPayment" class="form-check-input" type="checkbox" value="" id="fullPayment" checked="">
-                                        <label class="custom-control-label" for="fullPayment">Full payment</label>
-                                    </div>
-                                    <div class="col-8">
-                                        <label for="paymentAmount">Enter Amount</label>
-                                        <input name="paymentAmount" disabled class="form-control" type="text" id="paymentAmount" placeholder="Enter payment amount.">
-                                    </div>
-                                </div>
-                            </form>`;
-
-                showModalBox('Get paid', 'Create link', html, 'reservationPaymentLinkSubmitBtn');
-                var myModal = new bootstrap.Modal(document.getElementById('popUpModal'));
-                myModal.show();
-            });
-        });
-
-
-
         $(document).ready(() => {
-
-            // loadAddResorvation('', 'reservation');
-
-
             $('#currentDateStart').datepick({
                 onSelect: function(dates) {
                     var currentDate = $(this).val();
@@ -720,71 +674,8 @@ $grcLink = FRONT_SITE . '/grc';
                 dateFormat: 'yyyy-mm-dd',
             });
 
-            $(document).on('click', '.reservationTab', function(e) {
-                var tag = e.target.tagName.toLowerCase();
-                if (tag == 'a') {
-                    var tabName = $(this).attr('id');
-                    var singleGroupBtn = $(".singleGroupToggleBtn").hasClass("active");
-                    var currentDate = $('#currentDateStart').val();
-                    handleIndicator(e.target);
-                    if (singleGroupBtn == true) {
-                        loadResorvation(tabName, '', '', '1', currentDate);
-                        reservationCountNavBar(tabName, '', currentDate);
-                    } else {
-                        loadResorvation(tabName, '', '', '1', currentDate);
-                        reservationCountNavBar(tabName, '', currentDate);
-                    }
-                }
-
-            });
-
-            items.forEach((item, index) => {
-                item.addEventListener('click', e => {
-                    console.log(e.target);
-                    handleIndicator(e.target);
-                });
-                item.classList.contains('active') && handleIndicator(item);
-            });
-
-            $(document).on('click', '.reservationRemoveRateArea', function(e) {
-                e.preventDefault();
-                var target = $(this).parent().parent();
-                target.remove();
-                loadReservationPreview();
-            });
-
-            $(document).on('click', '#reservationPaymentLinkSubmitBtn', function(e) {
-                e.preventDefault();
-                var formData = $('#reservationPaymentForm').serialize() + '&request_type=reservationPaymentLinkSubmitBtn';
-                ajax_request(formData).done((data) => {
-                    var response = JSON.parse(data);
-                    var link = response.link;
-                    var msg = response.msg;
-                    var status = response.status;
-                    var paymentId = response.paymentId;
-                    var amount = numberWithCommas(response.amount);
-
-                    if (status == 'success') {
-                        var title = `Rs ${amount} Payment.`;
-                        var html = previewPaymentLink(paymentId, link);
-                        customModal(title, html);
-                    }
-
-                    if (status == 'error') {
-                        sweetAlert(msg, 'error');
-                    }
-
-                });
-            });
-
-
-
-
-
-
-
         });
-        
+
 
         $('#excelExport').click(function() {
             var element = document.getElementById('resorvationContent');

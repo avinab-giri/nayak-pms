@@ -54,10 +54,6 @@ if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != ''){
                     <ul class="innerNav">
                         <li class="item active"><a href="<?= FRONT_SITE.'/settings/basic-details' ?>">Basic</a></li>
                         <li class="item"><a href="<?= FRONT_SITE.'/settings/logos' ?>">Logos</a></li>
-                        <li class="item"><a href="<?= FRONT_SITE.'/settings/page-link' ?>">Page Link</a></li>
-                        <li class="item"><a href="<?= FRONT_SITE.'/settings/social-media' ?>">Social media</a></li>
-                        <li class="item"><a href="<?= FRONT_SITE.'/settings/chatbot' ?>">Chatbot</a></li>
-                        <li class="item"><a href="<?= FRONT_SITE.'/settings/map' ?>">Map</a></li>
                     </ul>
                 </div>
                 <div class="detailView scrollBar">

@@ -5446,3 +5446,19 @@ function checkNumber(inputField,num=10) {
     }
     errorDiv.textContent = error;
 }
+
+
+function userAccessChange(userId,pageId,element){
+    var value = element.value;
+    var data = `request_type=userAccessChange&userId=${userId}&pageId=${pageId}&role=${value}`;
+
+    ajax_request(data).done(function(request){
+        var response = JSON.parse(request);
+        
+        if(response){
+            sweetAlert('Successfully Update');
+        }else{
+            sweetAlert('Something went wrong!', 'error');
+        }
+    })
+}
