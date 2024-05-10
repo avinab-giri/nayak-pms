@@ -84,6 +84,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
                                                 <label for="filterWithSearch">Search</label>
                                                 <input class="customInput" type="text" placeholder="Enter name, email or phone" id="filterWithSearch">
                                             </li>
+
                                             <li class="dib">
                                                 <label for="filterWithBirthday">Birthday</label>
                                                 <input class="customInput" type="date" id="filterWithBirthday">
@@ -331,6 +332,16 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
             $(document).on('click', '#guestSearchBtn', function() {
                 var search = $('#quickSearchGuest').val();
                 loadGuest('', search);
+            });
+
+            $(document).on('change', '#filterWithBirthday', function() {
+                var birthday = $("#filterWithBirthday").val();
+                loadGuest('', '', 'birthday',birthday);
+            });
+
+            $(document).on('change', '#filterWithAnniversary', function() {
+                var anniversay = $("#filterWithAnniversary").val();
+                loadGuest('', '', 'anniversay',anniversay);
             });
 
         });

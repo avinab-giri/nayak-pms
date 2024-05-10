@@ -4591,12 +4591,15 @@ function submitTravelAgent(){
     
     var name = $("#travelagentname").val();
     var travelagentPhoneno = $('#travelagentPhoneno').val();
+    var taConPerson = $('#taConPerson').val();
 
     
     if(name == ''){
         sweetAlert('Name is required','error');
     }else if(travelagentPhoneno == ''){
         sweetAlert('Phone no is required','error');
+    }else if(taConPerson == ''){
+        sweetAlert('Person name is required','error');
     }else{
         var formData = $('#travelagent-add-form').serialize();
         formData += '&type=add_travelagent';
@@ -4786,14 +4789,14 @@ function addCompanyForm(id=''){
         html =`
         <form action="" id="organisationForm">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Name</label>                     
                         <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
             
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Contact person Name</label>                     
                         <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName">
@@ -4801,7 +4804,7 @@ function addCompanyForm(id=''){
                     </div>
                 </div>
             
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Email</label>                     
                         <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail">
@@ -5361,45 +5364,46 @@ function activeProperty(hid){
 }
 
 function pinChangeToFetch(e){
-    var parentDiv = e.target.closest('.row');
-    var blockDiv = parentDiv.querySelector('.block');
-    var districtDiv = parentDiv.querySelector('.district');
-    var stateDiv = parentDiv.querySelector('.state');
+    e.preventDefault();
+    // var parentDiv = e.target.closest('.row');
+    // var blockDiv = parentDiv.querySelector('.block');
+    // var districtDiv = parentDiv.querySelector('.district');
+    // var stateDiv = parentDiv.querySelector('.state');
     
-    var value = e.target.value;
-    var numericInput = /^[0-9]+$/;
+    // var value = e.target.value;
+    // var numericInput = /^[0-9]+$/;
 
-    if (!numericInput.test(value)) {
-        console.log('true');
-        sweetAlert('Pin code should contain only digits.','error')
-        e.target.value = ''; 
-        blockDiv.value ='';
-        districtDiv.value ='';
-        stateDiv.value ='';
-    }else if(value.length > 6){
-        sweetAlert('Pin code should be exactly 6 characters.','error');
-        blockDiv.value ='';
-        districtDiv.value ='';
-        stateDiv.value ='';
-    } else {
-        if (value.length === 6) {
-            var data = `request_type=pinChangeToFetch&pinCode=${value}`;
-            blockDiv.value = 'Loading...';
-            districtDiv.value =  'Loading...';
-            stateDiv.value = 'Loading...';
+    // if (!numericInput.test(value)) {
+    //     console.log('true');
+    //     sweetAlert('Pin code should contain only digits.','error')
+    //     e.target.value = ''; 
+    //     blockDiv.value ='';
+    //     districtDiv.value ='';
+    //     stateDiv.value ='';
+    // }else if(value.length > 6){
+    //     sweetAlert('Pin code should be exactly 6 characters.','error');
+    //     blockDiv.value ='';
+    //     districtDiv.value ='';
+    //     stateDiv.value ='';
+    // } else {
+    //     if (value.length === 6) {
+    //         var data = `request_type=pinChangeToFetch&pinCode=${value}`;
+    //         blockDiv.value = 'Loading...';
+    //         districtDiv.value =  'Loading...';
+    //         stateDiv.value = 'Loading...';
 
-            ajax_request(data).done(function(request){
-                var response = JSON.parse(request);
-                var block = response.block;
-                var district = response.district;
-                var state = response.state;
+    //         ajax_request(data).done(function(request){
+    //             var response = JSON.parse(request);
+    //             var block = response.block;
+    //             var district = response.district;
+    //             var state = response.state;
 
-                blockDiv.value =block;
-                districtDiv.value =district;
-                stateDiv.value =state;
-            })
-        }
-    }
+    //             blockDiv.value =block;
+    //             districtDiv.value =district;
+    //             stateDiv.value =state;
+    //         })
+    //     }
+    // }
 
 
 }

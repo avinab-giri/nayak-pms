@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 01:02 PM
+-- Generation Time: May 10, 2024 at 11:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,29 +47,8 @@ CREATE TABLE `activityfeed` (
 --
 
 INSERT INTO `activityfeed` (`id`, `hotelId`, `type`, `bid`, `bdid`, `oldData`, `changedata`, `ipaddres`, `result`, `reason`, `addBy`, `addOn`) VALUES
-(1, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=1\">nayak-6f174e</a> has been created', 'a_1', '2024-05-04 02:45:01'),
-(2, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-fc6f6b</a> has been created', 'a_1', '2024-05-04 02:51:37'),
-(3, '12345', '4', 3, 0, '', '', '', '', '<strong>5000</strong> payment received from <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/folios?id=3\">#000</a>', 'a_1', '2024-05-04 03:10:12'),
-(4, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=3\">nayak-e51445</a> has been created', 'a_1', '2024-05-04 03:10:12'),
-(5, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=1\">nayak-9e8b74</a> has been created', 'a_1', '2024-05-07 20:57:36'),
-(6, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-253667</a> has been created', 'a_1', '2024-05-07 20:58:47'),
-(7, '12346', '9', 0, 0, '', '', '', 'success', '<b></b> username is logout.', 'a_1', '2024-05-08 01:21:47'),
-(8, '', '1', 0, 0, '', '', '', 'failed', 'Username not exist', '', '2024-05-08 01:21:53'),
-(9, '12345', '1', 0, 0, '', '', '', 'success', '<b>avi</b> username is login.', 'a_1', '2024-05-08 01:21:58'),
-(10, '12346', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-09 16:33:51'),
-(11, '12345', '1', 0, 0, '', '', '', 'success', '<b>avinab</b> username is login.', 'a_3', '2024-05-09 05:10:20'),
-(12, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:17:52'),
-(13, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Add Avinab Role to view', '', '2024-05-10 09:19:01'),
-(14, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:19:37'),
-(15, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to view', '', '2024-05-10 09:28:14'),
-(16, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:28:51'),
-(17, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:56:07'),
-(18, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:56:29'),
-(19, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Add Avinab Role to full', '', '2024-05-10 09:57:38'),
-(20, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 09:57:51'),
-(21, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to full', '', '2024-05-10 09:59:05'),
-(22, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 10:01:03'),
-(23, '12345', '32', 0, NULL, NULL, NULL, NULL, NULL, 'Update Avinab Role to editor', '', '2024-05-10 10:02:18');
+(1, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=1\">nayak-bf7b84</a> has been created', 'a_1', '2024-05-11 06:56:40'),
+(2, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-229214</a> has been created', 'a_1', '2024-05-11 06:58:35');
 
 -- --------------------------------------------------------
 
@@ -103,7 +82,11 @@ CREATE TABLE `booking` (
   `reciptNo` int(11) DEFAULT 0,
   `openFolio` int(11) NOT NULL DEFAULT 1,
   `mainCheckIn` date DEFAULT NULL,
+  `checkInTime` time DEFAULT NULL,
+  `checkInDetail` varchar(5000) DEFAULT NULL,
   `mainCheckOut` date DEFAULT NULL,
+  `checkOutTime` time DEFAULT NULL,
+  `checkOutDetail` varchar(5000) DEFAULT NULL,
   `userPay` float DEFAULT 0,
   `nroom` int(11) NOT NULL DEFAULT 0,
   `couponCode` varchar(250) DEFAULT NULL,
@@ -143,9 +126,9 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`id`, `hotelId`, `bookinId`, `reciptNo`, `openFolio`, `mainCheckIn`, `mainCheckOut`, `userPay`, `nroom`, `couponCode`, `pickUp`, `payment_status`, `payment_id`, `bookingSource`, `paymethodId`, `reservationType`, `salesType`, `bussinessSource`, `voucherNumber`, `comPlanId`, `comValue`, `coompanyId`, `paytypeId`, `commission`, `extra_amount`, `booking_attr`, `billingMode`, `organisation`, `companynameid`, `gstno`, `traveltype`, `bookingref`, `travelagent`, `totalPrice`, `roundTotalPrice`, `addBy`, `actionOn`, `add_on`, `status`, `deleteRec`) VALUES
-(1, '12345', 'nayak-9e8b74', 1, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-08 02:27:36', 6, 1),
-(2, '12345', 'nayak-253667', 2, 1, '2024-05-08', '2024-05-09', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '1', NULL, NULL, 'a_1', NULL, '2024-05-08 02:28:47', 5, 1);
+INSERT INTO `booking` (`id`, `hotelId`, `bookinId`, `reciptNo`, `openFolio`, `mainCheckIn`, `checkInTime`, `checkInDetail`, `mainCheckOut`, `checkOutTime`, `checkOutDetail`, `userPay`, `nroom`, `couponCode`, `pickUp`, `payment_status`, `payment_id`, `bookingSource`, `paymethodId`, `reservationType`, `salesType`, `bussinessSource`, `voucherNumber`, `comPlanId`, `comValue`, `coompanyId`, `paytypeId`, `commission`, `extra_amount`, `booking_attr`, `billingMode`, `organisation`, `companynameid`, `gstno`, `traveltype`, `bookingref`, `travelagent`, `totalPrice`, `roundTotalPrice`, `addBy`, `actionOn`, `add_on`, `status`, `deleteRec`) VALUES
+(1, '12345', 'nayak-bf7b84', 1, 1, '2024-05-11', '01:25:00', 'Arrival', '2024-05-12', '02:25:00', 'Departure', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-11 12:26:40', 1, 1),
+(2, '12345', 'nayak-229214', 2, 1, '2024-05-11', '13:27:00', 'Arrival', '2024-05-12', '13:27:00', 'Departure', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-11 12:28:35', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -164,9 +147,18 @@ CREATE TABLE `bookingby` (
   `number` varchar(12) DEFAULT NULL,
   `pinCode` varchar(6) DEFAULT NULL,
   `block` varchar(50) DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
   `district` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookingby`
+--
+
+INSERT INTO `bookingby` (`id`, `bid`, `hotelId`, `travelType`, `name`, `email`, `whatsapp`, `number`, `pinCode`, `block`, `address`, `district`, `state`) VALUES
+(1, 1, '12345', 0, 'Avinab', 'avinabgiri9439@gmail.com', '1234567890', '09439706344', '756171', '', 'Kishore Prasad', 'sdd', 'Odisha'),
+(2, 2, '12345', 1, '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -188,6 +180,7 @@ CREATE TABLE `bookingdetail` (
   `checkOut` date NOT NULL DEFAULT '0000-00-00',
   `adult` int(11) NOT NULL,
   `child` int(11) NOT NULL,
+  `exBd` int(11) NOT NULL DEFAULT 0,
   `roomPrice` float NOT NULL DEFAULT 0,
   `adultPrice` float NOT NULL DEFAULT 0,
   `childPrice` float NOT NULL DEFAULT 0,
@@ -204,9 +197,9 @@ CREATE TABLE `bookingdetail` (
 -- Dumping data for table `bookingdetail`
 --
 
-INSERT INTO `bookingdetail` (`id`, `hotelId`, `bid`, `openFolio`, `hkId`, `roomId`, `roomDId`, `smoking`, `room_number`, `checkIn`, `checkOut`, `adult`, `child`, `roomPrice`, `adultPrice`, `childPrice`, `gstPer`, `totalPrice`, `checkinstatus`, `checkinBy`, `checkOutBy`, `addOn`, `deleteRec`) VALUES
-(1, '12345', 1, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 7, NULL, NULL, '2024-05-07 20:57:36', 1),
-(2, '12345', 2, 0, 0, 3, 4, 'no', 0, '2024-05-08', '2024-05-09', 2, 0, 5000, 0, 0, 12, 5600, 6, NULL, NULL, '2024-05-07 20:58:47', 1);
+INSERT INTO `bookingdetail` (`id`, `hotelId`, `bid`, `openFolio`, `hkId`, `roomId`, `roomDId`, `smoking`, `room_number`, `checkIn`, `checkOut`, `adult`, `child`, `exBd`, `roomPrice`, `adultPrice`, `childPrice`, `gstPer`, `totalPrice`, `checkinstatus`, `checkinBy`, `checkOutBy`, `addOn`, `deleteRec`) VALUES
+(1, '12345', 1, 0, 0, 3, 4, 'no', 0, '2024-05-11', '2024-05-12', 2, 0, 1, 2000, 0, 0, 12, 2240, 1, NULL, NULL, '2024-05-11 06:56:40', 1),
+(2, '12345', 2, 0, 0, 2, 4, 'no', 0, '2024-05-11', '2024-05-12', 2, 0, 1, 4000, 0, 0, 12, 4480, 1, NULL, NULL, '2024-05-11 06:58:35', 1);
 
 -- --------------------------------------------------------
 
@@ -421,8 +414,8 @@ CREATE TABLE `guest` (
 --
 
 INSERT INTO `guest` (`id`, `hotelId`, `type`, `accessId`, `bookId`, `kotId`, `bookingdId`, `verify`, `serial`, `nameTitle`, `name`, `email`, `whatsapp`, `phone`, `gender`, `company_name`, `comGst`, `country`, `state`, `city`, `block`, `district`, `zip`, `full_address`, `image`, `kyc_file`, `kyc_number`, `kyc_type`, `file_upload_type`, `proof_file_upload_type`, `groupadmin`, `birthday`, `anniversary`, `addBy`, `addOn`, `deleteRec`) VALUES
-(1, '12345', NULL, 0, 1, 0, 1, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '', '09439706344', NULL, NULL, NULL, NULL, 'Loading...', NULL, 'Loading...', 'Loading...', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-05-08 02:27:36', 1),
-(2, '12345', NULL, 0, 2, 0, 2, '', '1', 'Mr.', 'Arun', 'avinabgiri9439@gmail.com', '', '09439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, 'Basudebpur', 'Bhadrak', '756171', 'Kishore Prasad', NULL, NULL, '', '', NULL, NULL, 1, '0000-00-00', '0000-00-00', '1', '2024-05-08 02:28:47', 1);
+(1, '12345', NULL, 0, 1, 0, 1, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '1234567890', '9439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, '', '545', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-05-11 12:26:40', 1),
+(2, '12345', NULL, 0, 2, 0, 2, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '1111226566', '9439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, '', 'hhgh', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, '2024-05-12', '2024-05-18', NULL, '2024-05-11 12:28:35', 1);
 
 -- --------------------------------------------------------
 
@@ -1214,6 +1207,7 @@ CREATE TABLE `organisations` (
   `id` int(11) NOT NULL,
   `hotelId` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `orgConName` varchar(500) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `organisationEmail` varchar(255) DEFAULT NULL,
   `organisationAddress` varchar(255) DEFAULT NULL,
@@ -1228,6 +1222,15 @@ CREATE TABLE `organisations` (
   `organisationDiscount` decimal(10,2) DEFAULT NULL,
   `organisationNote` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `organisations`
+--
+
+INSERT INTO `organisations` (`id`, `hotelId`, `name`, `orgConName`, `status`, `organisationEmail`, `organisationAddress`, `organisationCity`, `organisationState`, `organisationCountry`, `organisationPostCode`, `organisationNumber`, `organisationGstNo`, `ratePlan`, `salesManager`, `organisationDiscount`, `organisationNote`) VALUES
+(1, '12345', 'A', NULL, 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, ''),
+(2, '12345', 'A', NULL, 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, ''),
+(3, '12345', 'A', 'Avinab', 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, '');
 
 -- --------------------------------------------------------
 
@@ -1346,6 +1349,7 @@ CREATE TABLE `payment_timeline` (
   `remark` text DEFAULT NULL,
   `payment_status` enum('success','return','failed') NOT NULL DEFAULT 'success',
   `statusUpdateOn` datetime DEFAULT NULL,
+  `paidOn` datetime DEFAULT NULL,
   `statusUpdateRemark` varchar(500) DEFAULT NULL,
   `addBy` varchar(11) NOT NULL,
   `addOn` timestamp NOT NULL DEFAULT current_timestamp()
@@ -2843,6 +2847,7 @@ INSERT INTO `sys_userrole` (`id`, `name`) VALUES
 
 CREATE TABLE `travel_agents` (
   `id` int(11) NOT NULL,
+  `agentName` varchar(250) DEFAULT NULL,
   `travelagentname` varchar(255) DEFAULT NULL,
   `hotelId` varchar(255) DEFAULT NULL,
   `travelagentemail` varchar(255) DEFAULT NULL,
@@ -2865,8 +2870,10 @@ CREATE TABLE `travel_agents` (
 -- Dumping data for table `travel_agents`
 --
 
-INSERT INTO `travel_agents` (`id`, `travelagentname`, `hotelId`, `travelagentemail`, `travelagentAddress`, `travelagrntCity`, `travelagentState`, `travelagentCountry`, `travelagentPostCode`, `travelagentPhoneno`, `travelagentGstNo`, `travelagentcommission`, `travelaaagentGstonCommision`, `travelaaagentTcs`, `travelaaagentTds`, `travelagentNote`, `status`) VALUES
-(1, 'Avinab', '12345', 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', 0.00, 0.00, 0.00, 0.00, '', 1);
+INSERT INTO `travel_agents` (`id`, `agentName`, `travelagentname`, `hotelId`, `travelagentemail`, `travelagentAddress`, `travelagrntCity`, `travelagentState`, `travelagentCountry`, `travelagentPostCode`, `travelagentPhoneno`, `travelagentGstNo`, `travelagentcommission`, `travelaaagentGstonCommision`, `travelaaagentTcs`, `travelaaagentTds`, `travelagentNote`, `status`) VALUES
+(1, NULL, 'Avinab', '12345', 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', 0.00, 0.00, 0.00, 0.00, '', 1),
+(2, NULL, 'test ', '12345', '', '', '', '', '', '', '1234567890', '', 0.00, 0.00, 0.00, 0.00, '', 1),
+(3, 'agent Name', 'Avinab', '12345', 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', 0.00, 0.00, 0.00, 0.00, '', 1);
 
 -- --------------------------------------------------------
 
@@ -3972,7 +3979,7 @@ ALTER TABLE `wb_slider`
 -- AUTO_INCREMENT for table `activityfeed`
 --
 ALTER TABLE `activityfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `amenities`
@@ -3990,7 +3997,7 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `bookingby`
 --
 ALTER TABLE `bookingby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bookingdetail`
@@ -4290,7 +4297,7 @@ ALTER TABLE `mailinvoice`
 -- AUTO_INCREMENT for table `organisations`
 --
 ALTER TABLE `organisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `package`
@@ -4692,7 +4699,7 @@ ALTER TABLE `sys_userrole`
 -- AUTO_INCREMENT for table `travel_agents`
 --
 ALTER TABLE `travel_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `url_mapping`

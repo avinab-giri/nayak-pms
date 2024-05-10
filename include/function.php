@@ -12677,11 +12677,11 @@ function getOrganisationList(){
      return $html;
 }
 
-    function setOrganisationDetails($organisationName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote=''){
+    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote=''){
         $hotelId = HOTEL_ID;
         global $conDB;
-        $query = "INSERT INTO organisations (hotelId,name,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
-        VALUES ('$hotelId','$organisationName','$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote');
+        $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
+        VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote');
         ";
         $sql = mysqli_query($conDB,$query);
         
@@ -12746,11 +12746,11 @@ function getOrganisationList(){
     }
 
 
-function setTraveAgentData($travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote){
+function setTraveAgentData($agentName,$travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote){
     global $conDB;
     $hotelId = HOTEL_ID;
 
-    $query = "INSERT INTO travel_agents (hotelId,travelagentname, travelagentemail, travelagentAddress, travelagrntCity, travelagentState, travelagentCountry, travelagentPostCode, travelagentPhoneno, travelagentGstNo, travelagentcommission, travelaaagentGstonCommision, travelaaagentTcs, travelaaagentTds, travelagentNote) VALUES('$hotelId','$travelagentname', '$travelagentemail', '$travelagentAddress', '$travelagrntCity', '$travelagentState', '$travelagentCountry', '$travelagentPostCode', '$travelagentPhoneno', '$travelagentGstNo', $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, '$travelagentNote')";
+    $query = "INSERT INTO travel_agents (hotelId,agentName,travelagentname, travelagentemail, travelagentAddress, travelagrntCity, travelagentState, travelagentCountry, travelagentPostCode, travelagentPhoneno, travelagentGstNo, travelagentcommission, travelaaagentGstonCommision, travelaaagentTcs, travelaaagentTds, travelagentNote) VALUES('$hotelId','$agentName','$travelagentname', '$travelagentemail', '$travelagentAddress', '$travelagrntCity', '$travelagentState', '$travelagentCountry', '$travelagentPostCode', '$travelagentPhoneno', '$travelagentGstNo', $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, '$travelagentNote')";
     $sql = mysqli_query($conDB,$query);
 
     if($sql){
@@ -13732,6 +13732,41 @@ function listOfOdishaDistric(){
     
     return $json_data;
     
+}
+
+function getStatesOfIndia() {
+    $states_of_india = array(
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal"
+    );
+    
+    return $states_of_india;
 }
 
 

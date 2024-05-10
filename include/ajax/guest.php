@@ -18,15 +18,18 @@ if($type == 'loadGuest'){
     $pagination = '';
     $search = safeData($_POST['search']);
     $page = safeData($_POST['page']);
-    $limit = safeData($_POST['limit']);
+    $limit = ($_POST['limit'] == '') ? 15 : $_POST['limit'];
     $date = safeData($_POST['date']);
     $district = safeData($_POST['district']);
+    $action = safeData($_POST['action']);
+    $form = date('Y-m-d', strtotime($_POST['form']));
+    $to = date('Y-m-d', strtotime($_POST['to']));
 
     $hotelId = $_SESSION['HOTEL_ID'];
     
     $sql = "select * from guest where  hotelId = '$hotelId'";
         
-    $sql .= " and name != ''";
+    $sql .= " and 1=1  ";
 
     if($date != ''){
         $sql .= " and addOn Like '%$date%'";
@@ -34,6 +37,14 @@ if($type == 'loadGuest'){
 
     if($district != ''){
         $sql .= " and district Like '%$district%'";
+    }
+
+    if($action == 'birthday'){
+        $sql .= " and birthday Like '%$form%'";
+    }
+
+    if($action == 'anniversay'){
+        $sql .= " and anniversary Like '%$form%'";
     }
 
     if($search != ''){

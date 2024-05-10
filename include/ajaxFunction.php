@@ -4047,4 +4047,8 @@ function userAccessChange(){
 }
 
 
+function getStateInIndia(){
+    return getStatesOfIndia();
+}
+
 ?>

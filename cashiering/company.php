@@ -112,6 +112,7 @@ if (isset($_GET['edate'])) {
                     $.each(response, (key, val) => {
                     
                     var name = val.name;
+                    var orgConName = val.orgConName;
                     var organisationCountry = val.organisationCountry;
                     var organisationEmail = val.organisationEmail;
                     var organisationNumber = val.organisationNumber;
@@ -123,7 +124,7 @@ if (isset($_GET['edate'])) {
 
                     tableBody += `<tr>
                         <td style="text-align: center;">${name}</td>
-                        <td style="text-align: center;">${name}</td>
+                        <td style="text-align: center;">${orgConName}</td>
                         <td style="text-align: center;">${organisationCountry}</td>
                         <td style="text-align: center;">${organisationNumber}</td>
                         <td style="text-align: center;">${organisationEmail}</td>

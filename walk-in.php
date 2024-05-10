@@ -105,7 +105,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <div class="col-6">
                                                                     <div class="row align-items-baseline">
                                                                         <div class="col-7 p0">
-                                                                            <label for="checkInInut">Check In</label>
+                                                                            <label for="checkInInut">Arrival</label>
                                                                             <input id="checkInInut" type="text" class="input-sm form-control" name="checkIn" value="<?= date('d-m-Y') ?>" readonly>
                                                                         </div>
                                                                         <div class="col-5">
@@ -118,7 +118,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <div class="col-6">
                                                                     <div class="row">
                                                                         <div class="col-7 p0">
-                                                                            <label for="checkOutInput">Check Out</label>
+                                                                            <label for="checkOutInput">Departure</label>
                                                                             <input id="checkOutInput" type="text" class="input-sm form-control" name="checkOut" value="<?= date('d-m-Y', strtotime('+1 day')) ?>" readonly>
                                                                         </div>
                                                                         <div class="col-5">
@@ -152,14 +152,14 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for=""></label>
-                                                            <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                                                            <label for="">Arr. Details</label>
+                                                            <input class="form-control" type="text" value="" placeholder="" name="arrDetails">
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for=""></label>
-                                                            <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                                                            <label for="">Dep. Details</label>
+                                                            <input class="form-control" type="text" value="" placeholder="" name="depDetails">
                                                         </div>
                                                     </div>
 
@@ -216,19 +216,19 @@ $grcLink = FRONT_SITE . '/grc';
                                                                     </td>
                                                                     <td class="pr10">
                                                                         <div class="form-group">
-                                                                            <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                                                                            <input class="form-control" type="number" min="0" value="0" placeholder="" name="selectAdult[]">
                                                                         </div>
                                                                     </td>
 
                                                                     <td class="pr10">
                                                                         <div class="form-group">
-                                                                            <input class="form-control" type="number" value="0" name="selectChild[]">
+                                                                            <input class="form-control" type="number" min="0" value="0" name="selectChild[]">
                                                                         </div>
                                                                     </td>
 
                                                                     <td class="pr10">
                                                                         <div class="form-group">
-                                                                            <input class="form-control" type="number" value="0" name="extraBD[]">
+                                                                            <input class="form-control" type="number" min="0" value="0" name="extraBD[]">
                                                                         </div>
                                                                     </td>
 
@@ -428,33 +428,34 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                         <div class="row">
 
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="">Pin Code</label>
                                                                     <input onkeyup="pinChangeToFetch(event)" type="text" placeholder="Pin code" class="form-control" name="pinCode">
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label for="">Block</label>
-                                                                    <input readonly="" disable="" type="text" placeholder="Block" class="form-control block" name="block">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label for="">District</label>
-                                                                    <input readonly="" disable="" type="text" placeholder="District" class="form-control district" name="district">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="state">State</label>
-                                                                    <input readonly="" disable="" type="text" placeholder="State" class="form-control state" name="state">
+                                                                    <select class="customSelect" name="state" id="state">
+                                                                        <option value="">Select _</option>
+                                                                        <?php
+                                                                            foreach(getStatesOfIndia() as $item){
+                                                                                echo "<option value='$item'>$item</option>";
+                                                                            }
+                                                                        ?>
+                                                                    </select>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="">District</label>
+                                                                    <input type="text" placeholder="District" class="form-control district" name="district">
+                                                                </div>
+                                                            </div>
+                                                            
                                                         </div>
 
                                                         <div class="row">
@@ -616,7 +617,15 @@ $grcLink = FRONT_SITE . '/grc';
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="form">
+                                                            <label for="paidDate">Paid Date</label>
+                                                            <input type="date" value="" name="paidDate" id="paidDate" class="form-control" placeholder="">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-8">
                                                         <div class="form" style="position: relative;">
                                                             <label for="paymentRemark">Payment Remark</label>
                                                             <span class="form-group reservationRateArea w85p" style="position: absolute; display: inline-block !important;">

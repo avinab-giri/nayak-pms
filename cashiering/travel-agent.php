@@ -111,6 +111,7 @@ if (isset($_GET['edate'])) {
                 if(response != null && response.length > 0){
                     $.each(response, (key, val) => {
                     
+                    var agentName = val.agentName;
                     var travelagentname = val.travelagentname;
                     var travelagentCountry = val.travelagentCountry;
                     var travelagentPhoneno = val.travelagentPhoneno;
@@ -122,7 +123,7 @@ if (isset($_GET['edate'])) {
                     var statusClr = '#006300';
 
                     tableBody += `<tr>
-                        <td style="text-align: center;">${travelagentname}</td>
+                        <td style="text-align: center;">${agentName}</td>
                         <td style="text-align: center;">${travelagentname}</td>
                         <td style="text-align: center;">${travelagentCountry}</td>
                         <td style="text-align: center;">${travelagentPhoneno}</td>

@@ -574,17 +574,17 @@ if ($type == 'getRoomDetailByRoomNo') {
                 </td>
                 <td class="pr10">
                     <div class="form-group">
-                        <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                        <input class="form-control" type="number" min="0" value="0" placeholder="" name="selectAdult[]">
                     </div>
                 </td>
                 <td class="pr10">
                     <div class="form-group">
-                        <input class="form-control" type="number" value="0" name="selectChild[]">
+                        <input class="form-control" type="number" min="0" value="0" name="selectChild[]">
                     </div>
                 </td>
                 <td class="pr10">
                     <div class="form-group">
-                        <input class="form-control" type="number" value="0" name="extraBD[]">
+                        <input class="form-control" type="number" min="0" value="0" name="extraBD[]">
                     </div>
                 </td>
 
@@ -1357,6 +1357,7 @@ if ($type == 'getGstNumber') {
 if ($type == 'add_travelagent') {
 
     $travelagentname = $_POST["travelagentname"];
+    $taConPerson = $_POST["taConPerson"];
     $travelagentemail = $_POST["travelagentemail"];
     $travelagentAddress = $_POST["travelagentAddress"];
     $travelagrntCity = $_POST["travelagrntCity"];
@@ -1371,7 +1372,7 @@ if ($type == 'add_travelagent') {
     $travelaaagentTds = $_POST["travelaaagentTds"];
     $travelagentNote = $_POST["travelagentNote"];
 
-    $result = setTraveAgentData($travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote);
+    $result = setTraveAgentData($travelagentname,$taConPerson, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote);
     
     $data = [
         'status'=> 'error',
@@ -1392,6 +1393,7 @@ if ($type == 'add_travelagent') {
 
 if ($type == 'addNewOrganisation') {
 
+    $oConPerName = $_POST['oConPerName'];
     $organisationName = $_POST['organisationname'];
     $organisationEmail = $_POST['organisationemail'];
     $organisationAddress = $_POST['organisationaddress'];
@@ -1407,7 +1409,7 @@ if ($type == 'addNewOrganisation') {
     $organisationNote = $_POST['organisationNote'];
     $data = array();
 
-    $response = setOrganisationDetails($organisationName, $organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote);
+    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote);
 
     $data = [
         'status'=>'error',

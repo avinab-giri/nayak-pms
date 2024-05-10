@@ -103,6 +103,14 @@ function numberWithCommas(number) {
     return parts.join(".");
 }
 
+var statesInIndia = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", 
+    "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", 
+    "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", 
+    "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
+  ];
+
 function ajax_request(data = '',json='') {
     // request_type
     const api_url = `${webUrl}api.php`;
@@ -399,7 +407,7 @@ function convertArryToJSON($arry) {
     });
 }
 
-function loadGuest($page = '', limit=15) {
+function loadGuest($page = '', limit=15,action='',form='',to='') {
     var page = $page;
     var date = $('#filterWithDate').val();
     var district = $('#filterWithDis').val();
@@ -409,7 +417,7 @@ function loadGuest($page = '', limit=15) {
     $.ajax({
         url: webUrl + 'include/ajax/guest.php',
         type: 'post',
-        data: { type: 'loadGuest', search: search, page: page, limit: limit,date: date,district: district },
+        data: { type: 'loadGuest', search: search, page: page, limit: limit,date: date,district: district,action: action,form: form,to: to },
         success: function (data) {
             var response = JSON.parse(data);
             var data = response.data;
@@ -639,7 +647,9 @@ function loadAddResorvation($bid = '', $page = '', $checkIn = '', $checkOut = ''
     });
 }
 
-
+$(document).on('submit','#addReservationForm', function(e){
+    e.preventDefault();
+});
 
 $(document).on('mouseover', '.reservationRateAreaIcon', function () {
     $(this).siblings('.overflowContent').addClass('show');
@@ -658,7 +668,7 @@ function loadReservationPreview() {
             type: 'post',
             data: formData,
             success: function (data) {
-                $('#loadAddResorvation .insertContrnt').html(data);
+                $('#loadAddResorvation .reservationContentPreview').html(data);
             }
         });
     },500) 
@@ -970,12 +980,15 @@ $(document).on('click', '#roomDetailIncBtnId', function (e) {
 $(document).on('change', '.selectRoomId', function (e) {
     e.preventDefault();
 
-    if (id == 0) {
+    loadReservationPreview();
 
-    } else {
-        loadReservationPreview();
+});
+
+$('#addReservationForm').on('keypress', 'input', function(e) {
+    if (e.which == 13) {
+        e.preventDefault();
+        return false;
     }
-
 });
 
 $(document).on('change', '.adultSelect', function () {
@@ -986,7 +999,8 @@ $(document).on('change', '.rateTypeId', function () {
     loadReservationPreview();
 });
 
-$(document).on('change', '.totalPriceSection', function () {
+$(document).on('change', '.totalPriceSection', function (e) {
+    e.preventDefault();
     loadReservationPreview();
 });
 
@@ -4425,19 +4439,25 @@ function loadAddOrganisation(id='') {
         <div class="organisation-modal-body">
         <form action="" id="organisationForm">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Name</label>                     
-                        <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Name *</label>                     
+                        <input type="text" placeholder="Organisation Name" class="form-control" id="organisationname" name="organisationname">
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Email</label>                     
-                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail">
+                        <label class="control-label" for="orgConName">Contact Person Name *</label>                     
+                        <input type="text" placeholder="Contact Person Name" class="form-control" name="orgConName" id="orgConName">
+                    </div>
+                </div>
 
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Email *</label>                     
+                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail" id="organisationemail">
                     </div>
                 </div>
 
@@ -4574,34 +4594,47 @@ $(document).on('click', '#submitOrganisation', function () {
 
     formData += '&type=addNewOrganisation';
 
-    $.ajax({
-        url:  webUrl+"/include/ajax/resorvation.php",
-        type: 'post',
-        data: formData,
-        success: function (response) {
-            var res = JSON.parse(response);
-            var id = res.id;
-            var status = res.status;
-            var name = res.name;
-            var msg = res.name;
+    var organisationname = $('#organisationname').val();
+    var orgConName = $('#orgConName').val();
+    var organisationemail = $('#organisationemail').val();
 
-            if (res.status == 'success') {
-                sweetAlert(res.msg);
-                $('#organisationForm')[0].reset();
-                $('#popUpModal').modal('hide');
-                
-                
-                if (window.filePath == 'company') {
-                    loadCompanyDataBase();
-                }else if (window.filePath == 'walk-in'){
-                    var html = `<option seleted value="${id}" selected="">${name}</option>`;
-                    $('#organisation').append(html);
+
+    if(organisationname == ''){
+        sweetAlert('Name Is Required!', 'error');
+    }else if(orgConName == ''){
+        sweetAlert('Contact Person Name Is Required!', 'error');
+    }else if(organisationemail == ''){
+        sweetAlert('Email Id Is Required!', 'error');
+    }else{
+        $.ajax({
+            url:  webUrl+"/include/ajax/resorvation.php",
+            type: 'post',
+            data: formData,
+            success: function (response) {
+                var res = JSON.parse(response);
+                var id = res.id;
+                var status = res.status;
+                var name = res.name;
+                var msg = res.name;
+    
+                if (res.status == 'success') {
+                    sweetAlert(res.msg);
+                    $('#organisationForm')[0].reset();
+                    $('#popUpModal').modal('hide');
+                    
+                    
+                    if (window.filePath == 'company') {
+                        loadCompanyDataBase();
+                    }else if (window.filePath == 'walk-in'){
+                        var html = `<option seleted value="${id}" selected="">${name}</option>`;
+                        $('#organisation').append(html);
+                    }
+                } else {
+                    sweetAlert('error', res.msg);
                 }
-            } else {
-                sweetAlert('error', res.msg);
             }
-        }
-    });
+        });
+    }
 });
 
 $(document).on('change', '#billingmode', function () {
@@ -4926,15 +4959,17 @@ $(document).on('click','#addBlockRoomSubmit', function(e){
     
 });
 
+$(document).on('change','#bookByOther',function(){
+    if($(this).is(':checked')) {
+        var data = `request_type=getStateInIndia`;
+        var stateHtml = '<option value="">Select _</option>';
+        ajax_request(data).done((returnData)=>{
+            returnData = JSON.parse(returnData);
+            $.each(returnData, (key,val)=>{
+                stateHtml += `<option value="${val}">${val}</option>`;
+            });
 
-
-
-
-
-$('#travelagent').on('click', function(){
-    var value = $(this).val();
-    if (value == 'other') {
-        var html = `
+            var html = `
             <div class="row">
 
                 <div class="col-md-6">
@@ -5000,40 +5035,46 @@ $('#travelagent').on('click', function(){
             </div>
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Pin Code</label>
+                        <label for="bookBypinCode">Pin Code</label>
                         <input onkeyup="pinChangeToFetch(event)" type="text" placeholder="Pin code" class="form-control" name="bookBypinCode">
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">Block</label>
-                        <input readonly="" disable="" type="text" placeholder="Block" class="form-control block" name="bookByblock">
+                        <label for="bookBystate">State</label>
+                        <select class="customSelect" name="bookBystate" id="bookBystate">
+                            ${stateHtml}
+                        </select>
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="">District</label>
-                        <input readonly="" disable="" type="text" placeholder="District" class="form-control district" name="bookBydistrict">
+                        <label for="bookBydistrict">District</label>
+                        <input type="text" placeholder="District" class="form-control district" name="bookBydistrict">
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="state">State</label>
-                        <input readonly="" disable="" type="text" placeholder="State" class="form-control state" name="bookBystate">
+                        <label for="bookByAddress">Address</label>
+                        <input id="bookByAddress" type="text" placeholder="Address" class="form-control state" name="bookByAddress">
                     </div>
                 </div>
+
             </div>
         `;
         $('#advanceFieldContent').html(html);
+        })
+        
     } else {
         $('#advanceFieldContent').html('');
+        console.log('false');
     }
-})
+});
 
 
 
