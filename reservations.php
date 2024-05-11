@@ -61,8 +61,8 @@ $grcLink = FRONT_SITE . '/grc';
                 <div class="col-12 mb-1">
                     <?= clrPreviewHtml('resType') ?>
                 </div>
-                <div class="col-3">
-                <div class="reservationContent skeleton">
+                <!-- <div class="col-3">
+                    <div class="reservationContent skeleton">
                         <div class="head dFlex aic jcsb">
                             <div class="leftSide dFlex aic">
                                 <div class="icon"><svg class="svg-inline--fa fa-user fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
@@ -150,9 +150,9 @@ $grcLink = FRONT_SITE . '/grc';
 
 
                     </div>
-                    
 
-                </div>
+
+                </div> -->
                 <div class="col-12">
                     <div id="resorvationContent"></div>
                 </div>

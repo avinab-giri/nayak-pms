@@ -60,6 +60,9 @@ $backLink = FRONT_SITE;
                                             <div class="col-md-4">
                                                 <input autocomplete="off" class="form-control input-nothing date-picker" data-date-format="dd/mm/yyyy" id="SearchByDateFrom" maxlength="10" name="SearchByDateFrom" placeholder="DD/MM/YYYY" type="text" value="<?= date('d-m-Y') ?>" readonly="readonly">
                                             </div>
+                                            <div class="col-md-4">
+                                                <input autocomplete="off" class="form-control input-nothing date-picker" data-date-format="dd/mm/yyyy" id="SearchByDateTo" maxlength="10" name="SearchByDateTo" placeholder="DD/MM/YYYY" type="text" value="<?= date('d-m-Y') ?>" readonly="readonly">
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

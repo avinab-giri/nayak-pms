@@ -84,6 +84,14 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
                                                 <label for="filterWithSearch">Search</label>
                                                 <input class="customInput" type="text" placeholder="Enter name, email or phone" id="filterWithSearch">
                                             </li>
+                                            <li class="dib">
+                                                <label for="filterWithBirthday">Birthday</label>
+                                                <input class="customInput" type="date" id="filterWithBirthday">
+                                            </li>
+                                            <li class="dib">
+                                                <label for="filterWithAnniversary">Anniversary</label>
+                                                <input class="customInput" type="date" id="filterWithAnniversary">
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="rightSide">

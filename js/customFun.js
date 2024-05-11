@@ -4653,15 +4653,22 @@ function addTravelAgentForm(id=''){
         html =`
             <form action="" id="travelagent-add-form">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Name <span class="requireSym">*</span></label>
                             <input type="text" placeholder="Travel Agent Name" class="form-control" name="travelagentname" id="travelagentname">
 
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="taConPerson">Contact person Name<span class="requireSym">*</span></label>
+                            <input type="text" placeholder="Contact person Name" class="form-control" name="taConPerson" id="taConPerson">
 
-                    <div class="col-md-6">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Email</label>
                             <input type="text" placeholder="Travel Agent Email" class="form-control" name="travelagentemail">
@@ -4783,6 +4790,13 @@ function addCompanyForm(id=''){
                     <div class="form-group">
                         <label class="control-label">Name</label>                     
                         <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
+            
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Contact person Name</label>                     
+                        <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName">
             
                     </div>
                 </div>

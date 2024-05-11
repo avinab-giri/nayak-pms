@@ -150,6 +150,19 @@ $grcLink = FRONT_SITE . '/grc';
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for=""></label>
+                                                            <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for=""></label>
+                                                            <input class="form-control" type="number" value="0" placeholder="" name="selectAdult[]">
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <br>
                                                 <hr>
@@ -161,12 +174,13 @@ $grcLink = FRONT_SITE . '/grc';
                                                         <table width="100%" id="roomDetailTable">
                                                             <thead>
                                                                 <tr>
-                                                                    <th width="20%" class="py10">Room Type</th>
-                                                                    <th width="15%" class="py10">Rate Type</th>
-                                                                    <th width="15%" class="py10">Adult</th>
+                                                                    <th width="15%" class="py10">Room Type</th>
+                                                                    <th width="10%" class="py10">Rate Type</th>
+                                                                    <th width="10%" class="py10">Adult</th>
                                                                     <th width="10%" class="py10">Child</th>
+                                                                    <th width="10%" class="py10">Ex BD</th>
                                                                     <th width="10%" class="py10">GST</th>
-                                                                    <th width="15%" class="py10 reservationRateArea"><span>Rate(Rs)</span></th>
+                                                                    <th width="10%" class="py10 reservationRateArea"><span>Rate(Rs)</span></th>
                                                                     <th width="15%" class="py10"><span>Total(Rs)</span></th>
                                                                 </tr>
                                                             </thead>
@@ -214,6 +228,12 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                                     <td class="pr10">
                                                                         <div class="form-group">
+                                                                            <input class="form-control" type="number" value="0" name="extraBD[]">
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td class="pr10">
+                                                                        <div class="form-group">
                                                                             <select onchange="calculateTotal()" class="customSelect roomGst" name="roomGst[]" id="">
                                                                                 <option value="0">0</option>
                                                                                 <option selected value="12">12%</option>
@@ -255,7 +275,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                         <h4> Booking Details :</h4>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label">Booking Source</label>
                                                             <select class="customSelect" name="bookingSorcelist" id="bookingSorcelist">
@@ -269,7 +289,7 @@ $grcLink = FRONT_SITE . '/grc';
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label">Book By</label>
                                                             <select class="customSelect" name="travelagent" id="travelagent">
@@ -281,7 +301,6 @@ $grcLink = FRONT_SITE . '/grc';
                                                                     echo '<option value="' . $taId . '">' . $name . '</option>';
                                                                 }
                                                                 ?>
-                                                                <option value="other">Other</option>
                                                             </select>
 
                                                             <a href="javascript:void(0)" onclick="addTravelAgentForm()" style="color:blue; text-decoration: underline;">Create a Travel Agent
@@ -289,6 +308,31 @@ $grcLink = FRONT_SITE . '/grc';
                                                                     <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
                                                                 </svg></a>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Organisation</label>
+                                                            <select class="selectOrganisation customSelect" name="organisation" data-rno="0" id="organisation">
+                                                                <option value="0" selected="">-Select Organisation</option>
+                                                                <?php
+                                                                foreach (fetchData('organisations', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
+                                                                    $orgId = $item['id'];
+                                                                    $name = $item['name'];
+                                                                    echo '<option value="' . $orgId . '">' . $name . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            <a href="javascript:void(0)" onclick="loadAddOrganisation()" style="color:blue; text-decoration: underline;">Create a organisation
+                                                                <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
+                                                                </svg></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <input type="checkbox" id="bookByOther" name="bookByOther" value="other">
+                                                        <label for="bookByOther"> Other</label>
                                                     </div>
 
                                                     <div class="col-md-12" id="advanceFieldContent"></div>
@@ -440,39 +484,12 @@ $grcLink = FRONT_SITE . '/grc';
 
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="control-label">Organisation</label>
-                                                                <select class="selectOrganisation customSelect" name="organisation" data-rno="0" id="organisation">
-                                                                    <option value="0" selected="">-Select Organisation</option>
-                                                                    <?php
-                                                                    foreach (fetchData('organisations', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
-                                                                        $orgId = $item['id'];
-                                                                        $name = $item['name'];
-                                                                        echo '<option value="' . $orgId . '">' . $name . '</option>';
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                                <a href="javascript:void(0)" onclick="loadAddOrganisation()" style="color:blue; text-decoration: underline;">Create a organisation
-                                                                    <svg style="width: 16px;height: 16px;" class="svg-inline--fa fa-external-link-alt fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="external-link-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                                                        <path fill="currentColor" d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"></path>
-                                                                    </svg></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">GST Number</label>
                                                                 <input type="text" placeholder="GST Number" id="gstNoField" class="form-control" name="gstnumber">
                                                             </div>
                                                         </div>
-                                                    </div>
-
-
-                                                    <div class="row">
                                                         <div class="col-md-12">
                                                             <label for="specialRequest">Special Request</label>
                                                             <textarea class="form-control" name="specialRequest" id="specialRequest" rows="3"></textarea>

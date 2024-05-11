@@ -582,6 +582,11 @@ if ($type == 'getRoomDetailByRoomNo') {
                         <input class="form-control" type="number" value="0" name="selectChild[]">
                     </div>
                 </td>
+                <td class="pr10">
+                    <div class="form-group">
+                        <input class="form-control" type="number" value="0" name="extraBD[]">
+                    </div>
+                </td>
 
                 <td class="pr10">
                     <div class="form-group">
