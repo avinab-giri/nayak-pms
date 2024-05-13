@@ -3146,8 +3146,10 @@
 
     function makeNoShowReservation(){
         global $conDB;
+        global $time;
         $bid = $_POST['bid'];
-        $sql = "update booking set status = '5' where id = '$bid'";
+        
+        $sql = "update booking set status = '5', actionOn = '$time' where id = '$bid'";
         $data = '';
         if(mysqli_query($conDB, $sql)){
             foreach(fetchData('bookingdetail',['bid'=>$bid]) as $item){
@@ -3163,8 +3165,9 @@
 
     function makeCancelReservation(){
         global $conDB;
+        global $time;
         $bid = $_POST['bid'];
-        $sql = "update booking set status = '6' where id = '$bid'";
+        $sql = "update booking set status = '6', actionOn = '$time' where id = '$bid'";
         $data = '';
         if(mysqli_query($conDB, $sql)){
             foreach(fetchData('bookingdetail',['bid'=>$bid]) as $item){
@@ -3637,12 +3640,29 @@ function loadCackinReport(){
 }
 
 function loadCancelReservationReport(){
-    $date = ($_POST['date'] == '')? date('Y-m-d') : date('Y-m-d', strtotime($_POST['date']));
-    $data = array();
+    global $conDB;
     
-    foreach(getBookingData('','',$date,'','','','','','','','','','','','','','','','',5) as $item){
-        $bid = $item['bid'];       
-        $data[] = $item;
+    $date = (!empty($_POST['from']) && strtotime($_POST['from'])) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
+    $toDate = (!empty($_POST['to']) && strtotime($_POST['to'])) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d', strtotime('+1 day', strtotime($date)));
+
+    if ($date >= $toDate) {
+        $toDate = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    }
+
+    $sql = "SELECT * FROM booking WHERE status = '5' AND actionOn BETWEEN '$date' AND '$toDate'";
+    $stmt = mysqli_query($conDB, $sql);
+    $data = array();
+    while ($row = mysqli_fetch_assoc($stmt)) {
+        $bid = $row['id'];
+        $bookingArray = getBookingData($bid)[0];
+        $advanceArr = [
+            'rooms'=>$bookingArray['rooms'],
+            'guestName'=>$bookingArray['guestName'],
+            'totalAdult'=>$bookingArray['totalAdult'],
+            'totalChild'=>$bookingArray['totalChild'],
+            'totalPrice'=>$bookingArray['totalPrice'],
+        ];
+        $data[] = array_merge($row, $advanceArr);
     }
 
     return $data;
@@ -3686,15 +3706,33 @@ function loadReservationReport(){
 }
 
 function loadVoidReport(){
-    $date = ($_POST['date'] == '')? date('Y-m-d') : date('Y-m-d', strtotime($_POST['date']));
-    $data = array();
+    global $conDB;
     
-    foreach(getBookingData('','',$date,'','','','','','','','','','','','','','','','',7) as $item){
-        $bid = $item['bid'];       
-        $data[] = $item;
+    $date = (!empty($_POST['from']) && strtotime($_POST['from'])) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
+    $toDate = (!empty($_POST['to']) && strtotime($_POST['to'])) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d', strtotime('+1 day', strtotime($date)));
+
+    if ($date >= $toDate) {
+        $toDate = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    }
+
+    $sql = "SELECT * FROM booking WHERE status = '6' AND actionOn BETWEEN '$date' AND '$toDate'";
+    $stmt = mysqli_query($conDB, $sql);
+    $data = array();
+    while ($row = mysqli_fetch_assoc($stmt)) {
+        $bid = $row['id'];
+        $bookingArray = getBookingData($bid)[0];
+        $advanceArr = [
+            'rooms'=>$bookingArray['rooms'],
+            'guestName'=>$bookingArray['guestName'],
+            'totalAdult'=>$bookingArray['totalAdult'],
+            'totalChild'=>$bookingArray['totalChild'],
+            'totalPrice'=>$bookingArray['totalPrice'],
+        ];
+        $data[] = array_merge($row, $advanceArr);
     }
 
     return $data;
+
 }
 
 function loadGuestCeckinReport(){

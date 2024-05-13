@@ -29,6 +29,7 @@ $personalSLink = FRONT_SITE.'/settings/users';
                         </a>
                         <ul>
                             <li class="basicDetails"><a href="' . $frontSite . '/settings/basic-details">Basic Details</a></li>
+                            <li class="rooms"><a href="' . $frontSite . '/settings/rooms">Rooms</a></li>
                         </ul>
                     </li>
                 

@@ -87,11 +87,11 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
 
                                             <li class="dib">
                                                 <label for="filterWithBirthday">Birthday</label>
-                                                <input class="customInput" type="date" id="filterWithBirthday">
+                                                <input class="customInput" type="text" id="filterWithBirthday">
                                             </li>
                                             <li class="dib">
                                                 <label for="filterWithAnniversary">Anniversary</label>
-                                                <input class="customInput" type="date" id="filterWithAnniversary">
+                                                <input class="customInput" type="text" id="filterWithAnniversary">
                                             </li>
                                         </ul>
                                     </div>
@@ -300,6 +300,18 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
         $(document).ready(() => {
 
             loadGuest();
+
+            $('#filterWithBirthday').datepicker({
+                autoclose: true,
+                format: 'dd-mm',
+                todayHighlight: true,
+            });
+
+            $('#filterWithAnniversary').datepicker({
+                autoclose: true,
+                format: 'dd-mm',
+                todayHighlight: true,
+            });
 
 
             $('#addGuestDataBtn').click(function() {

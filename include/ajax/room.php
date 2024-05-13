@@ -1403,8 +1403,7 @@ if (isset($_POST["type"])) {
         $exInputField = "";
 
         if ($rid != "") {
-            $exInputField .=
-                '<input type="hidden" value="update_room" name="type">';
+            $exInputField .= '<input type="hidden" value="update_room" name="type">';
             $exInputField .= "<input type='hidden' value='$uid' name='update_id'>";
         } else {
             $exInputField .=
@@ -1441,6 +1440,7 @@ if (isset($_POST["type"])) {
         $roomRateField ='';
 
         if ($rid != "" && count(getRateType($rid)) != 0) {
+            
             $count = 0;
             foreach (getRateType($rid) as $detail_row) {
                 createSession('ratePlanCon', $detail_row['title']);
@@ -1469,7 +1469,7 @@ if (isset($_POST["type"])) {
         $html =
             '
                 <form action="" id="'.$formBtn .'" method="post" enctype="multipart/form-data">
-
+                    '.$exInputField.'
                     <div class="row p0">
                         <div class="form_group col-12 col-sm-6 mb-3">
                             <label for="header">Room *</label>
@@ -1486,77 +1486,6 @@ if (isset($_POST["type"])) {
                             $bedtype .
                             '" required>
                         </div>
-                    </div>
-
-                    <div class="row p0">
-                        <div class="form_group col_12 mb-3">
-                            <label for="slug">Slug *</label>
-                            <input class="form-control" type="text" id="slug" name="slug" placeholder="Enter Slug." value="' .
-                            $slug .
-                            '" required disabled>
-                        </div>
-                    </div>
-
-                    <div class="row p0">
-                        <div class="form_group col-12 col-sm-6 mb-3 addRoomNumberForRoom">
-                            <label style="width: 100%;" for="roomNumber">Room Number *
-                                <div id="rnDisplayLabelInputField">
-                                <ul class="tagList">'.$roomNumListHtml.'</ul>
-                                <input name="roomNumberDisplay" placeholder="Enter Room Number." type="number" id="roomNumber" class="form-control" data-rid="'.$rid.'" data-value="' .$roomNumber .'" required autocomplete="off"/>
-                                </div>
-                            </label> 
-                            
-                        </div>
-                        <div class="form_group col-12 col-sm-6 mb-3">
-                            <label for="roomCapacity">Room Capacity</label>
-                            <input class="form-control" name="roomCapacity" id="roomCapacity" placeholder="Enter room capacity." value="' .
-                            $roomCapacity .
-                            '" required autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div class="row p0">
-
-                        <div class="col-md-4 mb-3">
-                            <div class="form_group">
-                                <label for="noAdult">No of Adult *</label>
-                                <input class="form-control" type="text" id="noAdult" name="noAdult" placeholder="Enter No of Adult"
-                                    value="' .$noAdult .'" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="form_group">
-                                <label for="noChild">No of Child ( Above 5 Years ) *</label>
-                                <input class="form-control" type="text" id="noChild" name="noChild" placeholder="Enter No of Child"
-                                    value="' .$noChild .'" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="form_group">
-                                <label for="mrp">Rack Rate *</label>
-                                <input class="form-control" type="number" id="mrp" name="mrp" placeholder="Enter Room MRP" value="' .$mrp .'" required>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row justify-content-end">
-                        <div class="col-auto"><a data-rid="'.$rid.'" id="addImageBtn" href="javascript:void(0)">Add Image</a></div>
-                    </div>
-                    <div class="row p0" id="roomImgContent">'.$imgBoxContent.'</div>
-                    '.$exInputField.'
-
-                    <div class="s25"></div>
-
-                    <div class="form_group amenities mb-3" id="amenitiesContent">
-                        <label for="amenities">Amenities</label> <br /> '.$amenitiesField.'
-                    </div>
-                    <div style="display: flex;justify-content: end;"><div class="add_sub mb-3 " data-id="1"> <div class="btn update bg-gradient-dark ms-auto mb-0 js-btn-next">Add</div> </div></div>
-                    <div id="add_content">'.$roomRateField.'</div>
-
-                    <div class="s25"></div>
-                    <div class="form-group">
-                        <label for="roomDescription">Room Description</label>
-                        <textarea name="roomdesc" id="roomDescription" style="resize: none;" rows="4" class="form-control"></textarea>
                     </div>
                     <button class="btn bg-gradient-primary mb-0 mt-lg-auto deactive" name="addRoom" value="submit" id="addRoomSubmitBtn">'.$btn .'</button>
                 </form>
@@ -1628,13 +1557,9 @@ if (isset($_POST["type"])) {
                 $roomRowData .= "
                 
                     <tr>
-                        <td width='10%' class='left'>$imgCon </td>
-                        <td width='20%' class='center mb-0 bold'>{$row["header"]}</td>
-                        <td width='10%' class='center mb-0 bold'>{$row["bedtype"]}</td>
-                        <td width='10%' class='center mb-0 bold'>{$roomTotalNum}</td>
-                        <td width='10%' class='center mb-0 bold'>{$row["roomcapacity"]}</td>
-                        <td width='15%' class='center mb-0 bold'>{$roomPrice}</td>
-                        <td width='25%'>
+                        <td width='30%' class='center mb-0 bold'>{$row["header"]}</td>
+                        <td width='30%' class='center mb-0 bold'>{$row["bedtype"]}</td>
+                        <td width='40%'>
                             <div class='tableCenter'>
                                 <span class='tableHide'><i class='fas fa-ellipsis-h'></i></span>
                                 <span class='tableHoverShow'>$acctionBtn</span>
@@ -1660,12 +1585,8 @@ if (isset($_POST["type"])) {
             <table class="table align-items-center mb-0 tableLine rt rb hover">
                 <thead>
                     <tr>
-                        <th>Image</th>
                         <th>Header</th>
                         <th>Bedtype</th>
-                        <th>Total Room</th>
-                        <th>Room capacity</th>
-                        <th>Price</th>
                         <th>Action</th>
                     </tr>
                 </thead>

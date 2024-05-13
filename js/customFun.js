@@ -79,14 +79,19 @@ function viewBookingReport($bid = '', $bdid = '') {
         var bookinId = response.bookinId;
         var bookingSource = response.bookingSource;
         var addByName = response.addByName;
+        var exBd = response.exBd;
+        var checkInDetail = response.checkInDetail;
+        var checkOutDetail = response.checkOutDetail;
 
         var checkIn = response.checkIn;
+        var checkInTime = moment(response.checkInTime, "HH:mm:ss").format("hh:mm A");
         var checkInYr = moment(checkIn).format('YYYY');
         var checkInMonth = moment(checkIn).format('MMM');
         var checkInDay = moment(checkIn).format('DD');
         var checkInDayStr = moment(checkIn).format('ddd');
-
+        
         var checkOut = response.checkOut;
+        var checkOutTime = moment(response.checkOutTime, "HH:mm:ss").format("hh:mm A");
         var checkOutYr = moment(checkOut).format('YYYY');
         var checkOutMonth = moment(checkOut).format('MMM');
         var checkOutDay = moment(checkOut).format('DD');
@@ -138,7 +143,7 @@ function viewBookingReport($bid = '', $bdid = '') {
                     <li class="list-group-item">
                         <div class="row row-flex">
                             <div class="col col-info col-info-first">
-                                <strong class="db clrBlack fs20">${room_number}</strong>
+                                <span class="dFlex aic"><small class="mR5">Ex Bed's</small> <strong class="db clrBlack fs20"> ${exBd}</strong></span>
                                 <span class="dib clrBlack">Adult <strong class="dib clrBlack">${adult}</strong> | Child <strong class="dib clrBlack">${child}</strong></span>
                                 <span class="m-t-xs badge  badge-arrived">Check In</span></div>
                             <div class="col col-info col-info-second">
@@ -247,9 +252,15 @@ function viewBookingReport($bid = '', $bdid = '') {
                                         <div class="row">
                                             <label class="col-sm-12">GST : <span></span></label>
                                         </div>
+
                                         <div class="row">
                                             <label class="col-sm-12" style="font-weight:bold;font-size:15px;">Night(s) : <span>${night}</span></label>
                                         </div>
+
+                                        <div class="row">
+                                            <label class="col-sm-12" style="font-weight:bold;font-size:15px;">Arrival Details : <span style="font-weight:bold;font-size:12px;">${checkInDetail}</span></label>
+                                        </div>
+
                                     </div>
 
                                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 detail-side-panel">
@@ -266,11 +277,11 @@ function viewBookingReport($bid = '', $bdid = '') {
                                                 </div>
                                                 <div class="dFlex aic">
                                                     <label>Arrival Date :</label>
-                                                    <label><strong class="fs15">${checkIn}</strong></label>
+                                                    <label><strong class="fs15">${checkIn}, ${checkInTime}</strong></label>
                                                 </div>
                                                 <div class="dFlex aic">
                                                     <label>Departure Date :</label>
-                                                    <label><strong class="fs15">${checkOut}</strong></label>
+                                                    <label><strong class="fs15">${checkOut}, ${checkOutTime}</strong></label>
                                                 </div>
                                                 <div class="dFlex aic">
                                                     <label>Booking Source :</label>
@@ -284,6 +295,12 @@ function viewBookingReport($bid = '', $bdid = '') {
                                                     <label>User :</label>
                                                     <label><strong class="fs15 clrYellow">${addByName}</strong></label>
                                                 </div>
+
+                                                <div class="dFlex aic">
+                                                    <label>Departure details :</label>
+                                                    <label><strong class="fs12">${checkOutDetail}</strong></label>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -310,7 +327,6 @@ function viewBookingReport($bid = '', $bdid = '') {
                             <div class="col-sm-12">
                                 <button class="btn btn-info m0" onclick="generateEmailSent(${bid})">Email Booking Voucher</button>
                                 <button class="btn btn-danger m0"><a class="text-white" target="_blank" href="${voucherLink}">Download Booking Voucher</a></button>
-                                <a target="_blank" href="${generateInvoiceLink}" class="btn btn-info m0">Print Invoice</a>
                             </div>
                         </div>
                     </div>

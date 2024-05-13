@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2024 at 11:59 PM
+-- Generation Time: May 13, 2024 at 01:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,14 +41,6 @@ CREATE TABLE `activityfeed` (
   `addBy` varchar(50) DEFAULT '',
   `addOn` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `activityfeed`
---
-
-INSERT INTO `activityfeed` (`id`, `hotelId`, `type`, `bid`, `bdid`, `oldData`, `changedata`, `ipaddres`, `result`, `reason`, `addBy`, `addOn`) VALUES
-(1, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=1\">nayak-bf7b84</a> has been created', 'a_1', '2024-05-11 06:56:40'),
-(2, '12345', '6', 0, 0, '', '', '', '', 'Reservation <a class=\"pClr\" target=\"_blank\" href=\"http://localhost/nayak-pms/reservation-edit?id=2\">nayak-229214</a> has been created', 'a_1', '2024-05-11 06:58:35');
 
 -- --------------------------------------------------------
 
@@ -122,14 +114,6 @@ CREATE TABLE `booking` (
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `booking`
---
-
-INSERT INTO `booking` (`id`, `hotelId`, `bookinId`, `reciptNo`, `openFolio`, `mainCheckIn`, `checkInTime`, `checkInDetail`, `mainCheckOut`, `checkOutTime`, `checkOutDetail`, `userPay`, `nroom`, `couponCode`, `pickUp`, `payment_status`, `payment_id`, `bookingSource`, `paymethodId`, `reservationType`, `salesType`, `bussinessSource`, `voucherNumber`, `comPlanId`, `comValue`, `coompanyId`, `paytypeId`, `commission`, `extra_amount`, `booking_attr`, `billingMode`, `organisation`, `companynameid`, `gstno`, `traveltype`, `bookingref`, `travelagent`, `totalPrice`, `roundTotalPrice`, `addBy`, `actionOn`, `add_on`, `status`, `deleteRec`) VALUES
-(1, '12345', 'nayak-bf7b84', 1, 1, '2024-05-11', '01:25:00', 'Arrival', '2024-05-12', '02:25:00', 'Departure', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-11 12:26:40', 1, 1),
-(2, '12345', 'nayak-229214', 2, 1, '2024-05-11', '13:27:00', 'Arrival', '2024-05-12', '13:27:00', 'Departure', 0, 0, NULL, NULL, '1', '', 1, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', '1', '0', '', '', '', '', '', NULL, NULL, 'a_1', NULL, '2024-05-11 12:28:35', 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -151,14 +135,6 @@ CREATE TABLE `bookingby` (
   `district` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bookingby`
---
-
-INSERT INTO `bookingby` (`id`, `bid`, `hotelId`, `travelType`, `name`, `email`, `whatsapp`, `number`, `pinCode`, `block`, `address`, `district`, `state`) VALUES
-(1, 1, '12345', 0, 'Avinab', 'avinabgiri9439@gmail.com', '1234567890', '09439706344', '756171', '', 'Kishore Prasad', 'sdd', 'Odisha'),
-(2, 2, '12345', 1, '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -192,14 +168,6 @@ CREATE TABLE `bookingdetail` (
   `addOn` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bookingdetail`
---
-
-INSERT INTO `bookingdetail` (`id`, `hotelId`, `bid`, `openFolio`, `hkId`, `roomId`, `roomDId`, `smoking`, `room_number`, `checkIn`, `checkOut`, `adult`, `child`, `exBd`, `roomPrice`, `adultPrice`, `childPrice`, `gstPer`, `totalPrice`, `checkinstatus`, `checkinBy`, `checkOutBy`, `addOn`, `deleteRec`) VALUES
-(1, '12345', 1, 0, 0, 3, 4, 'no', 0, '2024-05-11', '2024-05-12', 2, 0, 1, 2000, 0, 0, 12, 2240, 1, NULL, NULL, '2024-05-11 06:56:40', 1),
-(2, '12345', 2, 0, 0, 2, 4, 'no', 0, '2024-05-11', '2024-05-12', 2, 0, 1, 4000, 0, 0, 12, 4480, 1, NULL, NULL, '2024-05-11 06:58:35', 1);
 
 -- --------------------------------------------------------
 
@@ -402,20 +370,12 @@ CREATE TABLE `guest` (
   `file_upload_type` varchar(10) DEFAULT NULL,
   `proof_file_upload_type` varchar(11) DEFAULT NULL,
   `groupadmin` int(11) DEFAULT 0,
-  `birthday` date DEFAULT NULL,
-  `anniversary` date DEFAULT NULL,
+  `birthday` varchar(250) DEFAULT NULL,
+  `anniversary` varchar(250) DEFAULT NULL,
   `addBy` text DEFAULT NULL,
   `addOn` datetime NOT NULL DEFAULT current_timestamp(),
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `guest`
---
-
-INSERT INTO `guest` (`id`, `hotelId`, `type`, `accessId`, `bookId`, `kotId`, `bookingdId`, `verify`, `serial`, `nameTitle`, `name`, `email`, `whatsapp`, `phone`, `gender`, `company_name`, `comGst`, `country`, `state`, `city`, `block`, `district`, `zip`, `full_address`, `image`, `kyc_file`, `kyc_number`, `kyc_type`, `file_upload_type`, `proof_file_upload_type`, `groupadmin`, `birthday`, `anniversary`, `addBy`, `addOn`, `deleteRec`) VALUES
-(1, '12345', NULL, 0, 1, 0, 1, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '1234567890', '9439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, '', '545', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-05-11 12:26:40', 1),
-(2, '12345', NULL, 0, 2, 0, 2, '', '1', 'Mr.', 'Avinab', 'avinabgiri9439@gmail.com', '1111226566', '9439706344', NULL, NULL, NULL, NULL, 'Odisha', NULL, '', 'hhgh', '756171', 'Kishore Prasad', NULL, NULL, NULL, '0', NULL, NULL, 1, '2024-05-12', '2024-05-18', NULL, '2024-05-11 12:28:35', 1);
 
 -- --------------------------------------------------------
 
@@ -433,14 +393,6 @@ CREATE TABLE `guestamenddetail` (
   `addbycheckin` varchar(250) DEFAULT NULL,
   `addbycheckout` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `guestamenddetail`
---
-
-INSERT INTO `guestamenddetail` (`id`, `hotelId`, `bid`, `bdid`, `checkInTime`, `checkOutTime`, `addbycheckin`, `addbycheckout`) VALUES
-(1, '12345', 1, 1, NULL, NULL, NULL, NULL),
-(2, '12345', 2, 2, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1609,7 +1561,8 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`id`, `hotelId`, `slug`, `minDay`, `shortCode`, `header`, `sName`, `bedtype`, `totalroom`, `roomcapacity`, `description`, `noAdult`, `noChild`, `add_on`, `status`, `mrp`, `roomArea`, `noBed`, `noBathroom`, `faceId`, `view`, `booking`, `deleteRec`, `addBy`, `ipaddres`) VALUES
 (1, '12347', 'super-deluxe', 1, '', 'Super Deluxe', '', 'king', 0, 3, '', 2, 0, '2024-05-01 01:49:17', 1, 3000, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
 (2, '12345', 'super-deluxe', 1, '', 'Super Deluxe', '', 'king', 0, 3, '', 2, 0, '2024-05-04 05:25:19', 1, 5000, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
-(3, '12345', 'studio-room', 1, '', 'Studio Room', '', '', 0, 0, '', 0, 0, '2024-05-04 05:25:32', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', '');
+(3, '12345', 'studio-room', 1, '', 'Studio Room', '', 'king', 0, 0, '', 0, 0, '2024-05-04 05:25:32', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
+(4, '12345', 'undefined', 1, '', 'Standard Room2', '', 'king', 0, 0, '', 0, 0, '2024-05-13 04:34:39', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -1651,7 +1604,8 @@ CREATE TABLE `roomnumber` (
 INSERT INTO `roomnumber` (`id`, `hotelId`, `roomNo`, `roomId`, `status`, `constuctionStatus`, `hkid`, `addBy`, `addOn`, `deleteRec`) VALUES
 (1, '12347', 101, 1, 1, 1, 0, 'a_1', '2024-05-01 01:48:02', 1),
 (2, '12347', 102, 1, 1, 1, 0, 'a_1', '2024-05-01 01:48:04', 1),
-(3, '12347', 103, 1, 1, 1, 0, 'a_1', '2024-05-01 01:48:06', 1);
+(3, '12347', 103, 1, 1, 1, 0, 'a_1', '2024-05-01 01:48:06', 1),
+(4, '12345', 0, 4, 1, 1, 0, '', '2024-05-13 16:34:39', 1);
 
 -- --------------------------------------------------------
 
@@ -3979,7 +3933,7 @@ ALTER TABLE `wb_slider`
 -- AUTO_INCREMENT for table `activityfeed`
 --
 ALTER TABLE `activityfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `amenities`
@@ -3991,19 +3945,19 @@ ALTER TABLE `amenities`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookingby`
 --
 ALTER TABLE `bookingby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookingdetail`
 --
 ALTER TABLE `bookingdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `booking_folio`
@@ -4063,13 +4017,13 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `guestamenddetail`
 --
 ALTER TABLE `guestamenddetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `guest_review`
@@ -4399,7 +4353,7 @@ ALTER TABLE `quickpay`
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roomfeature`
@@ -4411,7 +4365,7 @@ ALTER TABLE `roomfeature`
 -- AUTO_INCREMENT for table `roomnumber`
 --
 ALTER TABLE `roomnumber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roomratetype`

@@ -336,13 +336,14 @@ function success($msg) {
     return $html;
 }
 
-function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '') {
+function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '', $page) {
 
     var rTab = $rTab;
     var search = $search;
     var reserveType = $reserveType;
     var bookingType = $bookingType;
     var currentDate = $currentDate;
+    var page = $page;
 
     if (rTab == '') {
         rTab = 'all';
@@ -354,7 +355,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
     $.ajax({
         url: webUrl + 'include/ajax/resorvation.php',
         type: 'post',
-        data: { type: 'load_resorvation', rTab: rTab, search: search, reserveType: reserveType, bookingType: bookingType, currentDate: currentDate },
+        data: { type: 'load_resorvation', rTab: rTab, search: search, reserveType: reserveType, bookingType: bookingType, currentDate: currentDate,page: page },
         success: function (data) {
 
             $('#resorvationContent').html(data);
@@ -407,8 +408,7 @@ function convertArryToJSON($arry) {
     });
 }
 
-function loadGuest($page = '', limit=15,action='',form='',to='') {
-    var page = $page;
+function loadGuest(page = '', limit=15,action='',form='',to='') {
     var date = $('#filterWithDate').val();
     var district = $('#filterWithDis').val();
     var search = $('#filterWithSearch').val();
@@ -421,17 +421,21 @@ function loadGuest($page = '', limit=15,action='',form='',to='') {
         success: function (data) {
             var response = JSON.parse(data);
             var data = response.data;
-            var pagination = response.pagination;
+            var totalPage = response.page;
             var paginationHtml = '';
             var paginationList = ''
 
-            if(pagination.length > 0){
-                $.each(paginationList,(key,val)=>{
-                    var active = (key == 0) ? 'active' : '';
-                    paginationList += `<li class="paginate_button ${active}"><a href="javascript:void(0)" aria-controls="example" data-dt-idx="1" tabindex="0">2</a></li>`;
-                })
+            page = (page == '') ? 1 : page;
+
+            if(totalPage > 0){
+                for (let i = 1; i <= totalPage; i++) {
+                    var active = (page == i) ? 'active' :'';
+                    paginationList += `<li class="paginate_button ${active}"><a href="javascript:void(0)" onclick='loadGuest(${i})'>${i}</a></li>`;
+                }
+
                 paginationHtml = `
                     <ul class="pagination">
+                        ${paginationList}
                     </ul>
                 `;
             }
@@ -495,23 +499,28 @@ function loadGuest($page = '', limit=15,action='',form='',to='') {
 
             var html = `
 
-                <table id="guestListTable" border="1" class="table align-items-center mb-0 tableLine">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-left">SN.</th>
-                            <th scope="col" class="text-left">Guest name</th>
-                            <th scope="col" class="text-center">Email</th>
-                            <th scope="col" class="text-center">Phone</th>
-                            <th scope="col" class="text-center">Block</th>
-                            <th scope="col" class="text-center">District</th>
-                            <th scope="col" class="text-right"></th>
-                        </tr>
-                    </thead>
+                <div id="guestDataCon">
+                    <table id="guestListTable" border="1" class="table align-items-center mb-0 tableLine">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-left">SN.</th>
+                                <th scope="col" class="text-left">Guest name</th>
+                                <th scope="col" class="text-center">Email</th>
+                                <th scope="col" class="text-center">Phone</th>
+                                <th scope="col" class="text-center">Block</th>
+                                <th scope="col" class="text-center">District</th>
+                                <th scope="col" class="text-right"></th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        ${tableBody}
-                    </tbody>
-                </table>
+                        <tbody>
+                            ${tableBody}
+                        </tbody>
+                    </table>
+                </div>
+
+
+                ${paginationHtml}
 
                 
 
@@ -795,6 +804,18 @@ function loadAddGuestReservationForm($bId = '', $target, $bdid = '', $gid = '', 
             if (customFunction != '') {
                 window.localStorage.setItem('guestCustomFunction', JSON.stringify(customFunction))
             }
+
+            $('#guestBirthday').datepicker({
+                format: 'dd-mm',
+                autoclose: true,
+                todayHighlight: true,
+            });
+
+            $('#guestAnniversary').datepicker({
+                format: 'dd-mm',
+                autoclose: true,
+                todayHighlight: true,
+            });
 
         }
     });

@@ -812,7 +812,7 @@ function hotelDetail($id = "", $email = '', $phone = '', $withOutUser = '', $hot
         if ($row === null) {
         } else {
             if ($id == '' && $withOutUser == '') {
-                $otherDetail = (count(getHotelUserDetail()) > 0) ? getHotelUserDetail()[0] : array();
+                $otherDetail = getHotelUserDetail($_SESSION['ADMIN_ID'])[0];
                 $userDetailArry = array();
                 if(count($otherDetail) > 0){
                     $userDetailArry = [
@@ -829,7 +829,7 @@ function hotelDetail($id = "", $email = '', $phone = '', $withOutUser = '', $hot
                     'fullFaviconUrl' => getHotelImgDataById($row['favicon'])['fullUrl'],
                     'fullKotLogoUrl' => getHotelImgDataById($row['kotLogo'])['fullUrl'],
                 ];
-                $data = array_merge($row, $userDetailArry, $logos);
+                $data = array_merge($row, $logos, $userDetailArry);
             } else {
                 $data = $row;
             }
@@ -2976,6 +2976,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
                 $kotTax += $kotArryVal['tax'];
             }
             $roomId = $row['roomId'];
+            $exBD = $row['exBd'];
             $roomDId = $row['roomDId'];
             $roomNum[] = $row['room_number'];
 
@@ -3026,6 +3027,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
                 'bookngDId' => $bookngDId,
                 'bookingStatus' => $bookingStatus,
                 'bStatusBy' => $bStatusBy,
+                'exBD' => $exBD,
             ];
         }
     }
@@ -7711,6 +7713,12 @@ function send_email($email='', $gname = '', $cc = '', $bcc = '', $html='', $subj
 
 
 function custom_number_format($n, $precision = 1){
+    // Check if $n is numeric
+    if (!is_numeric($n)) {
+        return 0;
+    }
+
+    // Proceed with formatting based on the magnitude of $n
     if ($n < 900) {
         $n_format = number_format($n);
     } else if ($n < 900000) {
@@ -11971,6 +11979,7 @@ function orderEmail2Body($oid){
         $bookingStatus = $bidrow['bookingStatus'];
         $plan =$bidrow['rateplan'][0];
         $total = $bidrow['total'];
+        $exBD = $bidrow['exBD'];
         $discount = ($bookingDetailArry['totalDiscount'] == 0) ? 0 : '&#x20b9; '.$bookingDetailArry['totalDiscount'];
 
         $extraCharge = 0.00;
@@ -12010,7 +12019,7 @@ function orderEmail2Body($oid){
                 </tr>
 
                 <tr>
-                    <td></td>
+                    <td>Ex bed\'s '.$exBD.'</td>
                     <td>Total:</td>
                     <td>&#x20b9; '. $total.'</td>
                 </tr>
@@ -12064,8 +12073,10 @@ function orderEmail2Body($oid){
 
 
     $bookedOn = $add_on;
-    $arrivalDate = date('d-M', strtotime($bookingDetailArry['checkIn']));
-    $departureDate = date('d-M', strtotime($bookingDetailArry['checkOut']));
+    $arrivalDate = date('d-M Y', strtotime($bookingDetailArry['checkIn']));
+    $arrivalTime = date('h:i A', strtotime($bookingDetailArry['checkInTime']));
+    $departureDate = date('d-M Y', strtotime($bookingDetailArry['checkOut']));
+    $departureTime = date('h:i A', strtotime($bookingDetailArry['checkOutTime']));
     $night = $bookingDetailArry['night'];
     
     $totalRoom = 2;
@@ -12161,13 +12172,13 @@ function orderEmail2Body($oid){
                                         <td>Email::</td>
                                         <td>'. $email.'</td>
                                         <td>Arrival Date:</td>
-                                        <td>'. $arrivalDate.'</td>
+                                        <td>'. $arrivalDate.', '.$arrivalTime.'</td>
                                     </tr>
                                     <tr>
                                         <td>Organisation:</td>
                                         <td>'. $company_name.'</td>
                                         <td>Departure Date:</td>
-                                        <td>'. $departureDate.'</td>
+                                        <td>'. $departureDate.', '.$departureTime.'</td>
                                     </tr>
                                     <tr>
                                         <td>GST:</td>
@@ -12204,6 +12215,75 @@ function orderEmail2Body($oid){
 
                             '.$footerPrice.'
 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table style="width: 95%; margin: 0 auto;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h4>TERMS AND CONDITIONS </h4>
+                            <strong>Check-In and Check-Out</strong>
+                            <ul>
+                                <li><small>Check-in: 9:00AM, Check-out: 8:00AM</small></li>
+                                <li><small>Photo ID (Aadhar, Passport, Voter ID Only) of all members checking in has to be
+                                mandatorily furnished at the time of Check-in</small></li>
+                                <li><small>Copy of the booking voucher must be produced at the time of Check-In. </small></li>
+                            </ul> <br/>
+
+                            <strong>Payment Policy </strong> <br/>
+                            <small>Full Payment: All reservations made must be paid in full at the time of booking. This includes, but
+                            is not limited to, the changes in the name of the has been occupants, dates for which the booking
+                            is made. </small> <br/><br/>
+
+                            <strong>Non-transferability </strong> <br/>
+                            <small>Any booking made is strictly non-transferable.</small> <br/><br/>
+
+                            <strong>Allotment of Room</strong> <br/>
+                            <small>The category of room booked is confirmed, however the room number will only be allotted at the
+                            time of check-in. Any special requests made for the room (including but not limited to the floor
+                            the size, the view) will be. processed on the date of the check-in based on the availability and
+                            there is no guarantee extended for the same.</small> <br/><br/>
+
+                            <strong>Communicaton</strong> <br/>
+                            <small>All communicatons will be made to and replied to only when received from the registered e-mail
+                            ID as provided at the time of booking</small> <br/><br/>
+
+                            <strong>Pets</strong> <br/>
+                            <small>We strive to provide a comfortable and enjoyable experience for all our guests. We regret to
+                            inform you that we are not a pet-friendly hotel.</small> <br/><br/>
+
+                            <strong>Cancellaton</strong>
+                            <ul>
+                                <li><small>For booking cancellation can only be done manually, please send an email to:
+                                (info@nayakbeachresort.com I info@nayakhotels.com) and the amount shall be refunded
+                                to the customer’s account as per the refund policy of the hotel maximum within 10-14
+                                business days of the date of cancellation request.</small></li>
+                                <li><small>There will be no entertaining of cancellation request or refund if the same is made nine
+                                (9) days prior to the date when the intended stay commences. 
+                                </small></li>
+                                <li><small>There will be a 50% refund of the booking amount when a cancellation request is made
+                                between ten (10) - nineteen (19) days prior to the date when the intended stay
+                                commences.</small></li>
+                                <li><small>There will be a 75% refund of the booking amount when a cancellation request is made
+                                more than nineteen (19) days prior to the date when the intended stay commences. </small></li>
+                            </ul> <br/>
+
+                            <strong>No Show</strong> <br/>
+                            <small>The booking will be automatically cancelled if there is no-show and failure to occupy the room
+                            within twelve (12) hours from 9:00AM. There will be no refund of the booking amount paid in the
+                            case of a no-show. All late check-ins must be communicated to the hotel management on the day
+                            prior to the date when the intended stay commences by 8:30PM.</small> <br/><br/>
+
+                            <strong>Dispute</strong> <br/>
+                            <small>Any and all disputes arising from the stay, the booking, etc. will be subject to the jurisdiction of
+                            Puri, Odisha only. </small> <br/><br/>
+
+                            <strong>Refunds</strong> <br/>
+                            <small>All refunds will be made to the source account where the original booking was made from and
+                            shall be processed within 10-14 business days. </small>
                         </td>
                     </tr>
                 </tbody>

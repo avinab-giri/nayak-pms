@@ -22,8 +22,8 @@ if($type == 'loadGuest'){
     $date = safeData($_POST['date']);
     $district = safeData($_POST['district']);
     $action = safeData($_POST['action']);
-    $form = date('Y-m-d', strtotime($_POST['form']));
-    $to = date('Y-m-d', strtotime($_POST['to']));
+    $form = $_POST['form'];
+    $to = $_POST['to'];
 
     $hotelId = $_SESSION['HOTEL_ID'];
     
@@ -40,45 +40,49 @@ if($type == 'loadGuest'){
     }
 
     if($action == 'birthday'){
-        $sql .= " and birthday Like '%$form%'";
+        if($form != ''){
+            $sql .= " and birthday Like '%$form%'";
+        }
     }
 
     if($action == 'anniversay'){
-        $sql .= " and anniversary Like '%$form%'";
+        if($form != ''){
+            $sql .= " and anniversary Like '%$form%'";
+        }
     }
 
     if($search != ''){
         $sql .= " and name  LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' " ;
     }
-
+    
     $limit_per_page = $limit;
     
     $page = '';
+
     if(isset($_POST['page_no'])){
         $page = $_POST['page_no'];
     }else{
         $page = 1;
     }
     
-    
+    $totalPage = ceil(mysqli_num_rows(mysqli_query($conDB, $sql)) / $limit_per_page);
     
     $offset = ($page -1) * $limit_per_page;
     
-    $sql .= " ORDER BY id DESC ";
-    
-    // $sql .= " ORDER BY id DESC limit {$offset}, {$limit_per_page}";
-    
+    $sql .= " ORDER BY id DESC limit {$offset}, {$limit_per_page}";
+
     $html = '';
     $data =array();
 
     $query = mysqli_query($conDB, $sql);
+
     $si = $si + ($limit_per_page *  $page) - $limit_per_page;
 
     $userId = $_SESSION['ADMIN_ID'];
     $userArry = fetchData('hoteluser', ['id'=>$userId])[0];
     $userRole = $userArry['role'];
     $userAccess = (isset(fetchData('user_access', ['userId'=>$userId, 'pageId'=>5])[0])) ? fetchData('user_access', ['userId'=>$userId, 'pageId'=>5])[0]['activityRole'] :'';
-
+    
     if(mysqli_num_rows($query) > 0){
         while($row = mysqli_fetch_assoc($query)){
             $gid = $row['id'];
@@ -96,7 +100,15 @@ if($type == 'loadGuest'){
        
     }
 
-    echo json_encode(['data'=>$data, 'pagination'=>'']);
+
+
+    $paginationHtml = '';
+
+    for($i=0; $i <= $totalPage; $i++){
+        $paginationHtml .= "<li><a href='javascript:void(0)' onclick='loadGuest($i)'>$i</a></li>";
+    }
+
+    echo json_encode(['data'=>$data, 'page'=>$totalPage]);
 }
 
 if($type == 'load_add_guest'){
@@ -436,15 +448,15 @@ if($type == 'loadAddGuestReservationForm'){
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="">Birthday</label>
-                            <input type="date" name="guestBirthday" class="form-control" placeholder="Enter Address" value="'.$birthdayDate.'">
+                            <label for="guestBirthday">Birthday</label>
+                            <input type="text" id="guestBirthday" name="guestBirthday" class="form-control" placeholder="Enter Address" value="'.$birthdayDate.'">
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="">Anniversary</label>
-                            <input type="date" name="guestAnniversary" class="form-control" placeholder="Enter Anniversary" value="'.$anniversaryDate.'">
+                            <label for="guestAnniversary">Anniversary</label>
+                            <input type="text" id="guestAnniversary"  name="guestAnniversary" class="form-control" placeholder="Enter Anniversary" value="'.$anniversaryDate.'">
                         </div>
                     </div>
 

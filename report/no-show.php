@@ -56,7 +56,7 @@ $backLink = FRONT_SITE;
                             <div class="row">
                                 <div class="col-md-6">
                                     <form id="checkInFilterForm">
-                                        <div class="row justify-content-center">
+                                        <div class="row justify-content-center input-daterange">
                                             <div class="col-md-4">
                                                 <input autocomplete="off" class="form-control input-nothing date-picker" data-date-format="dd/mm/yyyy" id="SearchByDateFrom" maxlength="10" name="SearchByDateFrom" placeholder="DD/MM/YYYY" type="text" value="<?= date('d-m-Y') ?>" readonly="readonly">
                                             </div>
@@ -72,7 +72,7 @@ $backLink = FRONT_SITE;
                             </div>
                         </div>
                         <!-- Card body -->
-                        <div class="card-body">                            
+                        <div class="card-body">
                             <div id="loadReportContainer"></div>
                         </div>
                     </div>
@@ -107,13 +107,20 @@ $backLink = FRONT_SITE;
         $('.linkBtn').removeClass('active');
         $('.reportLink').addClass('active');
 
-        $('#SearchByDateFrom').datepicker({
-            format: "dd-mm-yyyy"
+        $('.input-daterange').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
         });
 
-        $('#SearchByDateFrom').on('change', function(e){
+        $('#SearchByDateFrom').on('change', function(e) {
             var date = $(this).val();
             loadNoShowReport(date);
+        });
+
+        $('#SearchByDateTo').on('change', function(e) {
+            var date = $(this).val();
+            loadNoShowReport('',date);
         });
 
         function loadNoShowReport(date = '', name = '') {
@@ -127,6 +134,7 @@ $backLink = FRONT_SITE;
                 html += `
                     <thead>
                         <tr>
+                            <th>No Show Date</th>
                             <th style="text-align:center;">Res #</th>
                             <th>Booking Date</th>
                             <th>Guest Name</th>
@@ -135,7 +143,6 @@ $backLink = FRONT_SITE;
                             <th>Rooms</th>
                             <th>Pax</th>
                             <th>Amount</th>
-                            <th>No Show Date</th>
                         </tr>
                     </thead>
 
@@ -147,10 +154,10 @@ $backLink = FRONT_SITE;
                         var roomNum = val.room_number;
                         var bookingMainId = val.bid;
                         var bookinId = val.bookinId;
-                        var checkIn = val.checkIn;
-                        var checkOut = val.checkOut;
-                        var adult = val.adult;
-                        var child = val.child;
+                        var checkIn = val.mainCheckIn;
+                        var checkOut = val.mainCheckOut;
+                        var adult = val.totalAdult;
+                        var child = val.totalChild;
                         var gNmae = val.guestName;
                         var companyName = val.companyName;
                         var addByName = val.addByDName;
@@ -165,6 +172,7 @@ $backLink = FRONT_SITE;
                         var addOn2 = moment(addOn).format('DD-MMM');
 
                         html += `<tr>
+                                <td style="text-align: center; ">${actionOn2}</td>
                                 <td style="text-align: center; ">${bookinId}</td>
                                 <td style="text-align: center; ">${addOn2}</td>
                                 <td style="text-align: center; ">${gNmae}</td>
@@ -173,7 +181,6 @@ $backLink = FRONT_SITE;
                                 <td style="">${rooms}</td>
                                 <td style="text-align: center; color:var(--pClr); "> ${adult} / ${child}</td>
                                 <td style="text-align: center; color:var(--pClr); "> ${totalPrice}</td>
-                                <td style="">${actionOn2}</td>
                             </tr>`;
                     });
                 } else {

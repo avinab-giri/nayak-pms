@@ -10953,3 +10953,42 @@ footer {
   border: 1px solid #bfbfbf;
   border-radius: 3px;
 }
+
+
+
+#guestListTableContent {
+  height: 100%;
+}
+
+#guestListTableContent #guestDataCon {
+  max-height: calc(100% - 50px);
+}
+
+#guestListTableContent #pagination {
+  height: 50px;
+}
+
+.pagination {
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #f1f1f1;
+  margin-top: 10px;
+}
+
+.paginate_button a {
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: black;
+}
+
+.paginate_button.active a{
+  background: black;
+  color: white;
+}

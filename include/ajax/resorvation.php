@@ -10,7 +10,6 @@ include(SERVER_INCLUDE_PATH . 'db.php');
 include(SERVER_INCLUDE_PATH . 'function.php');
 
 $type = '';
-// pr($_POST);
 if (isset($_POST['type'])) {
     $type = $_POST['type'];
 }
@@ -38,32 +37,33 @@ if ($type == 'load_resorvation') {
 
     $sql = reservationReturnQuery($rTabType, $currentDate, $search, $paymentStatus);
 
-
+    $limit_per_page = 21;
+    $totalPage = ceil(mysqli_num_rows(mysqli_query($conDB, $sql)) / $limit_per_page);
     // $si = 0;
     // $pagination = '';    
-    // $limit_per_page = 9;
-
-    // $page = '';
-    // if(isset($_POST['page_no'])){
-    //     $page = $_POST['page_no'];
-    // }else{
-    //     $page = 1;
-    // }
-
+    
+    $page = '';
+    if(isset($_POST['page'])){
+        $page = $_POST['page'];
+    }else{
+        $page = 1;
+    }
 
 
-    // $offset = ($page -1) * $limit_per_page;
+    $offset = ($page -1) * $limit_per_page;
 
-
+    $sql .= " limit $offset, {$limit_per_page}";
 
     $clrPreviewHtml = clrPreviewHtml();
     $html = '<div class="row">';
    
     $query = mysqli_query($conDB, $sql);
     // $si = $si + ($limit_per_page *  $page) - $limit_per_page;
+    $paginationHtml = '';
 
     if (mysqli_num_rows($query) > 0) {
         if (mysqli_num_rows($query) > 0) {
+
             while ($row = mysqli_fetch_assoc($query)) {
                 // pr($row);
                 $html .= '<div class="col-xl-3 col-md-4 col-sm-6 col-xs-12">';
@@ -109,6 +109,15 @@ if ($type == 'load_resorvation') {
 
                 $html .= '</div>';
             }
+            $paginationHtml = '<ul class="pagination">';
+            for($i =1; $i <= $totalPage ; $i ++){
+                $active = ($i == $page) ? 'active' : '';
+                $paginationHtml .= "<li class='paginate_button $active'><a href='javascript:void(0)' onclick=\"loadResorvation('','','','','',$i)\">$i</a></li>";
+
+            }
+
+            $paginationHtml .= '</ul>';
+
         } else {
             $html .= '
         
@@ -141,7 +150,7 @@ if ($type == 'load_resorvation') {
         }
     }
 
-    $html .= '</div>';
+    $html .= '</div>'. $paginationHtml;
 
     echo $html;
 }
