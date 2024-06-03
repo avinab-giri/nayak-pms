@@ -187,7 +187,20 @@ function getCheckInStatus($sid) {
     return data;
 }
 
+function getPaymentMethods(sid) {
+    var paymentMethods = {
+        '1': 'Cheque',
+        '2': 'Credit card',
+        '3': 'Debit card',
+        '4': 'NEFT/RTGS',
+        '5': 'UPI',
+        '6': 'Cash',
+        '7': 'Payment Gateway',
+        '8': 'Other'
+    };
 
+    return paymentMethods[sid] || '';
+}
 
 function getPosOrderType(id) {
     var data = '';
@@ -336,8 +349,8 @@ function success($msg) {
     return $html;
 }
 
-function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '', $page) {
-
+function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '', $page = 1) {
+    
     var rTab = $rTab;
     var search = $search;
     var reserveType = $reserveType;
@@ -355,17 +368,127 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
     $.ajax({
         url: webUrl + 'include/ajax/resorvation.php',
         type: 'post',
-        data: { type: 'load_resorvation', rTab: rTab, search: search, reserveType: reserveType, bookingType: bookingType, currentDate: currentDate,page: page },
+        data: { type: 'load_resorvation', rTab: rTab, search: search, reserveType: reserveType, bookingType: bookingType, currentDate: currentDate, page: page },
         success: function (data) {
+            var response = JSON.parse(data);
+            var resData = response.data;
+            var pagination = response.pagination;
+            var paginationList = '';
+            let paginationHtml = '';
 
-            $('#resorvationContent').html(data);
-          
-            if (window.filePath == 'stay-view') {
-                var getTime = $('#currentDateStart').val();
-                loadStayView(getTime);
-            } else {
-                reservationCountNavBar(rTab, '', currentDate);
+            page = (page == '') ? 1 : page;
+
+            if(pagination > 0){
+                for (let i = 1; i <= pagination; i++) {
+                    var active = (page == i) ? 'active' :'';
+                    paginationList += `<li class="paginate_button ${active}"><a href="javascript:void(0)" onclick="loadResorvation('all','','','','','${i}')">${i}</a></li>`;
+                }
             }
+
+            if(pagination > 0){
+                paginationHtml = `
+                    <ul class="pagination">
+                        ${paginationList}
+                    </ul>
+                `;
+            }
+
+            let tableRow = '';
+
+            if(resData.length > 0){
+                $.each(resData, (index,val)=>{
+                    let bid = val.bookingMainId;
+                    let reciptNo = generateNumber(val.reciptNo);
+                    let GuestName = val.guestName;
+                    let rooms = val.totalRooms;
+                    let bookRef = val.bookRef;
+                    let travelAgent = val.travelAgent;
+                    let checkIn = moment(val.mainCheckIn).format('DD MMM, YY');
+                    let checkOut = moment(val.mainCheckOut).format('DD MMM, YY');
+                    let checkInTime = val.checkInTime;
+                    let checkOutTime = val.checkOutTime;
+                    let checkInTimeFormat = (checkInTime != '00:00:00') ? ', '+moment(checkInTime, 'hh:mm:ss').format('LT') : '';
+                    let checkOutTimeFormat = (checkInTime != '00:00:00') ? ', '+moment(checkOutTime, 'hh:mm:ss').format('LT') : '';
+                    let night = val.nightCount;
+                    let pax = val.totalAdult + '/' + val.totalChild;
+                    let total = rupeesFormat(val.totalBookingPrice);
+
+                    let checkinstatusArray = getCheckInStatus(val.status);
+                    let statusCls = checkinstatusArray.btnCls;
+                    let statusBtn = checkinstatusArray.name;
+    
+                    let grcLink = `${webUrl}grc?id=${bid}`;
+                    let voucherLink = `${webUrl}view-voucher?id=${bid}`;
+                    let noShowBtn = (val.status == 1) ? `<li><button onclick="makeNoShowReservation(${bid})">Mark As No Show</button></li>` : '';
+                    let cancelResBtn = (val.status == 1) ? `<li><button onclick="makeCancelReservation(${bid})">Void Reservation</button></li>` : '';
+                    let addPaymentBtn = (val.status == 1) ? `<li><button onclick="loadAddPaymentForm(${bid})">Add Payment</button></li>` : '';
+
+                    tableRow += `
+                        <tr>
+                            <td>${reciptNo}</td>
+                            <td>${GuestName}</td>
+                            <td>${rooms}</td>
+                            <td>${checkIn}${checkInTimeFormat}</td>
+                            <td>${night}</td>
+                            <td>${checkOut}${checkOutTimeFormat}</td>
+                            <td>${pax}</td>
+                            <td>${total}</td>
+                            <td><span style="border-radius: 2px;" class="badge ${statusCls}">${statusBtn}</span></span></label></td>
+                            <td>${bookRef}</td>
+                            <td>${travelAgent}</td>
+                            <td><button data-tooltip-top="View Booking" onclick="viewBookingReport(${bid})"><i class="fas fa-eye"></i></button></td>
+                            <td class="no-export">
+                                <div class="customDropdown" style="display: flex;justify-content: center;">
+                                    <button class="btnCD reservationDetailActionBtn">
+                                        <span></span><span></span><span></span>
+                                    </button>
+                                    <ul>
+                                        ${noShowBtn}
+                                        ${cancelResBtn}
+                                        ${addPaymentBtn}
+                                        <li><a href="${grcLink}" target="_blank" >GRC</a></li>
+                                        <li> <a href="${voucherLink}" target="_blank">Guest Voucher</a></li>
+                                        <li><a onclick="viewBookingReport(${bid})" href="javascript:void(0)">View Booking</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+    
+                });
+            }else{
+                tableRow = `<tr><td colspan="100%">No Data</td></tr>`;
+            }
+
+
+            let html = `
+                        <table id="reservationTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Booking No</th>
+                                    <th>Guest Name</th>
+                                    <th>Rooms</th>
+                                    <th>Arrival</th>
+                                    <th>Night</th>
+                                    <th>Departure</th>
+                                    <th>Pax</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Refer to</th>
+                                    <th>Book By</th>
+                                    <th>View</th>
+                                    <th class="no-export">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRow}
+                            </tbody>
+                        </table>
+
+                        ${paginationHtml}
+            `;
+
+            $('#resorvationContent').html(html);
 
         }
     });
@@ -449,7 +572,7 @@ function loadGuest(page = '', limit=15,action='',form='',to='') {
                     var name = val.name;
                     var email = val.email;
                     var phone = val.phone;
-                    var block = (val.block == null) ? '' : val.block;
+                    var state = (val.state == null) ? '' : val.state;
                     var district = (val.district == null) ? '' : val.district;
                     var guestImg = val.guestImg;
                     var userAccess = val.userAccess;
@@ -479,7 +602,7 @@ function loadGuest(page = '', limit=15,action='',form='',to='') {
                                 <label for="guestNameCheck'.$si.'"><img class="guestImg"src="${guestImg}"> ${name} </label></td>
                                 <td data-label="Email" class="text-center">${email}</td>
                                 <td data-label="Phone" class="text-center">${phone}</td>
-                                <td data-label="Block" class="text-center">${block}</td>
+                                <td data-label="Block" class="text-center">${state}</td>
                                 <td data-label="Block" class="text-center">${district}</td>
                                 <td data-label="Action" class="iconCon ">
                                     <div class="tableCenter">
@@ -507,7 +630,7 @@ function loadGuest(page = '', limit=15,action='',form='',to='') {
                                 <th scope="col" class="text-left">Guest name</th>
                                 <th scope="col" class="text-center">Email</th>
                                 <th scope="col" class="text-center">Phone</th>
-                                <th scope="col" class="text-center">Block</th>
+                                <th scope="col" class="text-center">State</th>
                                 <th scope="col" class="text-center">District</th>
                                 <th scope="col" class="text-right"></th>
                             </tr>
@@ -1158,10 +1281,10 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
     var idName = $('.reservationTab.active').prop('id');
     var roomId = $('.selectRoomId').val();
     var guestName = $('#guestName').val();
-    var roomNum = $('.roomNumSelect').val();
     var page = window.filePath;
 
-    var roomNumArray = $('.roomNumSelect').toArray();
+    var roomNumArray = $('.selectRoomId').toArray();
+    var roomDetailArray = $('.rateTypeId').toArray();
     var errorArray = $('.error').toArray();
 
     var hasError = false;
@@ -1171,9 +1294,10 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
         if(innerHTMLContent.trim() != ''){
             hasError = true;
         }
-    });
+    });   
 
     var hasZeroValue = false;
+    var roomDetailValue = false;
 
     $.each(roomNumArray, (index, element) => {
         if (element.value === "0") {
@@ -1182,15 +1306,21 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
         }
     });
 
+    $.each(roomDetailArray, (index, element) => {
+        var innerHTMLContent = $(element).html();
+        if(element.value === "0"){
+            roomDetailValue = true;
+            return false;
+        }
+    });
+
 
     if (hasError) {
-        event.preventDefault();
-        console.log('false');
+        e.preventDefault();
     }else{
-        console.log('true');
 
-        $(this).html('Loading...');
-        $(this).addClass('disabled');
+        // $(this).html('Loading...');
+        // $(this).addClass('disabled');
 
         if (roomId == '') {
             sweetAlert("Please select Room.", "error");
@@ -1204,8 +1334,8 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
             $(this).html('Save');
             $(this).removeClass('disabled');
     
-        } else if (roomNum == 0) {
-            sweetAlert("Please Select Room Number.", "error");
+        } else if (roomDetailValue) {
+            sweetAlert("Please select Rate plan.", "error");
     
             $(this).html('Save');
             $(this).removeClass('disabled');
@@ -1223,26 +1353,26 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
                 type: 'post',
                 data: $('#addReservationForm').serialize(),
                 success: function (data) {
-                    $('#loadAddResorvation').html('').hide();
-                    $('#addReservationForm').trigger('reset');
-                    sweetAlert("Successfull Add Reservation.");
+                    // $('#loadAddResorvation').html('').hide();
+                    // $('#addReservationForm').trigger('reset');
+                    // sweetAlert("Successfull Add Reservation.");
     
-                    $(this).html('Save');
-                    $(this).removeClass('disabled');
+                    // $(this).html('Save');
+                    // $(this).removeClass('disabled');
     
-                    if (page == 'reservations') {
-                        $('#loadReservationCountContent a').removeClass('active');
-                        loadResorvation('all');
-                        $('#loadReservationCountContent #all').addClass('active');
-                        $('.nav-indicator').css({"width": "99px", "left": "45px"});
-                    }else if (page == 'walk-in'){
-                        window.location.href = `${webUrl}reservations`;
-                    }else if (page == 'stay-view'){
-                        var date = $('#currentDateStart').val();
-                        loadStayView(date);
-                    }else if(page == 'room-view'){
-                        loadRoomView();
-                    }
+                    // if (page == 'reservations') {
+                    //     $('#loadReservationCountContent a').removeClass('active');
+                    //     loadResorvation('all');
+                    //     $('#loadReservationCountContent #all').addClass('active');
+                    //     $('.nav-indicator').css({"width": "99px", "left": "45px"});
+                    // }else if (page == 'walk-in'){
+                    //     window.location.href = `${webUrl}reservations`;
+                    // }else if (page == 'stay-view'){
+                    //     var date = $('#currentDateStart').val();
+                    //     loadStayView(date);
+                    // }else if(page == 'room-view'){
+                    //     loadRoomView();
+                    // }
     
                 }
             });
@@ -3384,6 +3514,7 @@ function loadPaymentLink($date = '') {
         var html = '';
         var count = 0;
 
+                                // ${sharePaymentLinkBtn}
         if (response.length > 0) {
             Promise.all(response.map(async (val) => {
                 count++;
@@ -3448,7 +3579,6 @@ function loadPaymentLink($date = '') {
                             <td>${paymentStatusHtml}</td>
                             <td>
                                 ${editPaymentLinkBtn}
-                                ${sharePaymentLinkBtn}
                                 ${copyPaymentLink}
                             </td>
                         </tr>`;
@@ -4381,6 +4511,7 @@ $(document).on('click', '#addPaymentSubmitBtn', function (e) {
     e.preventDefault();
     var bid = $('#bid').val().trim();
     var tabData = $('#tabData').val();
+    var paidDate = $('#paidDate').val();
     var amount = $('#amountPaid').val().trim();
     var paymentMethod = $('#paymentMethod option:selected').val();
     var remark = $('#remark').val().trim();
@@ -4398,7 +4529,7 @@ $(document).on('click', '#addPaymentSubmitBtn', function (e) {
     } else if (remark == '') {
         sweetAlert('Remark is required.', 'error');
     } else {
-        var data = `request_type=guestPaymentSubmit&amount=${amount}&paymentMethod=${paymentMethod}&remark=${remark}&bid=${bid}`;
+        var data = `request_type=guestPaymentSubmit&amount=${amount}&paymentMethod=${paymentMethod}&remark=${remark}&bid=${bid}&paidDate=${paidDate}`;
         ajax_request(data).done(function (request) {
             $('#popUpModal').modal('hide');
             sweetAlert('Successfully add payment.');
@@ -4460,7 +4591,7 @@ function loadAddOrganisation(id='') {
         <div class="organisation-modal-body">
         <form action="" id="organisationForm">
             <div class="row">
-
+                <input name="actionId" type="hidden" value="${id}"/>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Name *</label>                     
@@ -4615,10 +4746,9 @@ $(document).on('click', '#submitOrganisation', function () {
 
     formData += '&type=addNewOrganisation';
 
-    var organisationname = $('#organisationname').val();
-    var orgConName = $('#orgConName').val();
-    var organisationemail = $('#organisationemail').val();
-
+    let organisationname = $('#organisationName').val();
+    let orgConName = $('#orgConName').val();
+    let organisationemail = $('#organisationemail').val();
 
     if(organisationname == ''){
         sweetAlert('Name Is Required!', 'error');
@@ -5065,17 +5195,17 @@ $(document).on('change','#bookByOther',function(){
 
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label for="bookBydistrict">District</label>
+                        <input type="text" placeholder="District" class="form-control district" name="bookBydistrict">
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label for="bookBystate">State</label>
                         <select class="customSelect" name="bookBystate" id="bookBystate">
                             ${stateHtml}
                         </select>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="bookBydistrict">District</label>
-                        <input type="text" placeholder="District" class="form-control district" name="bookBydistrict">
                     </div>
                 </div>
 
@@ -5101,6 +5231,7 @@ $(document).on('change','#bookByOther',function(){
 
 $(document).on('click', '.customDropdown .btnCD', function(e) {
     e.preventDefault();
+    $('.customDropdown ul').removeClass('show');
     $(this).siblings('ul').toggleClass('show');
 });
 
@@ -5126,3 +5257,28 @@ $(document).on('click', function(e) {
         $('.dropdown-menu').removeClass('show');
     }
 });
+
+
+$(document).on('keyup','#travelagentname', function(){
+    var name = $(this).val().trim();
+    getInputNameCheck('travel_agents',name,'travelDropDown','travelagentname');
+});
+
+$(document).on('keyup','#organisationName', function(){
+    var name = $(this).val().trim();
+    getInputNameCheck('organisations',name, 'organisationDropDown','organisationName');
+});
+
+$(document).on('change', '#billingmode', function(e){
+    var value = $(this).val();
+    
+    if(value == 'company'){
+        $('.companySection').addClass('show');
+    }else{
+        $('.companySection').removeClass('show');
+    }
+})
+
+
+
+

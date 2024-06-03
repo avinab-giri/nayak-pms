@@ -4,6 +4,9 @@ include('include/constant.php');
 include(SERVER_INCLUDE_PATH . 'db.php');
 include(SERVER_INCLUDE_PATH . 'function.php');
 
+$bid = $_GET['id'];
+
+
 
 ?>
 
@@ -16,7 +19,7 @@ include(SERVER_INCLUDE_PATH . 'function.php');
 </head>
 <body>
     
-    <?= generateDownloadInvoice('blankGRC') ?>
+    <?= generateDownloadInvoice('blankGRC', $bid) ?>
 
     <a id="btnPrint" onclick="Print();" style="display: block; padding: 5px 10px; background-color: rgb(34, 186, 160); width: 40px; text-align: center; color: rgb(255, 255, 255); margin-top: 10px; cursor: pointer; float: left; clear: both;">Print</a>
     <script>

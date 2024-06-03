@@ -14,6 +14,12 @@ function generateFolioLinkInJs(bid){
     return link;
 }
 
+function arrayToStr(arr){
+    cleanArray = arr.filter(e => e);
+
+    return cleanArray.toString();
+}
+
 function getInvoiceLink(bid){
     var link = webUrl+'invoice?id='+bid;
     return link;
@@ -79,9 +85,12 @@ function viewBookingReport($bid = '', $bdid = '') {
         var bookinId = response.bookinId;
         var bookingSource = response.bookingSource;
         var addByName = response.addByName;
+        var billingMode = response.billingMode;
         var exBd = response.exBd;
         var checkInDetail = response.checkInDetail;
         var checkOutDetail = response.checkOutDetail;
+        var compayName = response.compayName;
+        var gstno = response.gstno;
 
         var checkIn = response.checkIn;
         var checkInTime = moment(response.checkInTime, "HH:mm:ss").format("hh:mm A");
@@ -98,6 +107,7 @@ function viewBookingReport($bid = '', $bdid = '') {
         var checkOutDayStr = moment(checkOut).format('ddd');
         var checkinstatus = response.checkinstatus;
         var bussinessSource = response.bussinessSource;
+        var guestSpecialRequest = response.specialRequest;
 
         var totalPrice = response.totalPrice;
         var userPay = response.userPay;
@@ -115,18 +125,61 @@ function viewBookingReport($bid = '', $bdid = '') {
         var generateInvoiceLink = getInvoiceLink(bid);
         var voucherLink = `${webUrl}voucher.php?oid=${bid}`;
         
-        var bSourceHtml = '';
-        if (bussinessSource == 1) {
-            bSourceHtml = 'PMS';
-        } else if (bussinessSource == 2) {
-            bSourceHtml = 'BE';
-        }
+        let bSourceHtml = response.bookingSourceName;
 
         var gName = guestArray.name;
         var gEmail = guestArray.email;
+        let gWhatsAppNo = guestArray.whatsapp;
+        let gAddress = arrayToStr([guestArray.full_address, guestArray.district, guestArray.state]);
         var gPhone = guestArray.phone;
         var gImg = guestArray.profileImgFull;
         var bookDetailHtml = '';
+
+        let organitionArray = response.bookByOrga;
+        let travelAgentArray = response.bookByAgent;
+
+        let orgaName = '';
+        let orgaGst = '';
+        let orgaCPName = '';
+        let orgaCPNo = '';
+        let orgaCPEmail = '';
+        let orgaCPCity = '';
+        let orgaCPStaa = '';
+        let orgConPer = '';
+
+        let travelName = '';
+        let travelGst = '';
+        let travelCPName = '';
+        let travelCPNo = '';
+        let travelCPEmail = '';
+        let travelCPCity = '';
+        let travelCPStaa = '';
+        let travelConPer = '';
+
+        if(Object.keys(organitionArray).length > 0){
+            orgaName = (organitionArray['name']) ? organitionArray['name'] : '';
+            orgaGst = (organitionArray['organisationGstNo']) ? organitionArray['organisationGstNo'] : '';
+            orgaCPName = (organitionArray['orgConName']) ? organitionArray['orgConName'] : '';
+            orgaCPNo = (organitionArray['organisationNumber']) ? organitionArray['organisationNumber'] : '';
+            orgaCPEmail = (organitionArray['organisationEmail']) ? organitionArray['organisationEmail'] : '';
+            orgaCPCity = (organitionArray['organisationCity']) ? organitionArray['organisationCity'] : '';
+            orgaCPStaa = (organitionArray['organisationState']) ? organitionArray['organisationState'] : '';
+
+            orgConPer = arrayToStr([orgaCPName, orgaCPNo, orgaCPEmail, orgaCPCity, orgaCPStaa]);
+        }
+
+        if(Object.keys(travelAgentArray).length > 0){
+            travelName = (travelAgentArray['agentName']) ? travelAgentArray['agentName'] : '';
+            travelGst = (travelAgentArray['travelagentGstNo']) ? travelAgentArray['travelagentGstNo'] : '';
+            travelCPName = (travelAgentArray['travelagentname']) ? travelAgentArray['travelagentname'] : '';
+            travelCPNo = (travelAgentArray['travelagentPhoneno']) ? travelAgentArray['travelagentPhoneno'] : '';
+            travelCPEmail = (travelAgentArray['travelagentemail']) ? travelAgentArray['travelagentemail'] : '';
+            travelCPCity = (travelAgentArray['travelagrntCity']) ? travelAgentArray['travelagrntCity'] : '';
+            travelCPStaa = (travelAgentArray['travelagentState']) ? travelAgentArray['travelagentState'] : '';
+
+            travelConPer = arrayToStr([travelCPName, travelCPNo, travelCPEmail, travelCPCity, travelCPStaa]);
+        }
+
         $.each(roomDetailArry, function (key, val) {
             var room_number = val.room_number;
             var adult = val.adult;
@@ -210,6 +263,88 @@ function viewBookingReport($bid = '', $bdid = '') {
             `;
         });
 
+        let paymentArrayHtml = '';
+
+        $.each(response.paymentArry, (index, val)=>{
+            let amount = val.amount;
+            let addOn = moment(val.addOn).format('DD-MMM-YYYY, hh:mm A') ;
+            let paymentMethod = getPaymentMethods(val.paymentMethod);
+            let paidOn = (val.paidOn == null) ? null : moment(val.paidOn).format('DD-MMM-YYYY, hh:mm A') ;
+
+            paymentArrayHtml += `
+                    <tr>
+                        <td>${addOn}</td>
+                        <td>${paidOn}</td>
+                        <td>${paymentMethod}</td>
+                        <td>${amount}</td>
+                    </tr>
+            `;
+        });
+
+        bookDetailHtml += `
+            <li class="list-group-item data-foot">
+                <div class="row row-flex">
+                    <div class="col-md-12" style="padding-left:15px;">
+                        <div class="panel h-auto no-m-b">
+                            <div class="panel-body p-0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Add On</th>
+                                            <th>Paid On</th>
+                                            <th>Payment Method</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${paymentArrayHtml}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        `;
+
+        let companyBillHtml = '';
+        
+        if(billingMode == 'company'){
+            companyBillHtml = `<div class="col-6">
+                <div class="dFlex aic">
+                    <div class="mR10">
+                        <p class="m0">Company Name: </p>
+                        <strong style="text-transform:capitalize;">${compayName}</strong>
+                    </div>
+                    <div>
+                        <p class="m0">GST NO: </p>
+                        <strong style="text-transform:capitalize;">${gstno}</strong>
+                    </div>
+                </div>
+            </div>`
+        }
+
+        bookDetailHtml += `
+            <li class="list-group-item data-foot">
+                <div class="row row-flex">
+                    <div class="col-md-12" style="padding-left:15px;">
+                        <h4>Billing Information:</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="m0">Billing Mode: </p>
+                                <strong style="text-transform:capitalize;">${billingMode}</strong>
+                            </div>
+                            ${companyBillHtml}
+
+                            <div class="col-12">
+                                <p class="m0">Guest Special Request</p>
+                                <strong style="text-transform:capitalize;">${guestSpecialRequest}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        `;
 
         bookDetailHtml += `
             <li class="list-group-item data-foot">
@@ -224,11 +359,12 @@ function viewBookingReport($bid = '', $bdid = '') {
                     </div>
                     <div class="col col-info">
                         <span class="dib clrBlack">Pending Balance:- </span>
-			<strong class="dib fs15 clrBlue">&#x20B9; ${remeningPay}</strong>
-		   </div>
+                        <strong class="dib fs15 clrBlue">&#x20B9; ${remeningPay}</strong>
+                    </div>
                 </div>
             </li>
         `;
+
         var html = `
                 <div class="panel panel-white no-m-b">
                     <div class="panel-body no-s">
@@ -241,16 +377,25 @@ function viewBookingReport($bid = '', $bdid = '') {
                                             <h3 class="col-sm-12">Guest Name : <span>${gName}</span></h3>
                                         </div>
                                         <div class="row">
+                                            <label class="col-sm-12">Whatsapp No : <span>${gWhatsAppNo}</span></label>
+                                        </div>
+                                        <div class="row">
                                             <label class="col-sm-12">Phone : <span>${gPhone}</span></label>
                                         </div>
                                         <div class="row">
                                             <label class="col-sm-12">Email : <span>${gEmail}</span></label>
                                         </div>
                                         <div class="row">
-                                            <label class="col-sm-12">Organisation : <span></span></label>
+                                            <label class="col-sm-12">Address : <span>${gAddress}</span></label>
                                         </div>
                                         <div class="row">
-                                            <label class="col-sm-12">GST : <span></span></label>
+                                            <label class="col-sm-12">Organisation : <span>${orgaName}</span> </label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-12">GST : <span>${orgaGst}</span></label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-sm-12">Contact Person : <span>${orgConPer}</span></label>
                                         </div>
 
                                         <div class="row">
@@ -289,7 +434,7 @@ function viewBookingReport($bid = '', $bdid = '') {
                                                 </div>
                                                 <div class="dFlex aic">
                                                     <label>Travel Agent</label>
-                                                    <label><strong class="fs15"></strong></label>
+                                                    <label><strong class="fs15">${travelName}</strong></label>
                                                 </div>
                                                 <div class="dFlex aic">
                                                     <label>User :</label>
@@ -2977,6 +3122,11 @@ function loadAddPaymentForm($bId = '', tab = '') {
                 </div>
 
                 <div class="form-group">
+                    <label for="paidDate" class="form-control-label">Paid Date</label>
+                    <input class="form-control" type="datetime-local" id="paidDate" >
+                </div>
+
+                <div class="form-group">
                     <label for="remark" class="form-control-label">Remark</label>
                     <input class="form-control" type="text" value="" id="remark" placeholder="Enter bill no, UPI ID etc">
                 </div>
@@ -4668,21 +4818,56 @@ function addTravelAgentForm(id=''){
     var data = `request_type=addTravelAgentForm&id=${id}`;
     var title = (id == '') ? 'Add Travel Agent' : 'Update Travel Agent';
     ajax_request(data).done(function(request) {
-
+        var response = JSON.parse(request);
+        var states = response.states;
+        var data = response.data;
+        
+        var agentName = (data.agentName) ? data.agentName : '';
+        var travelagentname = (data.travelagentname) ? data.travelagentname : '';
+        var travelagentemail = (data.travelagentemail) ? data.travelagentemail : '';
+        var travelagentAddress = (data.travelagentAddress) ? data.travelagentAddress : '';
+        var travelagrntCity = (data.travelagrntCity) ? data.travelagrntCity : '';
+        var travelagentCountry = (data.travelagentCountry) ? data.travelagentCountry : '';
+        var travelagentPostCode = (data.travelagentPostCode) ? data.travelagentPostCode : '';
+        var travelagentPhoneno = (data.travelagentPhoneno) ? data.travelagentPhoneno : '';
+        var travelagentGstNo = (data.travelagentGstNo) ? data.travelagentGstNo : '';
+        var travelagentcommission = (data.travelagentcommission) ? data.travelagentcommission : 0; 
+        var travelaaagentGstonCommision = (data.travelaaagentGstonCommision) ? data.travelaaagentGstonCommision : 0;
+        var travelaaagentTcs = (data.travelaaagentTcs) ? data.travelaaagentTcs : 0; 
+        var travelaaagentTds = (data.travelaaagentTds) ? data.travelaaagentTds : 0; 
+        var travelagentNote = (data.travelagentNote) ? data.travelagentNote : '';
+        var travelagentState = (data.travelagentState) ? data.travelagentState : '';
+        
+        var statesHtml = '<option value="">Select ...</option>';
+        let travelagentGroupHtml = '';
+        
+        $.each(states, (index,val)=>{
+            var active = (val == travelagentState) ? 'selected' : '';
+            statesHtml += `<option ${active} value="${val}">${val}</option>`;
+        })
+        
+        $.each(response.group, (key,val)=>{
+            var active = (val.id == response.group) ? 'selected' : '';
+            travelagentGroupHtml += `<option ${active} value="${val.id}">${val.name}</option>`;
+        })
+        
+        
+        
         html =`
-            <form action="" id="travelagent-add-form">
+            <form action="" id="travelagent-add-form" autocomplete="off">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Name <span class="requireSym">*</span></label>
-                            <input type="text" placeholder="Travel Agent Name" class="form-control" name="travelagentname" id="travelagentname">
-
+                            <input type="text" placeholder="Travel Agent Name" class="form-control" name="travelagentname" id="travelagentname" value="${agentName}">
+                            <input name="actionId" type="hidden" value="${id}"/>
+                            <ul id="travelDropDown" class="inputDropDown"></ul >
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label" for="taConPerson">Contact person Name<span class="requireSym">*</span></label>
-                            <input type="text" placeholder="Contact person Name" class="form-control" name="taConPerson" id="taConPerson">
+                            <input type="text" placeholder="Contact person Name" class="form-control" name="taConPerson" id="taConPerson" value="${travelagentname}">
 
                         </div>
                     </div>
@@ -4690,8 +4875,7 @@ function addTravelAgentForm(id=''){
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Email</label>
-                            <input type="text" placeholder="Travel Agent Email" class="form-control" name="travelagentemail">
-
+                            <input type="text" placeholder="Travel Agent Email" class="form-control" name="travelagentemail" value="${travelagentemail}">
                         </div>
                     </div>
 
@@ -4699,16 +4883,28 @@ function addTravelAgentForm(id=''){
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="" class="control-label">Address</label>
-                            <input type="text" placeholder="Address" name="travelagentAddress" class="form-control">
+                            <label for="" class="control-label">Group</label>
+                            <select class="customSelect" name="travelagentGroup" id="travelagentGroup">
+                                <option value="">Select Group</option>
+                                ${travelagentGroupHtml}
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="" class="control-label">Address</label>
+                            <input id="travelagentAddress" type="text" placeholder="Address" name="travelagentAddress" class="form-control" value="${travelagentAddress}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="" class="control-label">City</label>
-                            <input type="text" placeholder="City" name="travelagrntCity" class="form-control">
+                            <input id="travelagrntCity" type="text" placeholder="City" name="travelagrntCity" class="form-control" value="${travelagrntCity}">
                         </div>
                     </div>
                 </div>
@@ -4718,13 +4914,15 @@ function addTravelAgentForm(id=''){
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">State</label>
-                            <input type="text" placeholder="State" name="travelagentState" class="form-control">
+                            <select id="travelagentState" name="travelagentState" class="customSelect">
+                                ${statesHtml}
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">Country</label>
-                            <input type="text" name="travelagentCountry" placeholder="Country" class="form-control">
+                            <input id="travelagentCountry" type="text" name="travelagentCountry" placeholder="Country" class="form-control" value="${travelagentCountry}">
                         </div>   
                     </div>
                 </div>
@@ -4732,13 +4930,13 @@ function addTravelAgentForm(id=''){
                     <div class="col-md-6">
                         <div class="form-group">
                             <laabel class="control-label">Post Code</laabel>
-                            <input type="text" name="travelagentPostCode" placeholder="Post Code" class="form-control">
+                            <input id="travelagentPostCode" type="text" name="travelagentPostCode" placeholder="Post Code" class="form-control" value="${travelagentPostCode}">
                         </div>   
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">Phone Number <span class="requireSym">*</span></label>
-                            <input type="text" name="travelagentPhoneno" id="travelagentPhoneno" placeholder="eg:+91 ***** *****" class="form-control">
+                            <input type="text" name="travelagentPhoneno" id="travelagentPhoneno" placeholder="eg:+91 ***** *****" class="form-control" value="${travelagentPhoneno}">
                         </div>
                     </div>
                 
@@ -4747,7 +4945,7 @@ function addTravelAgentForm(id=''){
                 <div class="row">
                     <div class="form-group">
                         <label for="" class="control-label">GST Number</label>
-                        <input type="text" class="form-control" placeholder="Enter Your Gst Number" name="travelagentGstNo">
+                        <input id="travelagentGstNo" type="text" class="form-control" placeholder="Enter Your Gst Number" name="travelagentGstNo" value="${travelagentGstNo}">
                     </div>
                 </div>
 
@@ -4755,13 +4953,13 @@ function addTravelAgentForm(id=''){
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">Commission</label>
-                            <input type="number" name="travelagentcommission" value="0" class="form-control">
+                            <input type="number" name="travelagentcommission" value="0" class="form-control" value="${travelagentcommission}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">GST On Commission</label>
-                            <input type="number" class="form-control" value="0" name="travelaaagentGstonCommision">
+                            <input type="number" class="form-control" value="0" name="travelaaagentGstonCommision" value="${travelaaagentGstonCommision}">
                         </div>
                     </div>
                 </div>
@@ -4770,20 +4968,20 @@ function addTravelAgentForm(id=''){
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">TCS</label>
-                            <input type="number" class="form-control" value="0" name="travelaaagentTcs">
+                            <input type="number" class="form-control" value="0" name="travelaaagentTcs" value="${travelaaagentTcs}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="" class="control-label">TDS</label>
-                            <input type="number" class="form-control" value="0" name="travelaaagentTds">
+                            <input type="number" class="form-control" value="0" name="travelaaagentTds" value="${travelaaagentTds}">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
                         <label for="" class="control-label">Notes</label>
-                        <input type="text" class="form-control" placeholder="Enter Note" name="travelagentNote">
+                        <input type="text" class="form-control" placeholder="Enter Note" name="travelagentNote" value="${travelagentNote}">
                     </div>
                 </div>
 
@@ -4801,29 +4999,66 @@ function addCompanyForm(id=''){
     var data = `request_type=addCompanyForm&id=${id}`;
     var title = (id == '') ? 'Add Company' : 'Update Company';
     ajax_request(data).done(function(request) {
+        
+        var response = JSON.parse(request);
+        var states = response.states;
+        var data = response.data;
+        
+        var orgId = (data.id) ? data.id : '';
+        var name = (data.name) ? data.name : '';
+        var orgConName = (data.orgConName) ? data.orgConName : '';
+        var organisationAddress = (data.organisationAddress) ? data.organisationAddress : '';
+        var organisationCity = (data.organisationCity) ? data.organisationCity : '';
+        var organisationCountry = (data.organisationCountry) ? data.organisationCountry : '';
+        var organisationDiscount = (data.organisationDiscount) ? data.organisationDiscount : 0; // assuming discount is numeric
+        var organisationEmail = (data.organisationEmail) ? data.organisationEmail : '';
+        var organisationGstNo = (data.organisationGstNo) ? data.organisationGstNo : '';
+        var organisationNote = (data.organisationNote) ? data.organisationNote : '';
+        var organisationNumber = (data.organisationNumber) ? data.organisationNumber : '';
+        var organisationPostCode = (data.organisationPostCode) ? data.organisationPostCode : '';
+        var organisationState = (data.organisationState) ? data.organisationState : '';
+        var ratePlan = (data.ratePlan) ? data.ratePlan : '';
+        var salesManager = (data.salesManager) ? data.salesManager : '';
+        
+        var rateList = '';
+        var ratePlan = response.ratePlan;
+        
+        $.each(ratePlan, (key,val)=>{
+            var name = val.srtcode;
+            var id = val.id;
+            rateList += `<option value="${id}">${name}</option>`;
+        })
+        
+        var statesHtml = '<option value="">Select ...</option>';
+        
+        $.each(states, (index,val)=>{
+            var active = (val == organisationState) ? 'selected' : '';
+            statesHtml += `<option ${active} value="${val}">${val}</option>`;
+        })
 
-        html =`
-        <form action="" id="organisationForm">
+    html =`
+        <form action="" id="organisationForm" autocomplete="off">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Name</label>                     
-                        <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname">
-            
+                        <label for="organisationName" class="control-label">Name *</label>                     
+                        <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname" value="${name}" id="organisationName">
+                        <input name="actionId" type="hidden" value="${id}"/>
+                        <ul id="organisationDropDown" class="inputDropDown"></ul >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Contact person Name</label>                     
-                        <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName">
+                        <label class="control-label">Contact Person Name *</label>                     
+                        <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName" id="orgConName" value="${orgConName}">
             
                     </div>
                 </div>
             
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Email</label>                     
-                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail">
+                        <label class="control-label">Email *</label>                     
+                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail" id="organisationemail" value="${organisationEmail}">
             
                     </div>
                 </div>           
@@ -4835,7 +5070,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Address</label>                     
-                        <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress">
+                        <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress" value="${organisationAddress}">
             
                     </div>
                 </div>
@@ -4843,7 +5078,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">City</label>                     
-                        <input type="text" placeholder="City" class="form-control" name="organisationcity">
+                        <input type="text" placeholder="City" class="form-control" name="organisationcity" value="${organisationCity}">
             
                     </div>
                 </div>
@@ -4856,15 +5091,16 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">State</label>                     
-                        <input type="text" placeholder="State" class="form-control" name="organisationState">
-            
+                        <select id="organisationState" name="organisationState" class="customSelect">
+                                ${statesHtml}
+                        </select>
                     </div>
                 </div>
             
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Country</label>                     
-                        <input type="text" placeholder="Country" class="form-control" name="organisationCountry">
+                        <input id="organisationCountry" type="text" placeholder="Country" class="form-control" name="organisationCountry" value="${organisationCountry}">
             
                     </div>
                 </div>
@@ -4877,7 +5113,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Post Code</label>                     
-                        <input type="text" placeholder="Post Code" class="form-control" name="organisationPostCode">
+                        <input id="organisationPostCode" type="text" placeholder="Post Code" class="form-control" name="organisationPostCode" value="${organisationPostCode}">
             
                     </div>
                 </div>
@@ -4885,7 +5121,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Phone Number</label>                     
-                        <input type="text" placeholder="eg:+91 ***** *****" class="form-control" name="organisationNumber">
+                        <input type="text" placeholder="eg:+91 ***** *****" class="form-control" name="organisationNumber" value="${organisationNumber}">
             
                     </div>
                 </div>
@@ -4898,7 +5134,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">GST Number</label>                     
-                        <input type="text" id="gstNoField" placeholder="GST Number" class="form-control" name="organisationGstNo">
+                        <input type="text" id="gstNoField" placeholder="GST Number" class="form-control" name="organisationGstNo" value="${organisationGstNo}">
             
                     </div>
                 </div>       
@@ -4924,7 +5160,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Sales Manager</label>                  
-                        <input type="text" id="salesManager" placeholder="Sales Manager" class="form-control" name="salesManager">
+                        <input type="text" id="salesManager" placeholder="Sales Manager" class="form-control" name="salesManager" value="${salesManager}">
                     </div>
                 </div>
             
@@ -4939,8 +5175,7 @@ function addCompanyForm(id=''){
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Discount</label>       
-            
-                        <input type="number" placeholder="eg:5%" class="form-control" name="organisationDiscount">
+                        <input type="number" placeholder="eg:5%" class="form-control" name="organisationDiscount" value="${organisationDiscount}">
                     </div>
                 </div>
             
@@ -4948,7 +5183,7 @@ function addCompanyForm(id=''){
                     <div class="form-group">
                         <label class="control-label">Notes</label>                     
                                         
-                        <input type="text" placeholder="note" class="form-control" name="organisationNote">
+                        <input type="text" placeholder="note" class="form-control" name="organisationNote" value="${organisationNote}">
                                                     
             
                     
@@ -5496,3 +5731,77 @@ function userAccessChange(userId,pageId,element){
         }
     })
 }
+
+function getInputNameCheck(type,name,targetId,returnTargetId=''){
+    
+    if(name.length > 2){
+        var data = `request_type=getInputNameCheck&name=${name}&type=${type}`;
+        ajax_request(data).done(function(request) {
+            var response = JSON.parse(request);
+            let listHtml = '';
+            
+            if(response.length > 0){
+                $.each(response, (key,val)=>{
+                    let agentName = ''
+                    if(type == 'travel_agents'){
+                        agentName = val.agentName;
+                    }
+                    if(type == 'organisations'){
+                        agentName = val.name;
+                    }
+                    const onClickAction = (returnTargetId == '') ? '' : `onclick="setValue('${returnTargetId}','${agentName}', '${targetId}', '${type}')"`;
+                    listHtml += `<li ${onClickAction} >${agentName}</li>`;
+                });
+                $(`#${targetId}`).addClass('show');
+            }else{
+                $(`#${targetId}`).removeClass('show');
+            }
+            
+            $(`#${targetId}`).html(listHtml);
+            
+        })
+    }else{
+        $(`#${targetId}`).removeClass('show');
+    }
+}
+
+function setValue(targetId, setValue,actionId='',type = ''){
+    var data = `request_type=setValue&type=${type}&type=${type}&setValue=${setValue}`;
+
+    ajax_request(data).done(function(request) {
+        var response = JSON.parse(request);
+        var responseData = response[0];
+        let listHtml = '';
+
+        $(`#${targetId}`).val(`${setValue}`);
+        if(actionId != ''){
+            $(`#${actionId}`).removeClass('show');
+        }
+
+        if(type == 'travel_agents'){
+            let travelagentState = responseData.travelagentState;
+            let travelagentCountry = responseData.travelagentCountry;
+            let travelagentPostCode = responseData.travelagentPostCode;
+            $('#travelagentState').val(travelagentState).attr('selected', true);
+            $('#travelagentCountry').val(travelagentCountry);
+            $('#travelagentPostCode').val(travelagentPostCode);
+        }
+
+        if(type == 'organisations'){
+            let organisationCountry = responseData.organisationCountry;
+            let organisationState = responseData.organisationState;
+            let organisationPostCode = responseData.organisationPostCode;
+
+            $('#organisationState').val(organisationState).attr('selected', true);
+            $('#organisationCountry').val(organisationCountry);
+            $('#organisationPostCode').val(organisationPostCode);
+        }
+
+        
+        
+    })
+
+    
+}
+
+

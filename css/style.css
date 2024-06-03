@@ -26,6 +26,10 @@ body {
   font-size: 14px;
 }
 
+p, strong{
+  color: #000;
+}
+
 img {
   max-width: 100%;
 }
@@ -42,6 +46,10 @@ img {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+a.hcw:hover{
+  color: white !important;
 }
 
 .scrolableTable {
@@ -1092,7 +1100,8 @@ table tbody tr:hover .tableHide {
   display: none;
 }
 table tbody tr:hover .tableHoverShow {
-  display: block;
+  display: flex;
+  align-items: center;
 }
 table tbody tr:hover label {
   color: #000000;
@@ -1262,6 +1271,7 @@ table.dummystuf tr:nth-child(even) {
 #resorvationContent a {
   position: relative;
   z-index: 5;
+  margin-right: 3px;
 }
 
 .reservationContent,
@@ -10813,7 +10823,7 @@ footer {
 
 .customDropdown ul {
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + -1px);
   right: 0;
   width: max-content;
   height: auto;
@@ -10831,7 +10841,7 @@ footer {
   text-align: left;
 }
 
-.customDropdown ul button {
+.customDropdown ul button,.customDropdown ul a {
   border: none;
   display: block;
   width: 100%;
@@ -10847,7 +10857,7 @@ footer {
   display: block;
 }
 
-.customDropdown li button:hover {
+.customDropdown li button:hover,.customDropdown li a:hover {
   background: #ededed;
   opacity: 1;
 }
@@ -10991,4 +11001,88 @@ footer {
 .paginate_button.active a{
   background: black;
   color: white;
+}
+
+
+.inputDropDown {
+    position: absolute;
+    background: #ffc9c9;
+    z-index: 2;
+    border: 1px solid #ff8e8e;
+    width: 100%;
+    border-radius: 3px;
+    margin-top: 2px;
+    box-shadow: 0 0 20px #d9d9d9;
+    transform: translateY(15px);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.inputDropDown.show{
+    transform: translateY(0px);
+    opacity: 1;
+    visibility: visible;
+}
+
+.inputDropDown li {
+    display: block;
+    padding: 5px 10px 5px;
+    border-bottom: 1px solid #e3e3e3;
+    cursor: pointer;
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .03em;
+}
+
+.inputDropDown li:last-child {
+    border-bottom: none;
+}
+
+.inputDropDown li:hover {
+    background: #ff9090;
+}
+
+#occupancyDatePick {
+  background: #ebebeb;
+  height: 30px;
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;
+  padding: 0 8px;
+  width: 125px;
+  text-align: center;
+  letter-spacing: .1em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+}
+
+#occupancyDatePick:focus-visible{
+  border: 1px solid #cfcfcf;
+  outline: none;
+}
+
+#occupancyDatePick:hover{
+  background: #cfcfcf;
+}
+
+.span-badge {
+  background: #007adb;
+  color: #ffffff;
+  border: 1px solid #0566b3;
+  font-weight: 700;
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.companySection{
+  display: none;
+}
+
+.companySection.show{
+  display: block;
 }

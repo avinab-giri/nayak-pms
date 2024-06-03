@@ -37,10 +37,10 @@ if ($type == 'load_resorvation') {
 
     $sql = reservationReturnQuery($rTabType, $currentDate, $search, $paymentStatus);
 
-    $limit_per_page = 21;
+    $limit_per_page = 20;
     $totalPage = ceil(mysqli_num_rows(mysqli_query($conDB, $sql)) / $limit_per_page);
-    // $si = 0;
-    // $pagination = '';    
+
+    $pagination = '';    
     
     $page = '';
     if(isset($_POST['page'])){
@@ -58,101 +58,63 @@ if ($type == 'load_resorvation') {
     $html = '<div class="row">';
    
     $query = mysqli_query($conDB, $sql);
-    // $si = $si + ($limit_per_page *  $page) - $limit_per_page;
-    $paginationHtml = '';
 
-    if (mysqli_num_rows($query) > 0) {
-        if (mysqli_num_rows($query) > 0) {
+    $resData = array();
+    while($row = mysqli_fetch_assoc($query)){
+        $bid  = $row['bookingMainId'];
+        $checkIn  = $row['mainCheckIn'];
+        $checkOut  = $row['mainCheckOut'];
+        $bookingDetailArray = fetchData('bookingdetail', ['bid'=> $bid]);
+        $guestArray = (isset(fetchData('guest', ['bookId'=>$bid, 'groupadmin' => 1])[0])) ? fetchData('guest', ['bookId'=>$bid, 'groupadmin' => 1])[0] : [];
+        $totalAdult = 0;
+        $totalChild = 0;
+        $totalBookingPrice = 0;
+        $totalExBd = 0;
+        $totalRooms = count($bookingDetailArray);
+        $bookingByArray = (isset(fetchData('bookingby', ['bid' => $bid])[0])) ? fetchData('bookingby', ['bid' => $bid])[0] : [];
+        $travelId = $bookingByArray['travelType'];
+        $organizationId = $bookingByArray['organizationId'];
 
-            while ($row = mysqli_fetch_assoc($query)) {
-                // pr($row);
-                $html .= '<div class="col-xl-3 col-md-4 col-sm-6 col-xs-12">';
-                $bid = $row['bookingMainId'];
-                $bookinId = $row['bookinId'];
-                $reciptNo = $row['reciptNo'];
-                $userPay = $row['userPay'];
-                $checkIn = $row['checkIn'];
-                $checkOut = $row['checkOut'];
-                $nroom = $row['nroom'];
-                $couponCode = $row['couponCode'];
+        $travelAgent = '';
 
-                $pickUp = $row['pickUp'];
-                $payment_status = $row['payment_status'];
-                $payment_id = $row['payment_id'];
-                $bookingSource = $row['bookingSource'];
-                $add_on = $row['add_on'];
-                $bookingDetailMainId = '';
-                if (isset($row['bookingDetailMainId'])) {
-                    $bookingDetailMainId = $row['bookingDetailMainId'];
-                }
-                $addBy = explode(',', $row['addBy']);
-                $maxAddBy = count($addBy);
-                $addByValue = $addBy[$maxAddBy - 1];
-                $addByValueArr = explode('_', $addByValue);
-
-                $bookingDetailArray = getBookingDetailById($bid);
-
-                $grossCharge = $bookingDetailArray['totalPrice'];
-                $gname = $bookingDetailArray['name'];
-                $nAdult = $bookingDetailArray['totalAdult'];
-                $nChild = $bookingDetailArray['totalChild'];
-                $checkinStatusArray = $bookingDetailArray['checkinStatusArray'][0];
-
-                $statusArray = [
-                    'name' => $checkinStatusArray['name'],
-                    'bg' => $checkinStatusArray['bg'],
-                    'clr' => $checkinStatusArray['color'],
-                ];
-
-
-                $html .= reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $add_on, $nAdult, $nChild, $grossCharge, $userPay, 'yes', $rTabType, $bookingDetailMainId, '', $bookingSource, '', $bookinId, $statusArray);
-
-                $html .= '</div>';
-            }
-            $paginationHtml = '<ul class="pagination">';
-            for($i =1; $i <= $totalPage ; $i ++){
-                $active = ($i == $page) ? 'active' : '';
-                $paginationHtml .= "<li class='paginate_button $active'><a href='javascript:void(0)' onclick=\"loadResorvation('','','','','',$i)\">$i</a></li>";
-
-            }
-
-            $paginationHtml .= '</ul>';
-
-        } else {
-            $html .= '
-        
-                <div class="noDataContent">
-                    <div class="content">
-                        <h4>No Data</h4>
-                    </div>
-                </div>
-            
-            ';
+        if($travelId != 0){
+            $travelArray = fetchData('travel_agents', ['id' => $travelId]);
+            $travelAgent = (isset($travelArray[0])) ? $travelArray[0]['agentName'] : '';
         }
-    } else {
-        if ($rTabType == 'all') {
-            $html .= '
-                <div class="noDataContent">
-                    <div class="content">
-                        <h4>No Data</h4>
-                        <a href="'.$newResLink.'" id="noDataClickToReservation" class="btn bg-gradient-info">Add Reservation</a>
-                    </div>
-                </div>
-            ';
-        } else {
-            $html .= '
-            <div class="noDataContent">
-                <div class="content">
-                    <h4>No Data</h4>                      
-                </div>
-            </div>
-        ';
+
+        if($organizationId != 0){
+            $organizationArray = fetchData('organisations', ['id' => $organizationId]);
+            $travelAgent = (isset($organizationArray[0])) ? $organizationArray[0]['name'] : '';
         }
+
+        foreach($bookingDetailArray as $item){
+            $totalAdult += $item['adult'];
+            $totalChild += $item['child'];
+            $totalExBd += $item['exBd'];
+            $totalBookingPrice += $item['totalPrice'];
+        }
+
+        $advanceArray = [
+            'totalAdult'=>intval($totalAdult),
+            'totalChild'=>intval($totalChild),
+            'totalBookingPrice'=>intval($totalBookingPrice),
+            'totalExBd'=>intval($totalExBd),
+            'totalRooms'=>intval($totalRooms),
+            'nightCount'=> getNightCountByDay($checkIn,$checkOut),
+            'guestName' => (isset($guestArray['name'])) ? $guestArray['name'] : '',
+            'bookRef'=> (isset($bookingByArray['name'])) ? $bookingByArray['name'] : '',
+            'travelAgent'=> $travelAgent,
+        ];
+
+        $resData[]= array_merge($row, $advanceArray);
     }
 
-    $html .= '</div>'. $paginationHtml;
-
-    echo $html;
+    $data = [
+        'pagination'=>$totalPage,
+        'data'=>$resData
+    ];
+    
+    echo json_encode($data);
 }
 
 if ($type == 'bookingreport') {
@@ -565,7 +527,7 @@ if ($type == 'getRoomDetailByRoomNo') {
 
         $html .= '
             <tr>
-                <td class="pr10">
+                <td>
                     <div class="form-group">
                         <select class="customSelect" name="selectRoom[]" data-rno="' . $i . '">
                             <option value="0" selected>-Select Room</option>
@@ -573,7 +535,12 @@ if ($type == 'getRoomDetailByRoomNo') {
                         </select>
                     </div>
                 </td>
-                <td class="pr10">
+                <td>
+                    <div class="form-group">
+                        <input name="numberOfRooms[]" class="form-control" type="number" min="1" value="1"/>
+                    </div>
+                </td>
+                <td>
                     <div class="form-group">
                         <select class="customSelect" name="selectRateType[]" ' . $disabled . ' data-rno="' . $i . '">
                             <option value="" selected>-Select</option>
@@ -581,23 +548,23 @@ if ($type == 'getRoomDetailByRoomNo') {
                         </select>
                     </div>
                 </td>
-                <td class="pr10">
+                <td>
                     <div class="form-group">
                         <input class="form-control" type="number" min="0" value="0" placeholder="" name="selectAdult[]">
                     </div>
                 </td>
-                <td class="pr10">
+                <td>
                     <div class="form-group">
                         <input class="form-control" type="number" min="0" value="0" name="selectChild[]">
                     </div>
                 </td>
-                <td class="pr10">
+                <td >
                     <div class="form-group">
                         <input class="form-control" type="number" min="0" value="0" name="extraBD[]">
                     </div>
                 </td>
 
-                <td class="pr10">
+                <td >
                     <div class="form-group">
                         <select class="customSelect roomGst" name="roomGst[]" id="">
                             <option value="0">0</option>
@@ -1380,11 +1347,13 @@ if ($type == 'add_travelagent') {
     $travelaaagentTcs = $_POST["travelaaagentTcs"];
     $travelaaagentTds = $_POST["travelaaagentTds"];
     $travelagentNote = $_POST["travelagentNote"];
+    $travelagentGroup = $_POST["travelagentGroup"];
+    $actionId = $_POST["actionId"];
 
-    $result = setTraveAgentData($travelagentname,$taConPerson, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote);
+    $result = setTraveAgentData($travelagentname,$taConPerson, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote,$travelagentGroup,$actionId);
     
     $data = [
-        'status'=> 'error',
+        'status'=> 'success',
         'id'=> 0,
         'name'=>''
     ];
@@ -1402,6 +1371,7 @@ if ($type == 'add_travelagent') {
 
 if ($type == 'addNewOrganisation') {
 
+    $actionId = $_POST['actionId'];
     $oConPerName = $_POST['oConPerName'];
     $organisationName = $_POST['organisationname'];
     $organisationEmail = $_POST['organisationemail'];
@@ -1417,9 +1387,9 @@ if ($type == 'addNewOrganisation') {
     $organisationDiscount = ($_POST['organisationDiscount'] == '') ? 0 : $_POST['organisationDiscount'];
     $organisationNote = $_POST['organisationNote'];
     $data = array();
-
-    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote);
-
+    
+    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote,$actionId);
+    
     $data = [
         'status'=>'error',
         'id'=>'',

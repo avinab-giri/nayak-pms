@@ -458,6 +458,7 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
     $bDate = date('d-M', strtotime($bDate));
     $hotelVoucerLink = FRONT_SITE . '/voucher?vid=' . $bid;
     $guestVoucerLink = FRONT_SITE . '/view-voucher?id=' . $bid;
+    $grcLink = FRONT_SITE . '/grc?id=' . $bid;
     $emailLink = FRONT_SITE . '/email_send?oid=' . $bid;
     $actionBtn = '';
 
@@ -488,7 +489,7 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
                     </div>
                     <div class='dFlex aic jcsb item withHover'>
                         <ul>                        
-                            <li><a href='javascript:void(0)' class='sendMailToGuest' data-oid='".$bid."' data-tooltip-top='Email'><i class='far fa-envelope-open'></i></a></li>
+                            <li><a href='$grcLink' target='_blank' data-oid='".$bid."' data-tooltip-top='GRC'><i class='fas fa-print'></i></a></li>
                             <li><a href='$guestVoucerLink' target='_blank' data-tooltip-top='Guest Voucher'><i class='far fa-file-alt'></i></a></li>
                         </ul>
                         $viewDetailBtn
@@ -587,7 +588,7 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
                                 </div>
                             </li>
                             <li class='dFlex aic jcc fdc dif wAuto'>
-                                <small>Check In</small>
+                                <small>Arrival </small>
                                 <div class='dFlex aic jcc fdc dif wAuto badge badge-success item'>
                                     <span>$checkInMonth</span>
                                     <strong>$checkInDay</strong>
@@ -601,7 +602,7 @@ function reservationContentView($bid, $reciptNo, $gname, $checkIn, $checkOut, $b
                                 </div>
                             </li>
                             <li class='dFlex aic jcc fdc dif wAuto'>
-                                <small>Check Out</small>
+                                <small>Departure </small>
                                 <div class='dFlex aic jcc fdc dif wAuto badge badge-danger item'>
                                     <span>$checkOutMonth</span>
                                     <strong>$checkOutDay</strong>

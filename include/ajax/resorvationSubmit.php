@@ -45,6 +45,7 @@ $roomGst = $_POST['roomGst'];
 $roomPriceArray = $_POST['totalPrice'];
 $totalPriceWithGstArray = $_POST['totalPriceWithGst'];
 $extraBDArray = $_POST['extraBD'];
+$numberOfRoomsarray = $_POST['numberOfRooms'];
 
 $travelagent = $_POST['travelagent'];
 $bookByName = (isset($_POST['bookByName'])) ? $_POST['bookByName'] : '';
@@ -56,6 +57,8 @@ $bookByblock = (isset($_POST['bookByblock'])) ? $_POST['bookByblock'] : '';
 $bookBydistrict = (isset($_POST['bookBydistrict'])) ? $_POST['bookBydistrict'] : '';
 $bookBystate = (isset($_POST['bookBystate'])) ? $_POST['bookBystate'] : '';
 $bookByAddress = (isset($_POST['bookByAddress'])) ? $_POST['bookByAddress'] : '';
+$companyName = (isset($_POST['companyName'])) ? $_POST['companyName'] : '';
+$gstnumber = (isset($_POST['gstnumber'])) ? $_POST['gstnumber'] : '';
 
 $checkInTime = (isset($_POST['checkInTime'])) ? $_POST['checkInTime'] : '';
 $checkOutTime = (isset($_POST['checkOutTime'])) ? $_POST['checkOutTime'] : '';
@@ -71,6 +74,8 @@ $pinCode = safeData($_POST['pinCode']);
 $block = (isset($_POST['block'])) ? safeData($_POST['block']) : '';
 $district = safeData($_POST['district']);
 $state = safeData($_POST['state']);
+$communication = (isset($_POST['communication'])) ? $_POST['communication'] : [];
+$specialCare = safeData($_POST['specialCare']);
 
 
 $paymentMethod = ($_POST['paymentMethod'] == '') ? 0 : safeData($_POST['paymentMethod']);
@@ -86,6 +91,7 @@ $reciptNo = generateRecipt();
 $addBy = dataAddBy();
 
 $billingMode = safeData($_POST['billingmode']);
+$staffName = safeData($_POST['staffName']);
 $organisation = safeData($_POST['organisation']);
 $gstnumber = safeData($_POST['gstnumber']);
 $travelagent = (isset($_POST['travelagent'])) ? safeData($_POST['travelagent']) : '';
@@ -110,6 +116,9 @@ $bookingDataArray = [
     'checkOutTime' => $checkOutTime,
     'checkInDetail' => $arrDetails,
     'checkOutDetail' => $depDetails,
+    'compayName' => $companyName,
+    'gstno' => $gstnumber,
+    'specialRequest' => $specialRequest,
 ];
 
 $lastId = insertData('booking', $bookingDataArray);
@@ -119,6 +128,7 @@ $bookByArray = [
     'bid' => $lastId,
     'hotelId' => $_SESSION['HOTEL_ID'],
     'travelType' => $travelagent,
+    'organizationId' => $organisation,
     'name' => $bookByName,
     'email' => $bookByEmail,
     'whatsapp' => $bookByWhatsApp,
@@ -127,6 +137,7 @@ $bookByArray = [
     'block' => $bookByblock,
     'address' => $bookByAddress,
     'district' => $bookBydistrict,
+    'staffName' => $staffName,
     'state' => $bookBystate
 ];
 
@@ -143,6 +154,7 @@ if (isset($selectRoom)) {
         $roomPrice = $roomPriceArray[$key];
         $totalPriceWithGst = $totalPriceWithGstArray[$key];
         $extraBD = $extraBDArray[$key];
+        $numberOfRooms = $numberOfRoomsarray[$key];
 
         $bookingDetailsDataArray = [
             'hotelId' => $_SESSION['HOTEL_ID'],
@@ -158,6 +170,7 @@ if (isset($selectRoom)) {
             'checkIn' => $checkIn,
             'checkOut' => $checkOut,
             'exBd' => $extraBD,
+            'noOfRooms' => $numberOfRooms,
         ];
 
         $lastBookingDetailId = insertData('bookingdetail', $bookingDetailsDataArray);
@@ -183,6 +196,8 @@ $guestDataArray = [
     'full_address' => $guestAddress,
     'addOn' => $time,
     'groupadmin' => 1,
+    'communication' => toConvertArrayToStr($communication),
+    'specialCare' => $specialCare
 ];
 
 insertData('guest', $guestDataArray);
@@ -202,10 +217,10 @@ insertData('payment_timeline', $paymentDetailArray);
 
 $voucherHtml = orderEmail2($lastId);
 $msg = generateInvoice('reservationGuest',$guestName,$lastId);
-send_email($guestEmail, $guestName, '', '', $msg, "Your Booking Confirmed : $hotelName",$voucherHtml, $bookId);
+// send_email($guestEmail, $guestName, '', '', $msg, "Your Booking Confirmed : $hotelName",$voucherHtml, $bookId);
 
 $editLink = generateEditReservationLink($lastId);
-$alert = 'Reservation <a class="pClr" target="_blank" href="' . $editLink . '">' . $bookId . '</a> has been created';
+$alert = 'Reservation '.$bookId.' has been created';
 setActivityFeed('', 6, '', '', '', '', '', '', $alert);
 unset($_SESSION['reservatioId']);
 echo $page;

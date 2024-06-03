@@ -2304,7 +2304,6 @@
         $startDate = ($_POST['startDate'] != '') ? date('Y-m-d', strtotime($_POST['startDate'])) : date('Y-m-d');
         $endDate = ($_POST['endDate'] != '') ? date('Y-m-d', strtotime($_POST['endDate'])) : date("d-m-Y", strtotime("$startDate +1 day"));
         $getRoomDataArry = getRoomData();
-        // pr($getRoomDataArry);
 
         $roomName = array();
         $data = array();
@@ -2313,7 +2312,7 @@
 
         $interval = round(abs(strtotime($endDate) - strtotime($startDate)) / 86400);
 
-        for($i = 1; $i <= $interval; $i ++){
+        for($i = 0; $i < $interval; $i ++){
             $currentDate = date('Y-m-d', strtotime($startDate) + (86400 * $i));
             $cDate[] = $currentDate;
         }
@@ -2325,9 +2324,9 @@
             $roomName[] = $name;
             $perDayData = array();
 
-            for($i = 1; $i <= $interval; $i ++){
+            for($i = 0; $i < $interval; $i ++){
                 $currentDate = date('Y-m-d', strtotime($startDate) + (86400 * $i));
-                $occupancy = count(getRoomNumberWithFilter($roomId,'reserved',$currentDate));   
+                $occupancy = count(occupancyRoomList($roomId,$currentDate));   
 
                 $perDayData[] = [
                     'date'=>$currentDate,                    
@@ -2909,8 +2908,9 @@
         $amount = $_POST['amount'];
         $paymentMethod = $_POST['paymentMethod'];
         $remark = $_POST['remark'];
+        $paidDate = $_POST['paidDate'];
         setBookingFolio('','',$bid,'','',$amount,'','','','Payment','',$remark);
-        return setPaymentTimeline(3,'',$bid,$amount,$paymentMethod,$remark,'','',$bid);
+        return setPaymentTimeline(3,'',$bid,$amount,$paymentMethod,$remark,'','',$bid, '', $paidDate);
     }
 
 
@@ -3167,7 +3167,7 @@
         global $conDB;
         global $time;
         $bid = $_POST['bid'];
-        $sql = "update booking set status = '6', actionOn = '$time' where id = '$bid'";
+        $sql = "update booking set status = '7', actionOn = '$time' where id = '$bid'";
         $data = '';
         if(mysqli_query($conDB, $sql)){
             foreach(fetchData('bookingdetail',['bid'=>$bid]) as $item){
@@ -3548,22 +3548,42 @@ function addLostAndFoundFormSubmit(){
 
 
 function loadTravelAgent(){
-    return getTravelagent();
+    $search = $_POST['search'];
+    $state = $_POST['state'];
+    $group = $_POST['group'];
+    return getTravelagent('',$search,$state, $group);
 }
 
 function addTravelAgentForm(){
-    $data = array();
+    $id = $_POST['id'];
+    $data = [
+            'data'=> ($id != '')?  getTravelagent($id)[0] : [],
+            'states'=>getStatesOfIndia(),
+            'group'=>fetchData('travelAgentGroup')
+        ];
 
 
     return $data;
 }
 
 
-function addCompanyForm(){}
+function addCompanyForm(){
+    $id = $_POST['id'];
+    $data = [
+            'data'=> ($id != '')? getOrganisationData($id)[0] : [],
+            'states'=>getStatesOfIndia(),
+            'ratePlan'=>getSysPropertyRatePlaneList(),
+        ];
+
+
+    return $data;
+}
 
 
 function loadCompanyDataBase(){
-    return getOrganisationListData();
+    $search = $_POST['search'];
+    $state = $_POST['state'];
+    return getOrganisationListData('',$search,$state);
 }
 
 
@@ -4088,5 +4108,147 @@ function userAccessChange(){
 function getStateInIndia(){
     return getStatesOfIndia();
 }
+
+function getInputNameCheck(){
+    global $conDB;
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    
+    if($type == 'travel_agents'){
+        $sql = "select * from travel_agents where agentName like '%$name%' GROUP BY agentName";
+    }
+    if($type == 'organisations'){
+        $sql = "select * from organisations where name like '%$name%' GROUP BY name";
+    }
+    $query = mysqli_query($conDB, $sql);
+    $data = array();
+    while($row = mysqli_fetch_assoc($query)){
+        $data[] = $row;
+    }
+    return $data;
+}
+
+function setValue(){
+    global $conDB;
+    $setValue = $_POST['setValue'];
+    $type = $_POST['type'];
+    
+    if($type == 'travel_agents'){
+        $sql = "select * from travel_agents where agentName like '%$setValue%' GROUP BY agentName";
+    }
+    if($type == 'organisations'){
+        $sql = "select * from organisations where name like '%$setValue%' GROUP BY name";
+    }
+    $query = mysqli_query($conDB, $sql);
+    $data = array();
+    while($row = mysqli_fetch_assoc($query)){
+        $data[] = $row;
+    }
+    return $data;
+}
+
+
+function loadGuesAniReport(){
+    global $conDB;
+    $hotelId = $_SESSION['HOTEL_ID'];
+    
+    $date = (!empty($_POST['from']) && strtotime($_POST['from'])) ? date('d-m-Y', strtotime($_POST['from'])) : date('d-m-Y');
+    $toDate = (!empty($_POST['to']) && strtotime($_POST['to'])) ? date('d-m-Y', strtotime($_POST['to'])) : date('d-m-Y', strtotime('+1 day', strtotime($date)));
+
+    if ($date >= $toDate) {
+        $toDate = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    }
+    
+    $fromDate = DateTime::createFromFormat('d-m-Y', $date);
+    $toDate = DateTime::createFromFormat('d-m-Y', $toDate);
+    
+    $data = array();
+    
+    for ($date = clone $fromDate; $date <= $toDate; $date->modify('+1 day')) {
+        $currentDate = $date->format('m-d');
+        $sql = "SELECT * FROM guest WHERE hotelId = '$hotelId' and anniversary like '%$currentDate%'";
+        
+        $stmt = mysqli_query($conDB, $sql);
+        while ($row = mysqli_fetch_assoc($stmt)) {
+            $bid = $row['bookId'];
+            $bookingArray = getBookingData($bid)[0];
+            $advanceArr = [
+                'recipt'=>$bookingArray['reciptNo']
+            ];
+            $data[] = array_merge($row, $advanceArr);
+        }
+    }
+
+    
+
+    return $data;
+}
+
+function loadGuesBirthReport(){
+    global $conDB;
+    $hotelId = $_SESSION['HOTEL_ID'];
+    
+    $date = (!empty($_POST['from']) && strtotime($_POST['from'])) ? date('d-m-Y', strtotime($_POST['from'])) : date('d-m-Y');
+    $toDate = (!empty($_POST['to']) && strtotime($_POST['to'])) ? date('d-m-Y', strtotime($_POST['to'])) : date('d-m-Y', strtotime('+1 day', strtotime($date)));
+
+    if ($date >= $toDate) {
+        $toDate = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    }
+    
+    $fromDate = DateTime::createFromFormat('d-m-Y', $date);
+    $toDate = DateTime::createFromFormat('d-m-Y', $toDate);
+    
+    $data = array();
+    
+    for ($date = clone $fromDate; $date <= $toDate; $date->modify('+1 day')) {
+        $currentDate = $date->format('m-d');
+        $sql = "SELECT * FROM guest WHERE hotelId = '$hotelId' and birthday like '%$currentDate%'";
+        
+        $stmt = mysqli_query($conDB, $sql);
+        while ($row = mysqli_fetch_assoc($stmt)) {
+            $bid = $row['bookId'];
+            $bookingArray = getBookingData($bid)[0];
+            $advanceArr = [
+                'recipt'=>$bookingArray['reciptNo']
+            ];
+            $data[] = array_merge($row, $advanceArr);
+        }
+    }
+
+    
+
+    return $data;
+}
+
+function loadGuestDataReport(){
+    global $conDB;
+    
+    $date = (!empty($_POST['from']) && strtotime($_POST['from'])) ? date('Y-m-d', strtotime($_POST['from'])) : date('Y-m-d');
+    $toDate = (!empty($_POST['to']) && strtotime($_POST['to'])) ? date('Y-m-d', strtotime($_POST['to'])) : date('Y-m-d', strtotime('+1 day', strtotime($date)));
+
+    if ($date >= $toDate) {
+        $toDate = date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    }
+
+    $sql = "SELECT * FROM guest WHERE addOn BETWEEN '$date' AND '$toDate'";
+    $stmt = mysqli_query($conDB, $sql);
+    $data = array();
+    while ($row = mysqli_fetch_assoc($stmt)) {
+        $bid = $row['bookId'];
+        $bookingArray = getBookingData($bid)[0];
+        $advanceArr = [
+            'recipt'=>$bookingArray['reciptNo'],
+        ];
+        $data[] = array_merge($row, $advanceArr);
+    }
+
+    return $data;
+}
+
+
+
+
+
+
 
 ?>

@@ -51,7 +51,7 @@ $grcLink = FRONT_SITE . '/grc';
 
                 $leftNav = reservationLeftNav('void');
 
-                $rightNav = reservationRightNav();
+                $rightNav = reservationRightNav(true,true,false);
 
                 echo backNavbarUi('', '', $rightNav, $leftNav);
                 ?>
@@ -81,6 +81,23 @@ $grcLink = FRONT_SITE . '/grc';
 
         $('.linkBtn').removeClass('active');
         $('.resLink').addClass('active');
+
+        function exportFile() {
+            var currentDate = new Date();
+            var day = currentDate.getDate()
+            var month = currentDate.getMonth() + 1;
+            $('#reservationTable').table2excel({
+                exclude: ".no-export",
+                filename: `reservation-${day}-${month}.xls`,
+                fileext: ".xls",
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        }
+
+        $(document).on('click', '#exportData', function() {
+            exportFile();
+        });
 
 
         $(document).ready(() => {

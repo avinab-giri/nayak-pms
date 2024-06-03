@@ -70,11 +70,11 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
                                                 <input class="customInput" type="date" id="filterWithDate">
                                             </li>
                                             <li class="dib">
-                                                <label for="filterWithDis">District</label>
+                                                <label for="filterWithDis">State</label>
                                                 <select class="customInput" name="filterWithDis" id="filterWithDis">
                                                     <option value="">---</option>
                                                     <?php
-                                                    foreach (json_decode(listOfOdishaDistric()) as $item) {
+                                                    foreach (getStatesOfIndia() as $item) {
                                                         echo "<option value='$item'>$item</option>";
                                                     }
                                                     ?>

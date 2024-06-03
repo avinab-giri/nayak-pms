@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2024 at 01:15 PM
+-- Generation Time: May 28, 2024 at 12:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -450,8 +450,8 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`id`, `pid`, `hCode`, `shortCode`, `hotel_id`, `retrodId`, `slug`, `hotelName`, `hotelEmailId`, `landlineNum`, `hotelPhoneNum`, `waNum`, `website`, `description`, `commission`, `paymentGetway`, `billingMode`, `beLink`, `direction`, `addBy`, `status`, `hotelAddOn`) VALUES
-(1, 0, '12345', 'NH', '', 'RT0524-023', 'nayakhotel', 'Nayak hotel', 'avinabgiri9439@gmail.com', '', '76828-222-09', '', 'nayakhotels.com', NULL, 0, '', NULL, '', '', NULL, 1, '2024-04-27 03:17:53'),
-(2, 1, '12346', 'NBR', '', 'RT0524-024', 'nbresort', 'Nayak beach resort', 'avinabgiri9439@gmail.com', '', '', '', '', NULL, 0, '', NULL, '', '', NULL, 1, '2024-04-27 03:17:53');
+(1, 0, '12345', 'NH', '', 'RT0524-023', 'nayakhotel', 'Nayak Hotel', 'info@nayakhotels.com', '', '76828-222-09', '', 'nayakhotels.com', NULL, 0, '', NULL, '', '', NULL, 1, '2024-04-27 03:17:53'),
+(2, 1, '12346', 'NBR', '', 'RT0524-024', 'nbresort', 'Nayak Beach Resort', 'info@nayakhotels.com', '', '', '', '', NULL, 0, '', NULL, '', '', NULL, 1, '2024-04-27 03:17:53');
 
 -- --------------------------------------------------------
 
@@ -576,8 +576,8 @@ CREATE TABLE `hoteluser` (
 --
 
 INSERT INTO `hoteluser` (`id`, `hotelMainId`, `hotelId`, `displayName`, `name`, `email`, `phone`, `designation`, `bio`, `imageId`, `userId`, `password`, `role`, `permission`, `status`, `block`, `addBy`, `addOn`, `deleteRecord`) VALUES
-(1, 1, '12345', 'Avi', 'Avi', NULL, NULL, NULL, NULL, 0, 'avi', '12345', 1, NULL, 1, 1, NULL, '2024-04-27 08:48:27', 1),
-(3, 1, '12345', 'avi', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 'Business dev', '', 0, 'avinab', '123456', 2, NULL, 1, 1, NULL, '2024-05-04 02:27:31', 1);
+(1, 1, '12345', 'Bhabesh', 'Bhabesh Nayak', 'bhabeshnayakgroup@gmail.com', NULL, NULL, NULL, 0, 'bhabesh_nayak', 'Bhabesh@2024', 1, NULL, 1, 1, NULL, '2024-04-27 08:48:27', 1),
+(3, 1, '12345', 'avi', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 'Business dev', '', 0, 'avinab', '123456', 2, NULL, 1, 1, NULL, '2024-05-04 02:27:31', 0);
 
 -- --------------------------------------------------------
 
@@ -689,7 +689,8 @@ INSERT INTO `hotel_image` (`id`, `hotelId`, `accessId`, `accessValue`, `source`,
 (24, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-940224.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:39'),
 (25, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-479006.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:44'),
 (26, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-881442.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 14:55:48'),
-(27, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-307743.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 15:38:30');
+(27, '12345', 0, 'logo', 'login.retrod.in', 'nayakhotel-307743.png', NULL, NULL, 'public', 'a_1', '', '2024-05-09 15:38:30'),
+(28, '12345', 0, 'guest', 'login.retrod.in', '-995946.jpg', NULL, NULL, 'private', 'a_1', '', '2024-05-23 06:43:46');
 
 -- --------------------------------------------------------
 
@@ -1180,9 +1181,10 @@ CREATE TABLE `organisations` (
 --
 
 INSERT INTO `organisations` (`id`, `hotelId`, `name`, `orgConName`, `status`, `organisationEmail`, `organisationAddress`, `organisationCity`, `organisationState`, `organisationCountry`, `organisationPostCode`, `organisationNumber`, `organisationGstNo`, `ratePlan`, `salesManager`, `organisationDiscount`, `organisationNote`) VALUES
-(1, '12345', 'A', NULL, 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, ''),
-(2, '12345', 'A', NULL, 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, ''),
-(3, '12345', 'A', 'Avinab', 1, 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', '0', '', 0.00, '');
+(1, '12345', 'Test', 'Avi', 1, 'avi@gmail.com', '', '', '', '', '', '', '', '0', '', 0.00, ''),
+(2, '12345', 'Test2', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, ''),
+(3, '12345', 'Test3', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, ''),
+(4, '12345', 'Test4', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, '');
 
 -- --------------------------------------------------------
 
@@ -1255,7 +1257,10 @@ INSERT INTO `payment_link` (`id`, `hotelId`, `paymentId`, `proId`, `accessId`, `
 (3, '41517', '226', 0, 0, '41517', '', 'https://mercury-t2.phonepe.com/transact/pg?token=MjNhNmE4MWM1NmY0OTJkMmQ0ZWI5M2Q0NTc1ZWViMjFiODJjMjRhMGFjNTY0ZWU0OTRhOGQ4YmRjYTUyMGRhYzYyZjc1MjA3NzgzNzE2OjNhZGY1ZDYwNTE2MWFmNGQzMDNiODQ4NWY5MTg3MjNk', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '0000-00-00 00:00:00'),
 (4, '12345', '227', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=Yjc5N2M2ZjZjZDc0MTYxNjlhYWQxMWViMTc1NDg2ZTE0YTYyYzY0M2U0MTllZTU2NGIxODYyN2M4MzM0NDU3MGU5OTgxMzE3NDE0OGNlOjk1ZTNiNzg1MjA2YTgyNzkxNDkyODE2NmQ4M2U5YTU1', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '0000-00-00 00:00:00'),
 (5, '12345', '228', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=Njk1ZTAwNzUxNDhmMGYzZGNkMTc0ZDgzOWY4NzBlZWFkNzg0NmIwYjQxODU5NjJlMjI3MjVhZmVlZTJjNWQyZDg0OGJlMGI3YjU1MWFjOjg3ZjcyNDIyZTdiYzBiZGUyN2M1MGZjYWYyNjE2ZTdh', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-06 18:30:00'),
-(6, '12345', '299', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=NzViMWU3NWY3ZjYxNDYzNWRlMzk5NGUzZGVlZmMzZDUyNmE1ZGI3Njc0YTBiNzYzMGI4ZjMyZWExMmU2M2UxYTgwMTYwMzk5ZGI5MjFjOjUxMzllMWExZTMwNDViNGZlNGExN2E1YmZiODI0ZDY2', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-09 18:30:00');
+(6, '12345', '299', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=NzViMWU3NWY3ZjYxNDYzNWRlMzk5NGUzZGVlZmMzZDUyNmE1ZGI3Njc0YTBiNzYzMGI4ZjMyZWExMmU2M2UxYTgwMTYwMzk5ZGI5MjFjOjUxMzllMWExZTMwNDViNGZlNGExN2E1YmZiODI0ZDY2', 'Avinab', 'avinabgiri9439@gmail.com', '09439706344', 1, 'test', 'process', 1, 1, '2024-05-09 18:30:00'),
+(7, '12345', '338', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=ZWE1MDcxZmZhZDg4NjdiNTg0NzhlYTI3Mzc4ZDc3M2I3ZDJkOWY0NDhhMGI5OTYzOTJjNjdiMzE3YzE4ZTdjMDBhMDZjOTI5Y2MwMjowM2QwZWM2ZGNmYTdiZGRhY2U4MWM0OGMxOTU4N2QxOQ', 'Dishanee Satpathy', 'dishanee@retrodtech.com', '06295919110', 1, '', 'process', 1, 1, '2024-05-23 07:00:00'),
+(8, '12345', '339', 0, 7, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=ZDk4OTExMGQ1NjUwM2UyZjNmYjRmYTFhMGZhZjEwYzRkYjQxYTI1OTQ0NThjNDQ2ODg0ZGUxZTYxZThhM2UwYjZhODlhYjg4YjM0MWYxOjQ3MmUxNGIyODRhYjQzN2VjODhkMmM3OTQ4YTBkNzcz', 'Dishanee Satpathy', 'dishanee@retrodtech.com', '06295919110', 10, '', 'process', 1, 1, '2024-05-23 07:00:00'),
+(9, '12345', '340', 0, 0, '12345', '', 'https://mercury-t2.phonepe.com/transact/pg?token=ZTZkOWZiOTljZjNhODI0ZmJjMDIzOTUzOWM2MGM3OWFmOGJjMjYzOTFmNzA3NTFiMzdkY2M4OGU0NDgyZWU2NjEzZTAxNTdhZmIxMDhhOmJjM2ZjZThmYjc0OGYwOThkNTk4Y2JiZDVlZmNmYjI3', 'Dishanee Satpathy', 'avi@gmail.com', '6295919110', 1, '', 'process', 1, 1, '2024-05-23 07:00:00');
 
 -- --------------------------------------------------------
 
@@ -1561,8 +1566,7 @@ CREATE TABLE `room` (
 INSERT INTO `room` (`id`, `hotelId`, `slug`, `minDay`, `shortCode`, `header`, `sName`, `bedtype`, `totalroom`, `roomcapacity`, `description`, `noAdult`, `noChild`, `add_on`, `status`, `mrp`, `roomArea`, `noBed`, `noBathroom`, `faceId`, `view`, `booking`, `deleteRec`, `addBy`, `ipaddres`) VALUES
 (1, '12347', 'super-deluxe', 1, '', 'Super Deluxe', '', 'king', 0, 3, '', 2, 0, '2024-05-01 01:49:17', 1, 3000, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
 (2, '12345', 'super-deluxe', 1, '', 'Super Deluxe', '', 'king', 0, 3, '', 2, 0, '2024-05-04 05:25:19', 1, 5000, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
-(3, '12345', 'studio-room', 1, '', 'Studio Room', '', 'king', 0, 0, '', 0, 0, '2024-05-04 05:25:32', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', ''),
-(4, '12345', 'undefined', 1, '', 'Standard Room2', '', 'king', 0, 0, '', 0, 0, '2024-05-13 04:34:39', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', '');
+(3, '12345', 'studio-room', 1, '', 'Studio Room', '', 'king', 0, 0, '', 0, 0, '2024-05-04 05:25:32', 1, 0, NULL, NULL, NULL, 0, 0, 0, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -2260,7 +2264,9 @@ CREATE TABLE `sys_guestidproof` (
 --
 
 INSERT INTO `sys_guestidproof` (`id`, `name`, `status`, `addOn`) VALUES
-(1, 'Aadhar card', 1, '2023-10-11 16:34:29');
+(1, 'Aadhar Card', 1, '2023-10-11 16:34:29'),
+(2, 'Pan Card', 1, '2024-05-22 23:52:39'),
+(3, 'Voter Id', 1, '2024-05-22 23:52:39');
 
 -- --------------------------------------------------------
 
@@ -2574,11 +2580,14 @@ CREATE TABLE `sys_report_list` (
 --
 
 INSERT INTO `sys_report_list` (`id`, `typeId`, `accesKey`, `name`, `svg`, `addOn`, `deleteRec`) VALUES
-(1, 1, 'todays-status', 'Todays Status', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2023-04-01 09:26:17', 1),
+(1, 1, 'todays-events', 'Todays Events', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2023-04-01 09:26:17', 1),
 (2, 1, 'checkin', 'Arrival List', '<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 50 50\"\r\n    style=\"enable-background:new 0 0 50 50;\">\r\n    <g id=\"checkin\">\r\n        <path fill=\"currentColor\" d=\"M43.4,5.8h-5.1V3.4c0-0.6-0.4-1-1-1s-1,0.4-1,1v2.4H19.8V3.4c0-0.6-0.4-1-1-1s-1,0.4-1,1v2.4 h-5.2c-2.8,0-5.1,2.3-5.1,5.1v15.9c0,0.6,0.4,1,1,1s1-0.4,1-1v-5.6h37v21.5c0,1.7-1.4,3.1-3.1,3.1H12.6c-1.7,0-3.1-1.4-3.1-3.1 v-5.1c0-0.6-0.4-1-1-1s-1,0.4-1,1v5.1c0,2.8,2.3,5.1,5.1,5.1h30.8c2.8,0,5.1-2.3,5.1-5.1V10.9C48.5,8.1,46.2,5.8,43.4,5.8z M9.5,19.2v-8.3c0-1.7,1.4-3.1,3.1-3.1h5.2v2.6c-1.2,0.4-2.1,1.5-2.1,2.9c0,1.7,1.4,3.1,3.1,3.1s3.1-1.4,3.1-3.1 c0-1.3-0.9-2.5-2.1-2.9V7.8h16.5v2.6c-1.2,0.4-2.1,1.5-2.1,2.9c0,1.7,1.4,3.1,3.1,3.1s3.1-1.4,3.1-3.1c0-1.3-0.9-2.5-2.1-2.9V7.8 h5.1c1.7,0,3.1,1.4,3.1,3.1v8.3H9.5z M18.8,12.3c0.6,0,1.1,0.5,1.1,1.1s-0.5,1.1-1.1,1.1s-1.1-0.5-1.1-1.1S18.3,12.3,18.8,12.3z M37.3,12.3c0.6,0,1.1,0.5,1.1,1.1s-0.5,1.1-1.1,1.1s-1.1-0.5-1.1-1.1S36.7,12.3,37.3,12.3z\">\r\n        </path>\r\n        <path fill=\"#ff0000\" d=\"M17.9,36.9c-0.4,0.4-0.3,1,0.1,1.4c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l5-5.5 c0,0,0-0.1,0.1-0.1c0,0,0,0,0-0.1c0,0,0-0.1,0.1-0.1c0,0,0,0,0,0c0-0.1,0-0.1,0-0.2c0-0.1,0-0.1,0-0.2c0,0,0,0,0,0c0,0,0,0,0,0 c0-0.1,0-0.1,0-0.2c0-0.1,0-0.1,0-0.2c0,0,0,0,0,0c0,0-0.1-0.1-0.1-0.1c0,0,0,0,0-0.1c0,0,0-0.1-0.1-0.1l-5-5.3 c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.4,3.6H2c-0.6,0-1,0.4-1,1s0.4,1,1,1h19.4L17.9,36.9z\">\r\n        </path>\r\n    </g>\r\n</svg>', '2023-04-01 09:26:17', 1),
 (3, 1, 'checkout', 'Departure List', '<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 50 50\"\r\n    style=\"enable-background:new 0 0 50 50;\">\r\n    <g id=\"checkout\">\r\n        <path fill=\"currentColor\" d=\"M39.4,35.3c-0.6,0-1,0.4-1,1v4.9c0,1.6-1.3,2.9-2.9,2.9H6.1c-1.6,0-2.9-1.3-2.9-2.9V20.8h35.2 V26c0,0.6,0.4,1,1,1s1-0.4,1-1V10.9c0-2.7-2.2-4.9-4.9-4.9h-4.8V3.7c0-0.6-0.4-1-1-1s-1,0.4-1,1V6H13V3.7c0-0.6-0.4-1-1-1 s-1,0.4-1,1V6h-5c-2.7,0-4.9,2.2-4.9,4.9v30.3c0,2.7,2.2,4.9,4.9,4.9h29.4c2.7,0,4.9-2.2,4.9-4.9v-4.9 C40.4,35.8,39.9,35.3,39.4,35.3z M6.1,8h5v2.4c-1.1,0.4-2,1.5-2,2.8c0,1.6,1.3,3,3,3s3-1.3,3-3c0-1.3-0.8-2.4-2-2.8V8h15.6v2.4 c-1.1,0.4-2,1.5-2,2.8c0,1.6,1.3,3,3,3s3-1.3,3-3c0-1.3-0.8-2.4-2-2.8V8h4.8c1.6,0,2.9,1.3,2.9,2.9v7.9H3.1v-7.9 C3.1,9.3,4.5,8,6.1,8z M12,12.2c0.5,0,1,0.4,1,1c0,0.5-0.4,1-1,1c-0.5,0-1-0.4-1-1C11,12.6,11.5,12.2,12,12.2z M29.6,12.2 c0.5,0,1,0.4,1,1c0,0.5-0.4,1-1,1c-0.5,0-1-0.4-1-1C28.7,12.6,29.1,12.2,29.6,12.2z\">\r\n        </path>\r\n        <path fill=\"#de7500\" d=\"M48.4,30.1H30l3.2-3.4c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0l-4.8,5c0,0,0,0.1-0.1,0.1 c0,0,0,0,0,0.1c0,0-0.1,0.1-0.1,0.1c0,0,0,0,0,0c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2c0,0,0,0,0,0c0,0,0,0,0,0c0,0.1,0,0.1,0,0.2 c0,0.1,0,0.1,0,0.2c0,0,0,0,0,0c0,0,0,0.1,0.1,0.1c0,0,0,0,0,0.1c0,0,0,0.1,0.1,0.1l4.8,5.2c0.2,0.2,0.5,0.3,0.7,0.3 c0.2,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0.1-1.4L30,32.1h18.4c0.6,0,1-0.4,1-1S48.9,30.1,48.4,30.1z\">\r\n        </path>\r\n    </g>\r\n</svg>', '2023-04-01 09:32:13', 1),
 (5, 1, 'no-show', 'No Show', '<svg  width=\"15px\" height=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-55 147 500 500\">\r\n    <g>\r\n        <path fill=\"currentColor\" d=\"M114.4,375.3c0,16.8,13.6,30.4,30.4,30.4c1.1,0,2.1-0.1,3.2-0.2l25.3-19.6c1.3-3.3,1.9-6.9,1.9-10.7\r\n		c0-16.8-13.6-30.4-30.4-30.4C128,344.9,114.4,358.5,114.4,375.3z M163.2,375.3c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4c0-10.2,8.3-18.4,18.4-18.4C155,356.9,163.2,365.1,163.2,375.3z\" />\r\n        <path fill=\"currentColor\" d=\"M50.3,456.6c6.1-0.7,11.7,1.6,15.5,5.7c2.1,2.2,5.6,2.5,8,0.6h0c2.8-2.2,3.1-6.3,0.7-8.8c-6-6.4-14.8-10.2-24.4-9.5\r\n		c-14.4,1.1-26.3,12.4-27.9,26.8c-0.8,7.3,1,14.1,4.5,19.7c1.9,3,5.9,3.6,8.7,1.5h0c2.4-1.9,3-5.3,1.4-7.9\r\n		c-2.2-3.5-3.2-7.7-2.6-12.2C35.3,464.1,42,457.5,50.3,456.6z\" />\r\n        <path fill=\"currentColor\" d=\"M237.3,393.7c-3.9,0-7.5-1.2-10.5-3.3c-2.1-1.5-5-1.5-7,0.1l-0.3,0.2c-3,2.4-3,7,0.1,9.3c5,3.6,11.1,5.7,17.7,5.7\r\n		c16.6,0,30.3-13.5,30.4-30.2c0,0,0-0.1,0-0.1c0,0,0-0.1,0-0.1c0-3.8-0.7-7.5-2-10.9c-1.4-3.7-6-4.9-9.1-2.5l-0.3,0.2\r\n		c-2,1.6-2.7,4.3-1.8,6.7c0.8,2,1.2,4.2,1.2,6.5v0.1C255.6,385.5,247.4,393.7,237.3,393.7z\" />\r\n        <path fill=\"currentColor\" d=\"M389.6,260.1v28.3h-35.8c-1.3,0-2.6,0.4-3.7,1.3v0c-4.5,3.5-2.1,10.7,3.7,10.7h35.8v237.3c0,6.7-5.4,12.1-12.1,12.1h-363\r\n		c-0.5,0-1,0.2-1.3,0.5l-9.9,7.7c-1.6,1.3-0.7,3.9,1.3,3.9l0.1,0h372.9c13.3,0,24.1-10.8,24.1-24.1V254.1c0,0,0,0,0,0\r\n		c0-1.7-2-2.7-3.4-1.6l-7.8,6C389.9,258.8,389.6,259.4,389.6,260.1z\" />\r\n        <path fill=\"currentColor\" d=\"M-7.5,300.4h289.3c1.3,0,2.6-0.4,3.7-1.3l0,0c4.5-3.5,2-10.7-3.7-10.7H-7.5v-34.3c0-6.7,5.4-12.1,12.1-12.1h37.1l0,15.4\r\n		c0,3.3,2.5,6.2,5.8,6.2c3.4,0.1,6.2-2.6,6.2-6V242H185l0,15.4c0,3.3,2.5,6.1,5.8,6.2c3.4,0.1,6.2-2.6,6.2-6V242h131.4v15.7l0,0.1\r\n		c0,3.3,3.9,5.2,6.5,3.2l3.9-3c1-0.8,1.6-2,1.6-3.3V242h16.9c1.3,0,2.6-0.4,3.7-1.3v0c4.5-3.5,2.1-10.7-3.7-10.7h-16.9v-15.1\r\n		c0-3.4-2.8-6.1-6.2-6c-3.3,0.1-5.8,3-5.8,6.2V230H197l0-14.9c0-3.3-2.5-6.2-5.8-6.2c-3.4-0.1-6.2,2.6-6.2,6V230H53.7l0-14.9\r\n		c0-3.3-2.5-6.2-5.8-6.2c-3.4-0.1-6.2,2.6-6.2,6V230H4.6c-13.3,0-24.1,10.8-24.1,24.1v268.7c0,5,5.7,7.8,9.7,4.7h0\r\n		c1.5-1.1,2.3-2.9,2.3-4.7V300.4z\" />\r\n        <path style=\"fill: var(--bs-danger);\" d=\"M420,215.4c-2-2.6-5.8-3.1-8.4-1.1L-33.1,558.2c-2.6,2-3.1,5.8-1.1,8.4c1.2,1.5,3,2.3,4.8,2.3\r\n		c1.3,0,2.6-0.4,3.7-1.3l444.6-343.9C421.5,221.7,422,218,420,215.4z\" />\r\n        <path fill=\"currentColor\" d=\"M52.4,344.9c-16.8,0-30.4,13.6-30.4,30.4c0,16.8,13.6,30.4,30.4,30.4c16.8,0,30.4-13.6,30.4-30.4\r\n		C82.8,358.5,69.2,344.9,52.4,344.9z M52.4,393.7c-10.1,0-18.4-8.3-18.4-18.4c0-10.2,8.3-18.4,18.4-18.4c10.1,0,18.4,8.3,18.4,18.4\r\n		C70.8,385.4,62.5,393.7,52.4,393.7z\" />\r\n        <path fill=\"currentColor\" d=\"M329.7,405.7c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C299.3,392,312.9,405.7,329.7,405.7z M329.7,356.9c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C311.3,365.1,319.6,356.9,329.7,356.9z\" />\r\n        <path fill=\"currentColor\" d=\"M175.2,476.7c0.9-14.5-8.5-27-21.5-30.9c-2.4-0.7-5.1-0.3-7.1,1.3l-29.8,23.1c-1.5,1.1-2.3,2.9-2.3,4.8l0,0\r\n		c0,17.4,14.7,31.5,32.4,30.3C162,504.2,174.3,491.9,175.2,476.7z M126.5,473c0.9-8.6,7.8-15.5,16.4-16.4\r\n		c11.6-1.2,21.4,8.6,20.2,20.2c-0.9,8.6-7.8,15.6-16.4,16.4C135.1,494.3,125.3,484.6,126.5,473z\" />\r\n        <path fill=\"currentColor\" d=\"M237.3,505.3c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C206.9,491.6,220.5,505.3,237.3,505.3z M237.3,456.5c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C218.9,464.7,227.2,456.5,237.3,456.5z\" />\r\n        <path fill=\"currentColor\" d=\"M329.7,505.3c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C299.3,491.6,312.9,505.3,329.7,505.3z M329.7,456.5c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C311.3,464.7,319.6,456.5,329.7,456.5z\" />\r\n      </g>\r\n</svg>', '2023-11-12 02:28:54', 1),
-(7, 1, 'void-reservation', 'Void Reservation', '\r\n<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n	 viewBox=\"0 0 50 39.3\" style=\"enable-background:new 0 0 50 39.3;\" xml:space=\"preserve\">\r\n\r\n<g fill=\"currentColor\">\r\n	<path d=\"M45,9.2C44.9,6.3,42.5,4,39.6,4h-3.9V2.5c0-0.7-0.6-1.2-1.2-1.2c-0.7,0-1.2,0.5-1.2,1.2V4H16.8V2.5\r\n		c0-0.7-0.5-1.2-1.2-1.2c-0.7,0-1.2,0.5-1.2,1.2V4h-3.9C7.4,4,5,6.4,5,9.4v3.3c0.4,0,0.8-0.1,1.2-0.1l0.9-0.1c0.1,0,0.2,0,0.3,0V9.4\r\n		c0-1.6,1.3-3,3-3h3.9v1.1c0,0.7,0.6,1.2,1.2,1.2c0.7,0,1.2-0.5,1.2-1.2V6.4h16.5v1.4c0,0.7,0.5,1.2,1.2,1.2c0.7,0,1.2-0.5,1.2-1.2\r\n		V6.4h3.9c1.6,0,3,1.3,3,3v0C43.4,9.3,44.2,9.3,45,9.2z M44.1,29l-1.5,1.3l0,0v1.9c0,1.6-1.3,3-3,3H10.4c-1.6,0-3-1.3-3-3v0\r\n		c-0.7,0.1-1.4,0.1-2.2,0.2L5,32.7c0.3,2.8,2.6,4.9,5.4,4.9h29.2c3,0,5.4-2.4,5.4-5.4v-3.3L44.1,29z\"/>\r\n</g>\r\n<g>\r\n	<path style=\"fill:#ED1C24;\" d=\"M49.3,23.3c0-1-0.3-1.9-0.3-2.9c0-0.5,0-0.8-0.6-0.9c0.2-0.2,0.4-0.3,0.6-0.5\r\n		c-0.1-1-0.2-1.9-0.3-3c0-0.6-0.1-1.1-0.7-1.4c0.2,0,0.3,0,0.6,0c-0.1-0.5-0.1-1-0.3-1.5c-0.3-0.9-1.2-1.5-2.2-1.5\r\n		c-1.9,0.1-3.7,0.3-5.6,0.5C35.3,12.5,30,13,24.8,13.4c-1,0.1-1.9,0.2-2.9,0.3c0,0.3-0.1,0.6-0.1,1c-0.2,0-0.4,0-0.5,0\r\n		c0-0.3,0-0.6,0-0.9c-2.2,0.2-4.4,0.4-6.7,0.6c0.2,0.5,0.3,0.9,0.5,1.3c0.4,0,0.8-0.1,1.2-0.1c1.2-0.1,2.4-0.2,3.6-0.3\r\n		c2.3-0.2,4.7-0.4,7-0.6c0.3,0,0.5-0.2,0.8-0.4c-0.3-0.3-0.4-0.5-0.6-0.7c0.3,0,0.6,0.1,0.8,0.3c0.5,0.5,1.2,0.6,1.9,0.5\r\n		c2.5-0.3,5-0.5,7.5-0.7c2.8-0.2,5.6-0.5,8.4-0.7c0.9-0.1,1.4,0.2,1.5,1.2c0.3,3.2,0.6,6.4,0.9,9.6c0.1,0.7-0.4,1.2-1.2,1.3\r\n		c-1.1,0.1-2.1,0.2-3.2,0.3c-0.1,0-0.2,0.1-0.5,0.2c0.4,0.2,0.6,0.3,0.8,0.4c-0.2,0.2-0.3,0.3-0.5,0.4c-0.3-0.7-0.7-0.9-1.4-0.9\r\n		c-0.8,0.1-1.5,0.1-2.3,0.2c-2.7,0.2-5.5,0.5-8.2,0.7c-1.8,0.2-3.6,0.3-5.5,0.5c0,0.4,0,0.8,0,1.2c2.3,0,4.7-0.3,7-0.5\r\n		c4.7-0.4,9.4-0.8,14.1-1.2c1.2-0.1,1.8-0.8,2-1.8C49.3,24.1,49.3,23.7,49.3,23.3z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M22.4,25.5c2.2,0,3.8-0.8,4.9-2.4c1-1.4,0.9-3.3-0.2-4.7c-2-2.5-6.2-2.6-8.3-0.1\r\n		c-1.6,1.8-1.3,4.5,0.6,6C20.3,25.1,21.4,25.5,22.4,25.5z M19.9,20.8c0.1-1,1-1.8,2.3-2.2c1.5-0.4,3.4,0.5,3.6,2\r\n		c0.1,0.7-0.1,1.3-0.5,1.8c-0.6,0.8-1.5,1.2-2.5,1.2C21,23.5,19.8,22.3,19.9,20.8z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M33.8,19.3c0.1,1.7,0.3,3.4,0.4,5.1c1.6-0.2,3.1-0.3,4.6-0.4c0.4,0,0.9-0.2,1.3-0.3\r\n		c1.7-0.6,2.9-2.3,3-4c0-1.7-1.1-3.3-2.9-3.9c-0.7-0.2-1.6-0.3-2.4-0.3c-1.4,0-2.8,0.2-4.2,0.3c-0.1,1.5,0,2.9,1.8,3.4\r\n		c0,0.2,0,0.4,0.1,0.5c-0.4-0.6-0.5,0.4-0.9,0.2c0.1-0.1,0.1-0.2,0.2-0.3C34.3,19.4,34.1,19.4,33.8,19.3z M35.9,17.5\r\n		c0.9,0,1.9-0.2,2.9-0.1c1.1,0.1,1.9,1,2,1.9c0.1,1.1-0.4,2-1.4,2.6c-0.1,0.1-0.2,0.1-0.4,0.2c0.4,0.4,0.9,0.6,1,1.1\r\n		c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5-0.4-1-0.9-1.6-1.1c-0.6-0.2-1.3,0-2,0.1c-0.3-1.1,0.1-2.3-0.5-3C35.8,18.5,35.8,18.1,35.9,17.5z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M11.1,26.4c0.7-0.1,1.5-0.1,2.3-0.2c1.1-3,2.1-5.9,3.2-9c-0.7,0.1-1.4,0.1-2,0.2\r\n		c-0.1,0-0.2,0.1-0.2,0.2c-0.4,0.9-0.8,1.7-1.1,2.6c0,0.1,0.1,0.2,0.1,0.4c0.2,0.5,0.3,1.1,0.5,1.6c-0.1,0-0.1,0-0.2,0.1\r\n		c-0.2-0.5-0.3-1-0.5-1.4c0,0-0.1,0-0.1,0c-0.4,0.9-0.7,1.9-1.1,3c-1.2-2-2.3-3.9-3.4-5.8c-0.8,0.1-1.5,0.1-2.3,0.2\r\n		c0.8,1.3,1.4,2.5,2.1,3.8c0.1,0.2,0.3,0.2,0.5,0.4C8.8,22.6,10.3,25.5,11.1,26.4z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M13.8,27.8c-1.4,0.1-2.9,0.2-4.3,0.4c-0.3,0-0.5,0.2-0.9,0.3c-1.4-0.4-2.8,0.2-4.3,0.2\r\n		c0,0.1,0,0.1-0.1,0.2c0.2,0.1,0.3,0.2,0.5,0.3c-0.1,0.1-0.1,0.1-0.2,0.2c-0.3-0.2-0.5-0.5-0.8-0.6c-1.1-0.2-1.1-1.1-1.1-1.9\r\n		c0-0.3-0.1-0.7-0.1-1.1c-0.5,0.1-0.9,0.1-1.3,0.2c0.1,0.7,0.1,1.4,0.2,2.1c0.2,1.3,1.3,2.1,2.5,2c2.8-0.2,5.6-0.5,8.4-0.7\r\n		c3.9-0.3,7.7-0.7,11.6-1c0.5,0,1-0.1,1.5-0.2c0-0.5,0-0.9,0-1.3c-1.1,0.1-2.2,0.2-3.3,0.3C19.4,27.3,16.6,27.6,13.8,27.8z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M2.6,25.5c0-0.3,0-0.5-0.1-0.8c-0.1-1.1-0.2-2.2-0.3-3.3c-0.1-0.8,0.2-1.7-0.5-2.3\r\n		c-0.1-0.1,0-0.4,0-0.5c0-0.2,0.2-0.4,0.2-0.6c0-0.8,0.3-1.1,1.1-1.2c2.8-0.3,5.6-0.5,8.4-0.7c1.1-0.1,2.1-0.2,3.3-0.3\r\n		c-0.2-0.4-0.4-0.8-0.6-1.2c-0.4,0-0.8,0-1.2,0.1C11,14.6,9.2,14.8,7.3,15c-1.6,0.1-3.2,0.3-4.8,0.5c-1,0.1-1.8,1-1.8,2.1\r\n		c0,0.6,0,1.2,0.1,1.7c0.1,1.7,0.3,3.3,0.4,5C1.3,25.3,1.5,25.5,2.6,25.5z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M29.6,16.9c0.1,2.6,0.3,5.2,0.4,7.8c0.8-0.1,1.5-0.1,2.2-0.2c-0.1-0.7-0.1-1.4-0.2-2\r\n		c-0.4-0.1-0.9,0.3-1.1-0.5c0.3-0.1,0.7-0.1,1-0.2c0-0.2,0-0.4,0-0.6c-0.1-1.3-0.2-2.6-0.4-4c-0.1-0.7-1-1.4-1.8-1.2\r\n		c0,0.2,0.1,0.4,0.1,0.6C29.7,16.8,29.6,16.8,29.6,16.9z\"/>\r\n</g>\r\n</svg>\r\n', '2023-11-12 02:28:54', 1);
+(7, 1, 'void-reservation', 'Void Reservation', '\r\n<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n	 viewBox=\"0 0 50 39.3\" style=\"enable-background:new 0 0 50 39.3;\" xml:space=\"preserve\">\r\n\r\n<g fill=\"currentColor\">\r\n	<path d=\"M45,9.2C44.9,6.3,42.5,4,39.6,4h-3.9V2.5c0-0.7-0.6-1.2-1.2-1.2c-0.7,0-1.2,0.5-1.2,1.2V4H16.8V2.5\r\n		c0-0.7-0.5-1.2-1.2-1.2c-0.7,0-1.2,0.5-1.2,1.2V4h-3.9C7.4,4,5,6.4,5,9.4v3.3c0.4,0,0.8-0.1,1.2-0.1l0.9-0.1c0.1,0,0.2,0,0.3,0V9.4\r\n		c0-1.6,1.3-3,3-3h3.9v1.1c0,0.7,0.6,1.2,1.2,1.2c0.7,0,1.2-0.5,1.2-1.2V6.4h16.5v1.4c0,0.7,0.5,1.2,1.2,1.2c0.7,0,1.2-0.5,1.2-1.2\r\n		V6.4h3.9c1.6,0,3,1.3,3,3v0C43.4,9.3,44.2,9.3,45,9.2z M44.1,29l-1.5,1.3l0,0v1.9c0,1.6-1.3,3-3,3H10.4c-1.6,0-3-1.3-3-3v0\r\n		c-0.7,0.1-1.4,0.1-2.2,0.2L5,32.7c0.3,2.8,2.6,4.9,5.4,4.9h29.2c3,0,5.4-2.4,5.4-5.4v-3.3L44.1,29z\"/>\r\n</g>\r\n<g>\r\n	<path style=\"fill:#ED1C24;\" d=\"M49.3,23.3c0-1-0.3-1.9-0.3-2.9c0-0.5,0-0.8-0.6-0.9c0.2-0.2,0.4-0.3,0.6-0.5\r\n		c-0.1-1-0.2-1.9-0.3-3c0-0.6-0.1-1.1-0.7-1.4c0.2,0,0.3,0,0.6,0c-0.1-0.5-0.1-1-0.3-1.5c-0.3-0.9-1.2-1.5-2.2-1.5\r\n		c-1.9,0.1-3.7,0.3-5.6,0.5C35.3,12.5,30,13,24.8,13.4c-1,0.1-1.9,0.2-2.9,0.3c0,0.3-0.1,0.6-0.1,1c-0.2,0-0.4,0-0.5,0\r\n		c0-0.3,0-0.6,0-0.9c-2.2,0.2-4.4,0.4-6.7,0.6c0.2,0.5,0.3,0.9,0.5,1.3c0.4,0,0.8-0.1,1.2-0.1c1.2-0.1,2.4-0.2,3.6-0.3\r\n		c2.3-0.2,4.7-0.4,7-0.6c0.3,0,0.5-0.2,0.8-0.4c-0.3-0.3-0.4-0.5-0.6-0.7c0.3,0,0.6,0.1,0.8,0.3c0.5,0.5,1.2,0.6,1.9,0.5\r\n		c2.5-0.3,5-0.5,7.5-0.7c2.8-0.2,5.6-0.5,8.4-0.7c0.9-0.1,1.4,0.2,1.5,1.2c0.3,3.2,0.6,6.4,0.9,9.6c0.1,0.7-0.4,1.2-1.2,1.3\r\n		c-1.1,0.1-2.1,0.2-3.2,0.3c-0.1,0-0.2,0.1-0.5,0.2c0.4,0.2,0.6,0.3,0.8,0.4c-0.2,0.2-0.3,0.3-0.5,0.4c-0.3-0.7-0.7-0.9-1.4-0.9\r\n		c-0.8,0.1-1.5,0.1-2.3,0.2c-2.7,0.2-5.5,0.5-8.2,0.7c-1.8,0.2-3.6,0.3-5.5,0.5c0,0.4,0,0.8,0,1.2c2.3,0,4.7-0.3,7-0.5\r\n		c4.7-0.4,9.4-0.8,14.1-1.2c1.2-0.1,1.8-0.8,2-1.8C49.3,24.1,49.3,23.7,49.3,23.3z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M22.4,25.5c2.2,0,3.8-0.8,4.9-2.4c1-1.4,0.9-3.3-0.2-4.7c-2-2.5-6.2-2.6-8.3-0.1\r\n		c-1.6,1.8-1.3,4.5,0.6,6C20.3,25.1,21.4,25.5,22.4,25.5z M19.9,20.8c0.1-1,1-1.8,2.3-2.2c1.5-0.4,3.4,0.5,3.6,2\r\n		c0.1,0.7-0.1,1.3-0.5,1.8c-0.6,0.8-1.5,1.2-2.5,1.2C21,23.5,19.8,22.3,19.9,20.8z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M33.8,19.3c0.1,1.7,0.3,3.4,0.4,5.1c1.6-0.2,3.1-0.3,4.6-0.4c0.4,0,0.9-0.2,1.3-0.3\r\n		c1.7-0.6,2.9-2.3,3-4c0-1.7-1.1-3.3-2.9-3.9c-0.7-0.2-1.6-0.3-2.4-0.3c-1.4,0-2.8,0.2-4.2,0.3c-0.1,1.5,0,2.9,1.8,3.4\r\n		c0,0.2,0,0.4,0.1,0.5c-0.4-0.6-0.5,0.4-0.9,0.2c0.1-0.1,0.1-0.2,0.2-0.3C34.3,19.4,34.1,19.4,33.8,19.3z M35.9,17.5\r\n		c0.9,0,1.9-0.2,2.9-0.1c1.1,0.1,1.9,1,2,1.9c0.1,1.1-0.4,2-1.4,2.6c-0.1,0.1-0.2,0.1-0.4,0.2c0.4,0.4,0.9,0.6,1,1.1\r\n		c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5-0.4-1-0.9-1.6-1.1c-0.6-0.2-1.3,0-2,0.1c-0.3-1.1,0.1-2.3-0.5-3C35.8,18.5,35.8,18.1,35.9,17.5z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M11.1,26.4c0.7-0.1,1.5-0.1,2.3-0.2c1.1-3,2.1-5.9,3.2-9c-0.7,0.1-1.4,0.1-2,0.2\r\n		c-0.1,0-0.2,0.1-0.2,0.2c-0.4,0.9-0.8,1.7-1.1,2.6c0,0.1,0.1,0.2,0.1,0.4c0.2,0.5,0.3,1.1,0.5,1.6c-0.1,0-0.1,0-0.2,0.1\r\n		c-0.2-0.5-0.3-1-0.5-1.4c0,0-0.1,0-0.1,0c-0.4,0.9-0.7,1.9-1.1,3c-1.2-2-2.3-3.9-3.4-5.8c-0.8,0.1-1.5,0.1-2.3,0.2\r\n		c0.8,1.3,1.4,2.5,2.1,3.8c0.1,0.2,0.3,0.2,0.5,0.4C8.8,22.6,10.3,25.5,11.1,26.4z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M13.8,27.8c-1.4,0.1-2.9,0.2-4.3,0.4c-0.3,0-0.5,0.2-0.9,0.3c-1.4-0.4-2.8,0.2-4.3,0.2\r\n		c0,0.1,0,0.1-0.1,0.2c0.2,0.1,0.3,0.2,0.5,0.3c-0.1,0.1-0.1,0.1-0.2,0.2c-0.3-0.2-0.5-0.5-0.8-0.6c-1.1-0.2-1.1-1.1-1.1-1.9\r\n		c0-0.3-0.1-0.7-0.1-1.1c-0.5,0.1-0.9,0.1-1.3,0.2c0.1,0.7,0.1,1.4,0.2,2.1c0.2,1.3,1.3,2.1,2.5,2c2.8-0.2,5.6-0.5,8.4-0.7\r\n		c3.9-0.3,7.7-0.7,11.6-1c0.5,0,1-0.1,1.5-0.2c0-0.5,0-0.9,0-1.3c-1.1,0.1-2.2,0.2-3.3,0.3C19.4,27.3,16.6,27.6,13.8,27.8z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M2.6,25.5c0-0.3,0-0.5-0.1-0.8c-0.1-1.1-0.2-2.2-0.3-3.3c-0.1-0.8,0.2-1.7-0.5-2.3\r\n		c-0.1-0.1,0-0.4,0-0.5c0-0.2,0.2-0.4,0.2-0.6c0-0.8,0.3-1.1,1.1-1.2c2.8-0.3,5.6-0.5,8.4-0.7c1.1-0.1,2.1-0.2,3.3-0.3\r\n		c-0.2-0.4-0.4-0.8-0.6-1.2c-0.4,0-0.8,0-1.2,0.1C11,14.6,9.2,14.8,7.3,15c-1.6,0.1-3.2,0.3-4.8,0.5c-1,0.1-1.8,1-1.8,2.1\r\n		c0,0.6,0,1.2,0.1,1.7c0.1,1.7,0.3,3.3,0.4,5C1.3,25.3,1.5,25.5,2.6,25.5z\"/>\r\n	<path style=\"fill:#ED1C24;\" d=\"M29.6,16.9c0.1,2.6,0.3,5.2,0.4,7.8c0.8-0.1,1.5-0.1,2.2-0.2c-0.1-0.7-0.1-1.4-0.2-2\r\n		c-0.4-0.1-0.9,0.3-1.1-0.5c0.3-0.1,0.7-0.1,1-0.2c0-0.2,0-0.4,0-0.6c-0.1-1.3-0.2-2.6-0.4-4c-0.1-0.7-1-1.4-1.8-1.2\r\n		c0,0.2,0.1,0.4,0.1,0.6C29.7,16.8,29.6,16.8,29.6,16.9z\"/>\r\n</g>\r\n</svg>\r\n', '2023-11-12 02:28:54', 1),
+(37, 7, 'guest', 'Guest Data', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2024-05-20 07:01:35', 1),
+(38, 7, 'guest-birthday', 'Birthday', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2024-05-20 07:02:28', 1),
+(39, 7, 'guest-anniversary', 'Anniversary', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2024-05-20 07:02:55', 1);
 
 -- --------------------------------------------------------
 
@@ -2597,7 +2606,8 @@ CREATE TABLE `sys_report_type` (
 --
 
 INSERT INTO `sys_report_type` (`id`, `name`, `status`) VALUES
-(1, 'Reservation Report', 1);
+(1, 'Reservation Reports', 1),
+(7, 'Guest Reports', 1);
 
 -- --------------------------------------------------------
 
@@ -2796,6 +2806,27 @@ INSERT INTO `sys_userrole` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `travelagentgroup`
+--
+
+CREATE TABLE `travelagentgroup` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `travelagentgroup`
+--
+
+INSERT INTO `travelagentgroup` (`id`, `name`) VALUES
+(1, 'FIT'),
+(2, 'GIT'),
+(3, 'KDT'),
+(4, 'MICE');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `travel_agents`
 --
 
@@ -2817,6 +2848,7 @@ CREATE TABLE `travel_agents` (
   `travelaaagentTcs` decimal(10,2) DEFAULT NULL,
   `travelaaagentTds` decimal(10,2) DEFAULT NULL,
   `travelagentNote` text DEFAULT NULL,
+  `travelagentGroup` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -2824,10 +2856,10 @@ CREATE TABLE `travel_agents` (
 -- Dumping data for table `travel_agents`
 --
 
-INSERT INTO `travel_agents` (`id`, `agentName`, `travelagentname`, `hotelId`, `travelagentemail`, `travelagentAddress`, `travelagrntCity`, `travelagentState`, `travelagentCountry`, `travelagentPostCode`, `travelagentPhoneno`, `travelagentGstNo`, `travelagentcommission`, `travelaaagentGstonCommision`, `travelaaagentTcs`, `travelaaagentTds`, `travelagentNote`, `status`) VALUES
-(1, NULL, 'Avinab', '12345', 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', 0.00, 0.00, 0.00, 0.00, '', 1),
-(2, NULL, 'test ', '12345', '', '', '', '', '', '', '1234567890', '', 0.00, 0.00, 0.00, 0.00, '', 1),
-(3, 'agent Name', 'Avinab', '12345', 'avinabgiri9439@gmail.com', 'Kishore Prasad', 'bhadrak', 'odisah', 'India', '756171', '+919439706344', '', 0.00, 0.00, 0.00, 0.00, '', 1);
+INSERT INTO `travel_agents` (`id`, `agentName`, `travelagentname`, `hotelId`, `travelagentemail`, `travelagentAddress`, `travelagrntCity`, `travelagentState`, `travelagentCountry`, `travelagentPostCode`, `travelagentPhoneno`, `travelagentGstNo`, `travelagentcommission`, `travelaaagentGstonCommision`, `travelaaagentTcs`, `travelaaagentTds`, `travelagentNote`, `travelagentGroup`, `status`) VALUES
+(1, 'Nayak Travels', 'Bhabesh Nayak', '12345', 'bhabesh.nayak@gmail.com', '', 'Puri', 'Odisha', '', '', '7682822202', '', 0.00, 0.00, 0.00, 0.00, '', NULL, 1),
+(2, 'Nayak Travels', 'Girish Chandra Nayak', '12345', '', '', 'Puri', 'Odisha', '', '', '7682822201', '', 0.00, 0.00, 0.00, 0.00, '', NULL, 1),
+(4, 'test', 'test', '12345', '', '', '', '', '', '', '1234567890', '', 0.00, 0.00, 0.00, 0.00, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -3854,6 +3886,12 @@ ALTER TABLE `sys_userrole`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `travelagentgroup`
+--
+ALTER TABLE `travelagentgroup`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `travel_agents`
 --
 ALTER TABLE `travel_agents`
@@ -4095,7 +4133,7 @@ ALTER TABLE `hotel_floor_plan`
 -- AUTO_INCREMENT for table `hotel_image`
 --
 ALTER TABLE `hotel_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `hotel_layout`
@@ -4251,7 +4289,7 @@ ALTER TABLE `mailinvoice`
 -- AUTO_INCREMENT for table `organisations`
 --
 ALTER TABLE `organisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `package`
@@ -4269,7 +4307,7 @@ ALTER TABLE `package_policy`
 -- AUTO_INCREMENT for table `payment_link`
 --
 ALTER TABLE `payment_link`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `payment_status`
@@ -4521,7 +4559,7 @@ ALTER TABLE `sys_folio_status`
 -- AUTO_INCREMENT for table `sys_guestidproof`
 --
 ALTER TABLE `sys_guestidproof`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sys_kotcategory`
@@ -4593,13 +4631,13 @@ ALTER TABLE `sys_rate_plan`
 -- AUTO_INCREMENT for table `sys_report_list`
 --
 ALTER TABLE `sys_report_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `sys_report_type`
 --
 ALTER TABLE `sys_report_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sys_reservationtype`
@@ -4650,10 +4688,16 @@ ALTER TABLE `sys_userrole`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `travelagentgroup`
+--
+ALTER TABLE `travelagentgroup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `travel_agents`
 --
 ALTER TABLE `travel_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `url_mapping`

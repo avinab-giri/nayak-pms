@@ -38,6 +38,13 @@ if (isset($_SESSION['HOTEL_ID'])) {
     }
 }
 
+function toConvertArrayToStr($array, $symbol = ','){
+    return implode($symbol, array_filter($array));
+}
+
+function toConvertStrToArray($array, $symbol = ','){
+    return explode($symbol, $array);
+}
 
 function orginalHotelId($hotelId){   
     
@@ -375,47 +382,7 @@ function websiteNav(){
         </nav>
         
 
-        <div class="modal" id="addOrganisationModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Organisation</h5>
-                            <button type="button" class="closeOrganisation" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div id="organisationbody" style="margin:0 auto;"></div>
-                        <div class="modal-footer">
-                            <button type="button" id="submitOrganisation" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal" id="addTravelAgentModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Travel Agent</h5>
-                            <button type="button" class="closeTravelAgent" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div id="TravelAgentbody" style="margin:0 auto;">
-
-                            <div class="travelaagent-modal-body">
-                                
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="submitTravelAgent" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+       
 
     ';
 }
@@ -586,14 +553,29 @@ function reservationLeftNav($active){
 }
 
 
-function reservationRightNav(){
+function reservationRightNav($export = true, $print = true, $search = true){
     $grcLink = FRONT_SITE . '/grc';
+    $exportHtml = '';
+    if($export){
+        $exportHtml = '<li style="margin-right: 5px;"><a class="btn btn-success" id="exportData" href="javascript:void(0)"> <i class="fas fa-file-export"></i> Export</a> </li>';
+    }
+
+    $printHtml = '';
+    if($print){
+        $printHtml = '<li style="margin-right: 5px;"><a target="_blank" class="mb-0 btn btn-secondary" href="' . $grcLink . '"><i class="fas fa-print"></i> Print Blank GRC</a></li>';
+    }
+
+    $searchHtml = '';
+    if($search){
+        $searchHtml = '<li><a class="btn btn-warning" id="searchBtnReservation" href="javascript:void(0)"> <i class="fas fa-search"></i></a> </li>';
+    }
     $rightNav = '
-        <ul>
-        
-            <li style="margin-right: 5px;"><a class="btn btn-success" id="excelImport" href="javascript:void(0)"> <i class="fas fa-file-import"></i> Import</a> </li>
-            <li style="margin-right: 5px;"><a target="_blank" class="mb-0 btn btn-secondary" href="' . $grcLink . '"><i class="fas fa-print"></i> Print Blank GRC</a></li>
-            <li><a class="btn btn-warning" id="searchBtnReservation" href="javascript:void(0)"> <i class="fas fa-search"></i></a> </li>
+        <ul>        
+            
+            '.$exportHtml.'
+            '.$printHtml.'
+            '.$searchHtml.'
+            
         </ul>
         <div id="searchForReservation">
             <input id="searchForReservationValue" type="text" class="form-contol" placeholder="Search Text.">
@@ -814,7 +796,7 @@ function hotelDetail($id = "", $email = '', $phone = '', $withOutUser = '', $hot
             if ($id == '' && $withOutUser == '') {
                 $otherDetail = getHotelUserDetail($_SESSION['ADMIN_ID'])[0];
                 $userDetailArry = array();
-                if(count($otherDetail) > 0){
+                if(isset($otherDetail)){
                     $userDetailArry = [
                         'displayName'=>$otherDetail['displayName'],
                         'name'=>$otherDetail['name'],
@@ -873,9 +855,7 @@ function safeData($data){
 
 function dataAddBy()
 {
-    if (isset($_SESSION['SUPER_ADMIN_ID'])) {
-        $data = 's_' . $_SESSION['SUPER_ADMIN_ID'];
-    } elseif (isset($_SESSION['ADMIN_ID'])) {
+    if (isset($_SESSION['ADMIN_ID'])) {
         $data = 'a_' . $_SESSION['ADMIN_ID'];
     } else {
         $data = '';
@@ -2267,7 +2247,7 @@ function setBookingFolio($id = '', $gName = '', $bid = '', $bdId = '', $posId = 
     $discount = ($discount == '') ? 0 : $discount;
     $data = 0;
     $addBy = dataAddBy();
-
+    
     if ($gName == '') {
         $gName = getBookingFolio('', '', $bid)[0]['gName'];
     }
@@ -2691,7 +2671,7 @@ function getBookingData($bid = '', $rNum = '', $checkIn = '', $id = '', $onlyChe
     if (mysqli_num_rows($sql) > 0) {
         while ($row = mysqli_fetch_assoc($sql)) {
             $couponCode = $row['couponCode'];
-            $roomDetailArry = getSysPropertyRatePlaneList($row['roomDId'])[0];
+            $roomDetailArry = (isset(getSysPropertyRatePlaneList($row['roomDId'])[0])) ? getSysPropertyRatePlaneList($row['roomDId'])[0] : [];
             $addByArray = getAddByData($row['addBy'],'yes');
             $coompanyArray = isset(getOrganisationData($row['organisation'], 'yes')[0]) ? getOrganisationData($row['organisation'],'yes')[0] : array();
             $totalAdult = 0;
@@ -2733,8 +2713,8 @@ function getBookingData($bid = '', $rNum = '', $checkIn = '', $id = '', $onlyChe
                 'totalRoomPrice' => $totalRoomPrice,
                 'totalCouponPrice' => $totalCouponPrice,
                 'roomType' => (isset(getRoomData($row['roomId'])[0])) ? getRoomData($row['roomId'])[0]['header'] : '',
-                'roomPlanSrt' => (isset($roomDetailArry)) ? $roomDetailArry['srtcode'] : '',
-                'roomPlanFull' => (isset($roomDetailArry)) ? $roomDetailArry['fullForm'] : '',
+                'roomPlanSrt' => (isset($roomDetailArry['srtcode'])) ? $roomDetailArry['srtcode'] : '',
+                'roomPlanFull' => (isset($roomDetailArry['fullForm'])) ? $roomDetailArry['fullForm'] : '',
             ];
             $data[] = array_merge($row, $advance);
         }
@@ -2955,6 +2935,22 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
     $kotPaidAmount = 0;
     $sumSubTotalPrice = 0;
 
+    $bookBy = fetchData('bookingby', ['bid' => $bid])[0];
+    $travelId = $bookBy['travelType'];
+    $organizationId = $bookBy['organizationId'];
+    $travelAgent = array();
+    $organisationArray = array();
+
+    if($travelId != 0){
+        $travelArray = fetchData('travel_agents', ['id' => $travelId]);
+        $travelAgent = (isset($travelArray[0])) ? $travelArray[0] : [];
+    }
+
+    if($organizationId != 0){
+        $organizationArray = fetchData('organisations', ['id' => $organizationId]);
+        $organisationArray = (isset($organizationArray[0])) ? $organizationArray[0]: [];
+    }
+
     if (mysqli_num_rows($bookingSql) > 0) {
         while ($row = mysqli_fetch_assoc($bookingSql)) {
             
@@ -3001,8 +2997,10 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
             $gst = getPercentageValu($roomPrice, $gstPer);
             $totalGst += $gst * $night;
 
-            $rateTypeS = getSysPropertyRatePlaneList($roomDId)[0]['srtcode'];
-            $rateTypeF = getSysPropertyRatePlaneList($roomDId)[0]['fullForm'];
+            $getRateTypeArray = (isset(getSysPropertyRatePlaneList($roomDId)[0])) ? getSysPropertyRatePlaneList($roomDId)[0]: [];
+
+            $rateTypeS = (isset($getRateTypeArray['srtcode'])) ? $getRateTypeArray['srtcode'] : '';
+            $rateTypeF = (isset($getRateTypeArray['fullForm'])) ? $getRateTypeArray['fullForm'] : '';
 
             $totalPrice = $sumSubTotalPrice + $totalGst;
 
@@ -3062,6 +3060,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
 
     $data2 = [
         'name' => $name,
+        'bookingSourceName' => getBookingSource($bookingSource)[0]['name'],
         'guistId' => $guistId,
         'guest' => $guest,
         'guestArray' => $guestRow,
@@ -3085,8 +3084,11 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
         'kotPaidAmount' => $kotPaidAmount,
         'kotPaidAmount' => $kotPaidAmount,
         'kotTax' => $kotTax,
+        'bookBy' => $bookBy,
+        'bookByAgent' => $travelAgent,
+        'bookByOrga' => $organisationArray,
         'checkinStatusArray'=>checkGuestCheckInStatus($checkinstatus),
-        'paymentArry'=>getGuestPaymentTimeline('',$bid,'','','','','','','','','','yes')
+        'paymentArry'=>fetchData('payment_timeline', ['bid' => $bid, 'amount' => '!0'])
     ];
 
     $data = array_merge($bookingArray, $data2);
@@ -3096,8 +3098,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
     return $data;
 }
 
-function getGuestReviewById($gid = '', $pid = '', $firstReview = '', $date = '')
-{
+function getGuestReviewById($gid = '', $pid = '', $firstReview = '', $date = ''){
     global $conDB;
     $hotelId = HOTEL_ID;
     $data = array();
@@ -3622,14 +3623,15 @@ function getAdultPriceByNoAdult($n, $rid, $rdid, $date = '')
 function getRoomExtraChildPriceById($rdid, $date = '')
 {
     global $conDB;
-    $invenSql = mysqli_query($conDB, "select eChild from inventory where room_detail_id = '$rdid' and add_date = '$date' and eChild != '0'");
-    if (mysqli_num_rows($invenSql) > 0) {
-        $row = mysqli_fetch_assoc($invenSql);
-        $price = $row['eChild'];
-    } else {
-        $sql = mysqli_fetch_assoc(mysqli_query($conDB, "select extra_child from roomratetype where id = '$rdid'"));
-        $price = $sql['extra_child'];
-    }
+    $price = 0;
+    // $invenSql = mysqli_query($conDB, "select eChild from inventory where room_detail_id = '$rdid' and add_date = '$date' and eChild != '0'");
+    // if (mysqli_num_rows($invenSql) > 0) {
+    //     $row = mysqli_fetch_assoc($invenSql);
+    //     $price = $row['eChild'];
+    // } else {
+    //     $sql = mysqli_fetch_assoc(mysqli_query($conDB, "select extra_child from roomratetype where id = '$rdid'"));
+    //     $price = $sql['extra_child'];
+    // }
 
     return $price;
 }
@@ -7661,13 +7663,15 @@ function send_email($email='', $gname = '', $cc = '', $bcc = '', $html='', $subj
         $mail = new PHPMailer(true);
 
         $mail->SMTPDebug = 0;
-        $mail->isSMTP();
-        $mail->Host = 'smtp.zeptomail.in';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'emailapikey';
-        $mail->Password = 'PHtE6r0KRbjviWIvpxgJ5ae7HselZ4smqepvfwdD4o0RD/UAHE1Wqdp9xjCxqEssUqFAFPefyto5ueud5bqNJDu5PGsZX2qyqK3sx/VYSPOZsbq6x00cslsbd03VXIDocdBr0yDRstqX';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        
+        $mail->isSMTP();              
+        $mail->Host = 'smtp.zeptomail.in';  
+        $mail->SMTPAuth = true;                               
+        $mail->Username = 'emailapikey';                 
+        $mail->Password = 'PHtE6r0KRbjviWIvpxgJ5ae7HselZ4smqepvfwdD4o0RD/UAHE1Wqdp9xjCxqEssUqFAFPefyto5ueud5bqNJDu5PGsZX2qyqK3sx/VYSPOZsbq6x00cslsbd03VXIDocdBr0yDRstqX';  
+        $mail->SMTPSecure = 'tls';                            
+        $mail->Port = 587; 
+        
         $mail->setFrom('noreply@retrod.in', $hotel_name);
         $mail->addAddress($email, $gname);
         $mail->addCC($hotel_Email);
@@ -10114,9 +10118,10 @@ function countEmptyFieldPercentageByArry($array = [], $total = '', $remove = [])
 
     return getPercentageValueByAmount($notEmaptyFild, $totalField);
 }
-function setPaymentTimeline($proId, $proSubId, $accessId, $amount, $paymentMethod = '', $remark = '', $addBy = '', $tip = '',$bid='',$posId='')
+function setPaymentTimeline($proId, $proSubId, $accessId, $amount, $paymentMethod = '', $remark = '', $addBy = '', $tip = '',$bid='',$posId='', $paidOn = null)
 {
     global $conDB;
+    global $time;
     $hotelId = HOTEL_ID;
     $addBy = dataAddBy();
     $billNo = generateBillNo();
@@ -10125,11 +10130,11 @@ function setPaymentTimeline($proId, $proSubId, $accessId, $amount, $paymentMetho
     $posId = ($posId == '') ? 0 : $posId;
     $tip = ($tip == '') ? 0 : $tip;
     $proSubId = ($proSubId == '') ? 0 : $proSubId;
-
+    $paidOn = ($paidOn == null) ? $time : $paidOn;
     $data = '';
 
     if ($amount > 0) {
-       $sql = "insert into payment_timeline(hotelId,proId,proSubId,accessId,amount,paymentMethod,remark,addBy,tip,billingNo,bid,posId) values('$hotelId','$proId',$proSubId,'$accessId','$amount','$paymentMethod','$remark','$addBy','$tip','$billNo','$bid','$posId')";
+       $sql = "insert into payment_timeline(hotelId,proId,proSubId,accessId,amount,paymentMethod,remark,addBy,tip,billingNo,bid,posId, paidOn) values('$hotelId','$proId',$proSubId,'$accessId','$amount','$paymentMethod','$remark','$addBy','$tip','$billNo','$bid','$posId','$paidOn')";
        
         if (mysqli_query($conDB, $sql)) {
             if($bid != 0){
@@ -11916,6 +11921,8 @@ function posReportMake($fDate='',$eDate=''){
     return $data;
 }
 
+
+
 function orderEmail2Body($oid){
     
     $hotelDetailArray = fetchData('hotel', ['hCode'=>$_SESSION['HOTEL_ID']])[0];
@@ -11923,13 +11930,16 @@ function orderEmail2Body($oid){
     $proLocarion = fetchData('propertylocation', ['hotelId'=>$_SESSION['HOTEL_ID']])[0];
     $guestArray = (isset(fetchData('guest', ['bookId'=>$oid, 'groupadmin'=> 1])[0])) ? fetchData('guest', ['bookId'=>$oid, 'groupadmin'=> 1])[0] : array();
     $onlyBookingArray = fetchData('booking', ['id'=>$oid])[0];
+    $bookingByArray = fetchData('bookingby', ['id'=>$oid])[0];
     $travelagent = $onlyBookingArray['travelagent'];
     
     $name = (isset($guestArray['name'])) ? $guestArray['name']: '';
     $email = (isset($guestArray['email'])) ? $guestArray['email']: '';
     $phoneNumber = (isset($guestArray['phone'])) ? $guestArray['phone'] : '';
-    $company_name = (isset($guestArray['company_name']))?$guestArray['company_name'] : '';
-    $gst = (isset($guestArray['comGst'])) ? $guestArray['comGst'] : '';
+    $whatsAppNumber = (isset($guestArray['whatsapp'])) ? $guestArray['whatsapp'] : '';
+    $guestAddress = toConvertArrayToStr([$guestArray['full_address'], $guestArray['district'], $guestArray['state']]);
+    $company_name = (isset($onlyBookingArray['compayName']))?$onlyBookingArray['compayName'] : '';
+    $gst = (isset($onlyBookingArray['gstno'])) ? $onlyBookingArray['gstno'] : '';
     
     $userPay = $onlyBookingArray['userPay'];
     $grossCharge = $onlyBookingArray['totalPrice'];
@@ -11941,6 +11951,92 @@ function orderEmail2Body($oid){
     $payStatusArray = fetchData('payment_status', ['id'=>$payStatus])[0];
 
     $payment_status = $payStatusArray['name'];
+
+    $bookByDetailTable = '';
+
+    if($bookingByArray['travelType'] != 0){
+        $travelId = $bookingByArray['travelType'];
+        $travelArray = fetchData('travel_agents', ['id'=> $travelId])[0];
+        $address = toConvertArrayToStr([$travelArray['travelagrntCity'],$travelArray['travelagentState']]);
+        $bookByDetailTable = '
+            <td>
+                <table style="width:100%">
+                    <tr>
+                        <th style="text-align:left">Travel Agent</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Agent Name : '.$travelArray['agentName'].'</td>
+                        <td style="text-align:left">Contact Person : '.$travelArray['travelagentname'].'</td>
+                        <td style="text-align:left">Phone : '.$travelArray['travelagentPhoneno'].'</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Email : '.$travelArray['travelagentemail'].'</td>
+                        <td style="text-align:left">Address : '.$address.'</td>
+                    </tr>
+                </table>
+            </td>
+        ';
+    }elseif($bookingByArray['organizationId'] != 0){
+        $orgId = $bookingByArray['organizationId'];
+        $orgArray = fetchData('organisations', ['id'=> $orgId])[0];
+        $address = toConvertArrayToStr([$orgArray['organisationCity'],$orgArray['organisationState']]);
+        $bookByDetailTable = '
+            <td>
+                <table style="width:100%">
+                    <tr>
+                        <th style="text-align:left" >Organization</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Organization : '.$orgArray['name'].'</td>
+                        <td style="text-align:left">Contact Person : '.$orgArray['orgConName'].'</td>
+                        <td style="text-align:left">Phone : '.$orgArray['organisationNumber'].'</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left">Email : '.$orgArray['organisationEmail'].'</td>
+                        <td style="text-align:left">Address : '.$address.'</td>
+                    </tr>
+                </table>
+            </td>
+        ';
+    }else{
+        $address = toConvertArrayToStr([$bookingByArray['district'],$bookingByArray['state']]);
+        $bookByDetailTable = '
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="text-align:left">Other</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td style="text-align:left">Name : '.$bookingByArray['name'].'</td>
+                    <td style="text-align:left">Phone : '.$bookingByArray['whatsapp'].'</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">Email : '.$bookingByArray['email'].'</td>
+                    <td style="text-align:left">Address : '.$address.'</td>
+                </tr>
+            </table>
+        </td>
+    ';
+    };
+
+    $bookByDetailHtml = '<table style="width:100%; border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h3 style="margin: 0;">Booking Details</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    '.$bookByDetailTable.'
+                                </tr>
+                            </tbody>
+                        </table>';
 
 
     $sitename = SITE_NAME;
@@ -11956,13 +12052,58 @@ function orderEmail2Body($oid){
     
 
     $bookingDetailArry = getBookingDetailById($oid);
-    
+    $paymentArry = $bookingDetailArry['paymentArry'];
     $total_price = $bookingDetailArry['totalPrice'];
     $gst_price = $bookingDetailArry['gstPrice'];;
     $couponBalance = 0;
     $paymentBackupHtml = '';
     $sn = 0;
     $bookingStatus = '';
+
+    $paymentDetailTable = '';
+
+    if(count($paymentArry) > 0){
+        foreach($paymentArry as $Item){
+            $paidOn = date('d M, Y', strtotime($Item['paidOn']));
+            $paymentMethod = getPaymentTypeMethod($Item['paymentMethod'])[0]['name'];
+            $amount = $Item['amount'];
+
+            $paymentDetailTable .= "
+                <tr>
+                    <td style='padding:3px 5px'><strong>$paidOn</strong></td>
+                    <td style='padding:3px 5px'><strong>$paymentMethod</strong></td>
+                    <td style='padding:3px 5px'><strong>$amount</strong></td>
+                </tr>
+            ";
+        }        
+    }
+
+    $paymentDetailHtml = '<hr>
+                        <table  style="width:100%; border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h3 style="margin: 0;">Payment Details</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="width:100%; border-collapse:collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 5px;">Paid Date</td>
+                                                    <td style="padding: 5px;">Payment Method</td>
+                                                    <td style="padding: 5px;">Amount</td>
+                                                </tr>
+                                                <tr>
+                                                    '.$paymentDetailTable.'
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>';
     
     foreach ($bookingDetailArry['roomDetailArry'] as $bidrow) {
         $sn ++;
@@ -12063,13 +12204,28 @@ function orderEmail2Body($oid){
     $hotelPhonenumber = ucfirst($hotelDetailArray['hotelPhoneNum']);
     $hotelWebsite = ucfirst($hotelDetailArray['website']);
     $hotelAdd = ucfirst($proLocarion['address']);
+    $googleMapLink = $proLocarion['mapLink'];
 
     $hotelDetails = '';
 
-    $hotelDetails.='<p>'.$hotelAdd.'</p>';
-    $hotelDetails.='<p>'.$hotelPhonenumber.'</p>';
-    $hotelDetails.='<p>'.$hotelMail.'</p>';
-    $hotelDetails.='<p>'.$hotelWebsite.'</p>';
+    $hotelDetails.='<p><a style="text-decoration: none;color: black;font-weight: 700;" href="'.$googleMapLink.'">'.$hotelAdd.'</a></p>';
+    
+    $hotelDetails.='
+                        <table style="width: 80%; margin: 0 auto;">
+                            <tr>
+                                <td style="text-align: left; width: 50%;">
+                                    <strong>RECEPTION</strong>
+                                    <p>Landline - 7682822209</p>
+                                    <p>Mobile - 7682822204</p>
+                                </td>
+                                <td style="text-align: left; width: 50%;">
+                                    <strong>RESERVATION</strong>
+                                    <p>Mobile -  7682822211, 7855833330</p>
+                                    <p>Email - info@nayakbeachresort.com, info@nayakhotels.com</p>
+                                </td>
+                            </tr>
+                        </table>
+                    ';
 
 
     $bookedOn = $add_on;
@@ -12116,11 +12272,8 @@ function orderEmail2Body($oid){
         $html = '
             <table style="width: 95%; border:2px solid black; margin: 0 auto;">
                 <tbody>
-
                     <tr>
                         <td>
-
-
                             <table style="width:100%; border-collapse :collapse;">
                                 <tbody>
                                     <tr>
@@ -12129,7 +12282,7 @@ function orderEmail2Body($oid){
                                             <p>Reservation number: '. $reservationNumber.'</p>
                                         </td>
                                         <td style="width: 60%; text-align: center;">
-                                            <h1>'. $hotelName.'</h1>
+                                            <h1 style="margin: 0;">'. $hotelName.'</h1>
                                             '. $hotelDetails.'
                                         </td>
                                         <td style="width: 20%;">
@@ -12141,14 +12294,16 @@ function orderEmail2Body($oid){
 
                             <hr style=" height: 3px; background: black;">
 
+                            '.$bookByDetailHtml.'
+
                             <table style="width:100%; border-collapse:collapse;">
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <h3>Guest Information</h3>
+                                            <h3 style="margin: 0;">Guest Information</h3>
                                         </td>
                                         <td>
-                                            <h3>Stay Information</h3>
+                                            <h3 style="margin: 0;">Stay Information</h3>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -12169,28 +12324,38 @@ function orderEmail2Body($oid){
                                         <td>'. $bookedOn.'</td>
                                     </tr>
                                     <tr>
-                                        <td>Email::</td>
-                                        <td>'. $email.'</td>
+                                        <td>Whatsapp Number::</td>
+                                        <td>'. $whatsAppNumber.'</td>
                                         <td>Arrival Date:</td>
                                         <td>'. $arrivalDate.', '.$arrivalTime.'</td>
                                     </tr>
                                     <tr>
-                                        <td>Organisation:</td>
-                                        <td>'. $company_name.'</td>
+                                        <td>Email::</td>
+                                        <td>'. $email.'</td>
                                         <td>Departure Date:</td>
-                                        <td>'. $departureDate.', '.$departureTime.'</td>
+                                        <td>'. $departureDate.', '.$departureTime.'</td>                                        
                                     </tr>
                                     <tr>
-                                        <td>GST:</td>
-                                        <td>'. $gst.'</td>
+                                        <td>Address::</td>
+                                        <td>'. $guestAddress.'</td>
                                         <td>Night:</td>
                                         <td>'. $night.'</td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td>Company:</td>
+                                        <td>'. $company_name.'</td>
                                         <td>Booking Type:</td>
-                                        <td>'. $bookingType.'</td>
+                                        <td>'. $bookingType.'</td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td>GST:</td>
+                                        <td>'. $gst.'</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        
                                     </tr>
 
                                 </tbody>
@@ -12202,7 +12367,7 @@ function orderEmail2Body($oid){
                                 <thead>
                                     <tr>
                                         <td style="40%">
-                                            <h3>Room Details</h3>
+                                            <h3 style="margin: 0;">Room Details</h3>
                                         </td>
                                         <td style="30%"></td>
                                         <td style="30%"></td>
@@ -12211,7 +12376,7 @@ function orderEmail2Body($oid){
                                 <tbody>'.$roomdetailsHtml.'</tbody>
                             </table>
                         
-                            
+                            '.$paymentDetailHtml.'
 
                             '.$footerPrice.'
 
@@ -12224,7 +12389,7 @@ function orderEmail2Body($oid){
                 <tbody>
                     <tr>
                         <td>
-                            <h4>TERMS AND CONDITIONS </h4>
+                            <h4 style="margin: 0;">TERMS AND CONDITIONS </h4>
                             <strong>Check-In and Check-Out</strong>
                             <ul>
                                 <li><small>Check-in: 9:00AM, Check-out: 8:00AM</small></li>
@@ -12689,11 +12854,25 @@ function getBookingSourceList(){
 return $html;
 }
 
-function getOrganisationListData(){
+function getOrganisationListData($id='',$name='',$state = ''){
     global $conDB;
     $hotelId = HOTEL_ID;
     $html ='';
      $query = "SELECT * FROM organisations where hotelId = '$hotelId' and status = 1";
+     
+     if($id != ''){
+         $query .= " and id = '$id'";
+     }
+     
+     if($name != ''){
+         $query .= " and name like '%$name%'";
+     }
+     
+     if($state != ''){
+         $query .= " and organisationState = '$state'";
+     }
+     
+     
      $data = array();
      $sql = mysqli_query($conDB,$query);
      if(mysqli_num_rows($sql)>0){
@@ -12757,15 +12936,35 @@ function getOrganisationList(){
      return $html;
 }
 
-    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote=''){
+    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote='',$actionId=''){
         $hotelId = HOTEL_ID;
         global $conDB;
-        $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
+        if($actionId != ''){
+            $query = "UPDATE organisations
+                    SET name = '$organisationName',
+                        orgConName = '$conName',
+                        organisationEmail = '$organisationEmail',
+                        organisationAddress = '$organisationAddress',
+                        organisationCity = '$organisationCity',
+                        organisationState = '$organisationState',
+                        organisationCountry = '$organisationCountry',
+                        organisationPostCode = '$organisationPostCode',
+                        organisationNumber = '$organisationNumber',
+                        organisationGstNo = '$organisationGstNo',
+                        ratePlan = '$ratePlan',
+                        salesManager = '$salesManager',
+                        organisationDiscount = $organisationDiscount,
+                        organisationNote = '$organisationNote'
+                    WHERE id = '$actionId'";
+        }else{
+            $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
         VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote');
         ";
+        }
+        
         $sql = mysqli_query($conDB,$query);
         
-        return $sql;
+        return mysqli_insert_id($conDB);
     }
 
     function getGstNumberFromOrganisationName($name='',$dataid=''){
@@ -12795,15 +12994,33 @@ function getOrganisationList(){
 
     }
 
-    function getTravelagent(){
+    function getTravelagent($id = '',$search='',$state='', $group = ''){
         global $conDB;
         $hotelId = HOTEL_ID;
         $sql = "SELECT * FROM  travel_agents WHERE hotelId = '$hotelId'";
+        
+        if($id != ''){
+            $sql .= " and id = '$id'";
+        }
+        
+        if($search != ''){
+            $sql .= " and agentName like '%$search%' or travelagentPhoneno like '%$search%'";
+        }
+
+        if($group != ''){
+            $sql .= " and travelagentGroup = '$group' ";
+        }
+        
+        if($state != ''){
+            $sql .= " and travelagentState = '$state'";
+        }
         
         $data = array();
         $query = mysqli_query($conDB, $sql);
         if (mysqli_num_rows($query) > 0) {
             while ($row = mysqli_fetch_assoc($query)) {
+                $aGroup = $row['travelagentGroup'];
+                $aGroupName = (isset(fetchData('travelAgentGroup', ['id'=>$aGroup])[0])) ? fetchData('travelAgentGroup', ['id'=>$aGroup])[0] : [];
                 $tid = $row['id'];
                 $bookingArray = getAllBooingData('','','','','','',$tid);
                 $totalPrice = 0;
@@ -12816,6 +13033,7 @@ function getOrganisationList(){
 
                 $advance = [
                     'balance'=>$totalPrice,
+                    'groupName'=> (isset($aGroupName['name'])) ? $aGroupName['name'] : ''
                 ];
 
                 $data[] = array_merge($row,$advance);
@@ -12826,11 +13044,34 @@ function getOrganisationList(){
     }
 
 
-function setTraveAgentData($agentName,$travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote){
+function setTraveAgentData($agentName,$travelagentname, $travelagentemail, $travelagentAddress, $travelagrntCity, $travelagentState, $travelagentCountry, $travelagentPostCode, $travelagentPhoneno, $travelagentGstNo, $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, $travelagentNote,$travelagentGroup,$actionId=''){
     global $conDB;
     $hotelId = HOTEL_ID;
+    if($actionId != ''){
+        $query = "UPDATE travel_agents 
+          SET 
+              agentName = '$agentName',
+              travelagentname = '$travelagentname',
+              travelagentemail = '$travelagentemail',
+              travelagentAddress = '$travelagentAddress',
+              travelagrntCity = '$travelagrntCity',
+              travelagentState = '$travelagentState',
+              travelagentCountry = '$travelagentCountry',
+              travelagentPostCode = '$travelagentPostCode',
+              travelagentPhoneno = '$travelagentPhoneno',
+              travelagentGstNo = '$travelagentGstNo',
+              travelagentcommission = $travelagentcommission,
+              travelaaagentGstonCommision = $travelaaagentGstonCommision,
+              travelaaagentTcs = $travelaaagentTcs,
+              travelaaagentTds = $travelaaagentTds,
+              travelagentNote = '$travelagentNote',
+              travelagentGroup = '$travelagentGroup'
+          WHERE id = $actionId";
 
-    $query = "INSERT INTO travel_agents (hotelId,agentName,travelagentname, travelagentemail, travelagentAddress, travelagrntCity, travelagentState, travelagentCountry, travelagentPostCode, travelagentPhoneno, travelagentGstNo, travelagentcommission, travelaaagentGstonCommision, travelaaagentTcs, travelaaagentTds, travelagentNote) VALUES('$hotelId','$agentName','$travelagentname', '$travelagentemail', '$travelagentAddress', '$travelagrntCity', '$travelagentState', '$travelagentCountry', '$travelagentPostCode', '$travelagentPhoneno', '$travelagentGstNo', $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, '$travelagentNote')";
+    }else{
+        $query = "INSERT INTO travel_agents (hotelId,agentName,travelagentname, travelagentemail, travelagentAddress, travelagrntCity, travelagentState, travelagentCountry, travelagentPostCode, travelagentPhoneno, travelagentGstNo, travelagentcommission, travelaaagentGstonCommision, travelaaagentTcs, travelaaagentTds, travelagentNote,travelagentGroup) VALUES('$hotelId','$agentName','$travelagentname', '$travelagentemail', '$travelagentAddress', '$travelagrntCity', '$travelagentState', '$travelagentCountry', '$travelagentPostCode', '$travelagentPhoneno', '$travelagentGstNo', $travelagentcommission, $travelaaagentGstonCommision, $travelaaagentTcs, $travelaaagentTds, '$travelagentNote','$travelagentGroup')";
+    }
+    
     $sql = mysqli_query($conDB,$query);
 
     if($sql){
@@ -13687,6 +13928,7 @@ function fetchData($tableName, $conditions=array(), $orderByColumn = 'id', $orde
     $sql = buildQuery($tableName, $conditions, $orderByColumn, $orderDirection);   
     $query = mysqli_query($conDB, $sql);
     $data = array();
+
     while($row = mysqli_fetch_assoc($query)){
         $data[] = $row;
     }
@@ -13773,6 +14015,22 @@ function sendDataReservation($key,$url,$table,$data){
 }
 
 
+function occupancyRoomList($rid, $data){
+    global $conDB;
+    $hotelId = HOTEL_ID;
+    $nextDate = date('Y-m-d', strtotime('+1 day', strtotime($data)));
+    $sql = "SELECT * FROM bookingdetail 
+        WHERE hotelId = '$hotelId' and checkIn >= '$data' 
+        AND checkOut <= '$nextDate' and roomId = '$rid'";
+    $query = mysqli_query($conDB, $sql);
+    $data = array();
+    while($row = mysqli_fetch_assoc($query)){
+        $data[] = $row;
+    }
+    return $data;
+}
+
+
 
 function listOfOdishaDistric(){
     $districts = [
@@ -13825,11 +14083,13 @@ function getStatesOfIndia() {
         "Gujarat",
         "Haryana",
         "Himachal Pradesh",
+        "Dharamshala",
         "Jharkhand",
         "Karnataka",
         "Kerala",
-        "Madhya Pradesh",
+        "Madhya",
         "Maharashtra",
+        "Nagpur",
         "Manipur",
         "Meghalaya",
         "Mizoram",
@@ -13843,7 +14103,18 @@ function getStatesOfIndia() {
         "Tripura",
         "Uttar Pradesh",
         "Uttarakhand",
-        "West Bengal"
+        "Dehradun",
+        "West Bengal",
+        "Andaman and Nicobar Islands",
+        "Chandigarh",
+        "Dadra and Nagar",
+        "Delhi",
+        "Jammu and Kashmir",
+        "Jammu",
+        "Ladakh",
+        "Kargil",
+        "Lakshadweep",
+        "Puducherry"
     );
     
     return $states_of_india;

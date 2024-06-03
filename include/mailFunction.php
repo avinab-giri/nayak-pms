@@ -946,7 +946,104 @@
         return $html;
     }
 
-    function blankGRC(){
+    function blankGRC($bid = ''){
+        
+        if($bid != ''){
+            $guestDataArray = fetchData('guest',['bookId'=>$bid])[0];
+            $guestName = $guestDataArray['name'];
+            $guestEmail = $guestDataArray['email'];
+            $guestPhone = $guestDataArray['phone'];
+            $full_address = $guestDataArray['full_address'];
+            
+            $bookingDataArray = fetchData('booking',['id'=>$bid])[0];
+            
+            $bookOn = $bookingDataArray['add_on'];
+            $mainCheckOut = $bookingDataArray['mainCheckOut'];
+            $mainCheckIn = $bookingDataArray['mainCheckIn'];
+            $billingMode = $bookingDataArray['billingMode'];
+            $organisation = $bookingDataArray['organisation'];
+            $gstno = $bookingDataArray['gstno'];
+            $bussinessSource = $bookingDataArray['bussinessSource'];
+            $reciptNo = $bookingDataArray['reciptNo'];
+            
+            $bookingDetailArray = fetchData('bookingdetail',['bid'=>$bid]);
+            $rooms = count($bookingDetailArray);
+            
+            $bookingbyArray = fetchData('bookingby',['bid'=>$bid])[0];
+            $bookingRef = $bookingbyArray['name'];
+            
+            $roomDetailHtml = '';
+            $roomDetailHtml2 = '';
+            
+            foreach($bookingDetailArray as $item){
+                $roomType = fetchData('room',['id'=>$item['roomId']])[0]['header'];
+                $roomDId = fetchData('sys_rate_plan',['id'=>$item['roomDId']])[0]['srtcode'];
+                $adult = $item['adult'];
+                $child = $item['child'];
+                $totalPrice = $item['totalPrice'];
+                
+                $roomDetailHtml = '
+                    <tr>
+                        <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Type:</td>
+                        <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$roomType.'</td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room No.:</td>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Plan:</td>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$roomDId.'</td>
+                    </tr>
+                ';
+                
+                $roomDetailHtml2 = '
+                <tr>
+                    <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Adult:</td>
+                    <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$adult.'</td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Child:</td>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$child.'</td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Rate:</td>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$totalPrice.'</td>
+                </tr>
+                ';
+            }
+        }else{
+            $roomDetailHtml = '
+                    <tr>
+                        <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Type:</td>
+                        <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room No.:</td>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Plan:</td>
+                        <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                    </tr>
+                ';
+                
+            $roomDetailHtml2 = '
+                <tr>
+                    <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Adult:</td>
+                    <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Child:</td>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Rate:</td>
+                    <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                </tr>
+                ';
+        }
+        
         $html = '
             <tr>
                 <td align="center" valign="top" style="padding:5px 10px; border-bottom:#000 1px solid;border-left:#000 1px solid;border-right:#000 1px solid;">
@@ -990,19 +1087,19 @@
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" width="25%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Guest Name:</td>
-                                                <td align="left" valign="top" width="75%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" width="75%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$guestName.'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Phone Number:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$guestPhone.'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Email:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$guestEmail.'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Address:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$full_address.'</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1054,23 +1151,23 @@
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" width="25%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Booked On:</td>
-                                                <td align="left" valign="top" width="75%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" width="75%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$bookOn.'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Arrival:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$mainCheckIn .'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Departure:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$mainCheckOut .'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">No. Of Rooms:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$rooms .'</td>
                                             </tr>
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Booking Ref. #:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
+                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">'.$bookingRef .'</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1116,18 +1213,7 @@
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:bold; padding-bottom:2px;" colspan="2">ROOM DETAILS</td>
                                             </tr>
-                                            <tr>
-                                                <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Type:</td>
-                                                <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room No.:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Plan:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
+                                            '.$roomDetailHtml.'
                                         </tbody>
                                     </table>
                                 </td>
@@ -1137,18 +1223,7 @@
                                             <tr>
                                                 <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:bold; padding-bottom:2px;" colspan="2">&nbsp;</td>
                                             </tr>
-                                            <tr>
-                                                <td align="left" valign="top" width="30%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Adult:</td>
-                                                <td align="left" valign="top" width="70%" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Child:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;">Room Rate:</td>
-                                                <td align="left" valign="top" style="font-family:Calibri; color:#000; font-size:14px; font-weight:normal; padding-bottom:0px;"></td>
-                                            </tr>
+                                            '.$roomDetailHtml2.'
                                         </tbody>
                                     </table>
                                 </td>
@@ -1437,7 +1512,7 @@
         $content = '';
 
         if($type == 'blankGRC'){
-            $content = blankGRC();
+            $content = blankGRC($bid);
         }
 
         if($type == 'invoice'){

@@ -36,7 +36,7 @@ if($type == 'loadGuest'){
     }
 
     if($district != ''){
-        $sql .= " and district Like '%$district%'";
+        $sql .= " and state Like '%$district%'";
     }
 
     if($action == 'birthday'){
@@ -332,6 +332,7 @@ if($type == 'loadAddGuestReservationForm'){
         
         $birthdayDate = $guestArray['birthday'];
         $anniversaryDate = $guestArray['anniversary'];
+        $full_address = $guestArray['full_address'];
         
     }
 
@@ -345,8 +346,10 @@ if($type == 'loadAddGuestReservationForm'){
             $idProofHtml .= "<option value='$id'>$name</option>";
         }
     }
-
     
+    $guestImgHtml = "<span style='display: flex;align-items: center;justify-content: center;height: 100%;color: black;opacity: .6;'>Select Guest Image</span>";
+    $guestPImgHtml = "<span style='display: flex;align-items: center;justify-content: center;height: 100%;color: black;opacity: .6;'>Select ID V Image</span>";
+
     if(!empty($guestArray) || $gustImg != '' || $guestProofImg != ''){
 
         ($gustImg == '') ? '' : $guestImage = $gustImg;
@@ -373,6 +376,12 @@ if($type == 'loadAddGuestReservationForm'){
             $genderHtml .= "<input type='radio' name='gender' value='$genderList' id='$genderList'><label class='mr5' for='$genderList'>$genderName</label>";
         }
         
+    }
+    
+    $stateHtml = '';
+    foreach (getStatesOfIndia() as $item) {
+        $select = ($guestState == $item) ? 'selected' : '';
+        $stateHtml .=  "<option $select value='$item'>$item</option>";
     }
 
     $html = '
@@ -416,33 +425,36 @@ if($type == 'loadAddGuestReservationForm'){
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="align-items: end;">
 
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="">Block</label>
-                            <input type="text" name="guestBlock" class="form-control" placeholder="Enter Block" value="'.$guestBlock.'">
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label for="">District</label>
                             <input type="text" name="guestDistrict" class="form-control" placeholder="Enter District" value="'.$guestDistrict.'">
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label for="">State</label>
-                            <input type="text" name="guestState" class="form-control" placeholder="Enter State" value="'.$guestState.'">
+                            <select style="width:100%" class="customInput" name="guestState" id="guestState">
+                                <option value="">---</option>
+                                '.$stateHtml.'
+                            </select>
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label for="">Zip</label>
-                            <input type="text" name="guestZip" class="form-control" placeholder="Enter Address" value="'.$guestZip.'">
+                            <input type="text" name="guestZip" class="form-control" placeholder="Enter Pin code" value="'.$guestZip.'">
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">Address</label>
+                            <textarea type="text" name="guestAddress" class="form-control" placeholder="Enter Address">'.$full_address.'</textarea>
                         </div>
                     </div>
 
@@ -519,6 +531,7 @@ if($type == 'loadAddGuestReservationFormSubmit'){
     $guestZip = safeData($_POST['guestZip']);
     $guestIdNumber = safeData($_POST['guestIdNumber']);
     $guestIdType = safeData($_POST['guestIdType']);
+    $guestAddress = safeData($_POST['guestAddress']);
 
     $guestIdState = safeData($_POST['guestState']);
 
@@ -581,11 +594,11 @@ if($type == 'loadAddGuestReservationFormSubmit'){
     }
 
 
-    $sql = "insert into guest(hotelId,bookId,bookingdId,name,email,phone,state,zip,image,kyc_file,kyc_number,kyc_type,addBy,serial,birthday,anniversary) values('$hotelId','$bookId','$bookingDId','$guestName','$guestEmail','$guestPhone','$guestIdState','$guestZip','$guestImgSec','$guestProofImgSec','$guestIdNumber','$guestIdType','$addBy','$serialNo','$guestBirthday','$guestAnniversary')";
+    $sql = "insert into guest(hotelId,bookId,bookingdId,name,email,phone,state,zip,image,kyc_file,kyc_number,kyc_type,addBy,serial,birthday,anniversary,full_address) values('$hotelId','$bookId','$bookingDId','$guestName','$guestEmail','$guestPhone','$guestIdState','$guestZip','$guestImgSec','$guestProofImgSec','$guestIdNumber','$guestIdType','$addBy','$serialNo','$guestBirthday','$guestAnniversary','$guestAddress')";
 
     if($_POST['guestId'] != ''){
         
-        $sql = "update guest set name='$guestName',email='$guestEmail',phone='$guestPhone',state='$guestIdState',zip='$guestZip',kyc_number='$guestIdNumber',kyc_type='$guestIdType',addBy='$addBy',birthday='$guestBirthday',anniversary='$guestAnniversary' $guestImgStrSql $guestProofStrSql where id = '$gId'";
+        $sql = "update guest set name='$guestName',email='$guestEmail',phone='$guestPhone',state='$guestIdState',zip='$guestZip',kyc_number='$guestIdNumber',kyc_type='$guestIdType',addBy='$addBy',birthday='$guestBirthday',full_address='$guestAddress',anniversary='$guestAnniversary' $guestImgStrSql $guestProofStrSql where id = '$gId'";
     }
     
 

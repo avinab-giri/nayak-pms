@@ -1,0 +1,255 @@
+[29-May-2024 12:51:35 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 830
+[29-May-2024 12:51:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 830
+[29-May-2024 14:33:26 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[29-May-2024 14:33:26 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[29-May-2024 14:35:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:06:23 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 01:06:23 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:06:25 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:24:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:28:20 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:31:18 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:31:35 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:36:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:37:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 01:38:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 04:39:28 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 04:39:29 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 04:39:30 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 05:13:35 Asia/Kolkata] PHP Notice:  Undefined variable: full_address in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/ajax/guest.php on line 457
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 06:34:49 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:48:36 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 17:48:36 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:48:38 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:49:53 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 17:49:53 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:49:54 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 17:50:52 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 18:13:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[30-May-2024 18:43:04 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 10:53:16 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[31-May-2024 10:53:16 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 790
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 10:53:17 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:04:43 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:16:13 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:16:22 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:27:59 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:53:12 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2669
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3606
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2979
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[31-May-2024 11:54:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2980
+[03-Jun-2024 18:33:00 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
+[03-Jun-2024 18:33:00 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
+[03-Jun-2024 18:33:02 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
+[03-Jun-2024 18:33:02 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
+[03-Jun-2024 18:33:08 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/ajax/resorvation.php on line 76
+[03-Jun-2024 18:33:08 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/ajax/resorvation.php on line 76
+[03-Jun-2024 18:33:33 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
+[03-Jun-2024 18:33:33 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
+[03-Jun-2024 18:38:14 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:14 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:14 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:14 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:41 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:41 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:41 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:38:41 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:21 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:21 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:21 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:21 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:55 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:56 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:56 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:39:56 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:57:11 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:57:11 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:57:11 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 18:57:11 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:15:33 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
+[03-Jun-2024 19:15:33 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
+[03-Jun-2024 19:15:35 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:15:36 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:15:36 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:15:36 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:39:47 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:39:47 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:39:47 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
+[03-Jun-2024 19:39:47 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063

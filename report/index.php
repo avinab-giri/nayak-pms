@@ -25,7 +25,7 @@ $retoprtLink = FRONT_SITE . '/report/';
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <title>Report</title>
+    <title>Reports</title>
 
     <?php include(FO_SERVER_SCREEN_PATH . 'link.php') ?>
 
@@ -45,7 +45,7 @@ $retoprtLink = FRONT_SITE . '/report/';
         <div class="container">
 
             <?php
-                echo backNavbarUi('', 'Report');
+                echo backNavbarUi('', 'Reports');
 
 
                 $getStysReportTypeArray = getStysReportType('',1);
