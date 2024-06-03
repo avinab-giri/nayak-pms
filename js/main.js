@@ -349,13 +349,10 @@ function success($msg) {
     return $html;
 }
 
-function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingType = '', $currentDate = '', $page = 1) {
+function loadResorvation($rTab = '', $search = '',  $page = 1, serchBy = '', serchByValue = '') {
     
     var rTab = $rTab;
     var search = $search;
-    var reserveType = $reserveType;
-    var bookingType = $bookingType;
-    var currentDate = $currentDate;
     var page = $page;
 
     if (rTab == '') {
@@ -368,7 +365,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
     $.ajax({
         url: webUrl + 'include/ajax/resorvation.php',
         type: 'post',
-        data: { type: 'load_resorvation', rTab: rTab, search: search, reserveType: reserveType, bookingType: bookingType, currentDate: currentDate, page: page },
+        data: { type: 'load_resorvation', rTab: rTab, search: search, page: page, serchBy:serchBy, serchByValue:serchByValue },
         success: function (data) {
             var response = JSON.parse(data);
             var resData = response.data;
@@ -381,7 +378,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
             if(pagination > 0){
                 for (let i = 1; i <= pagination; i++) {
                     var active = (page == i) ? 'active' :'';
-                    paginationList += `<li class="paginate_button ${active}"><a href="javascript:void(0)" onclick="loadResorvation('all','','','','','${i}')">${i}</a></li>`;
+                    paginationList += `<li class="paginate_button ${active}"><a href="javascript:void(0)" onclick="loadResorvation('all','','${i}')">${i}</a></li>`;
                 }
             }
 
@@ -394,6 +391,10 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
             }
 
             let tableRow = '';
+            let countTotalRooms = 0;
+            let countTotalPrice = 0;
+
+            let tableFooter = '';
 
             if(resData.length > 0){
                 $.each(resData, (index,val)=>{
@@ -401,7 +402,8 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                     let reciptNo = generateNumber(val.reciptNo);
                     let GuestName = val.guestName;
                     let rooms = val.totalRooms;
-                    let bookRef = val.bookRef;
+                    countTotalRooms += parseInt(rooms);
+                    let staffName = val.staffName;
                     let travelAgent = val.travelAgent;
                     let checkIn = moment(val.mainCheckIn).format('DD MMM, YY');
                     let checkOut = moment(val.mainCheckOut).format('DD MMM, YY');
@@ -412,6 +414,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                     let night = val.nightCount;
                     let pax = val.totalAdult + '/' + val.totalChild;
                     let total = rupeesFormat(val.totalBookingPrice);
+                    countTotalPrice += parseFloat(val.totalBookingPrice);
 
                     let checkinstatusArray = getCheckInStatus(val.status);
                     let statusCls = checkinstatusArray.btnCls;
@@ -419,6 +422,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
     
                     let grcLink = `${webUrl}grc?id=${bid}`;
                     let voucherLink = `${webUrl}view-voucher?id=${bid}`;
+                    let agentLink = `${webUrl}view-voucher?id=${bid}&type=agent`;
                     let noShowBtn = (val.status == 1) ? `<li><button onclick="makeNoShowReservation(${bid})">Mark As No Show</button></li>` : '';
                     let cancelResBtn = (val.status == 1) ? `<li><button onclick="makeCancelReservation(${bid})">Void Reservation</button></li>` : '';
                     let addPaymentBtn = (val.status == 1) ? `<li><button onclick="loadAddPaymentForm(${bid})">Add Payment</button></li>` : '';
@@ -434,8 +438,8 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                             <td>${pax}</td>
                             <td>${total}</td>
                             <td><span style="border-radius: 2px;" class="badge ${statusCls}">${statusBtn}</span></span></label></td>
-                            <td>${bookRef}</td>
                             <td>${travelAgent}</td>
+                            <td>${staffName}</td>
                             <td><button data-tooltip-top="View Booking" onclick="viewBookingReport(${bid})"><i class="fas fa-eye"></i></button></td>
                             <td class="no-export">
                                 <div class="customDropdown" style="display: flex;justify-content: center;">
@@ -449,6 +453,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                                         <li><a href="${grcLink}" target="_blank" >GRC</a></li>
                                         <li> <a href="${voucherLink}" target="_blank">Guest Voucher</a></li>
                                         <li><a onclick="viewBookingReport(${bid})" href="javascript:void(0)">View Booking</a></li>
+                                        <li><a target="_blank" href="${agentLink}">Agent Voucher</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -456,6 +461,15 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                     `;
     
                 });
+                tableFooter = `
+                    <tfoot>
+                        <tr style="background: #e5e5e5;">
+                            <th colspan="2"><h4>Total</h4></th>
+                            <th colspan="5"><h4 style="font-weight: 500;">${countTotalRooms}</h4></th>
+                            <th colspan="6"><h4 style="font-weight: 500;">${rupeesFormat(countTotalPrice)}</h4></th>
+                        </tr>
+                    </tfoot>
+                `;
             }else{
                 tableRow = `<tr><td colspan="100%">No Data</td></tr>`;
             }
@@ -483,6 +497,7 @@ function loadResorvation($rTab = '', $search = '', $reserveType = '', $bookingTy
                             <tbody>
                                 ${tableRow}
                             </tbody>
+                            ${tableFooter}
                         </table>
 
                         ${paginationHtml}

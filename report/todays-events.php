@@ -42,7 +42,7 @@ $roomArry = getRoomType();
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg scrollBar">
 
-        <div class="container">
+        <div class="container-fluid">
 
             <?php
 
@@ -68,11 +68,11 @@ $roomArry = getRoomType();
                                             <li role="presentation" data-target="booking" class="active">
                                                 <a href="javascript:void(0)" role="tab" data-toggle="tab" onclick="GetBookings()" aria-expanded="true">
                                                     <i class="fas fa-users"></i>
-                                                    Bookings
+                                                    Check In
                                                 </a>
                                             </li>
 
-                                            <li role="presentation" data-target="inHouse" class="">
+                                            <!-- <li role="presentation" data-target="inHouse" class="">
                                                 <a href="javascript:void(0)" role="tab" data-toggle="tab" onclick="GetInhouse()" aria-expanded="false">
                                                     <svg class="w20 h20">
                                                         <use xlink:href="#inHouseSvgIcon"></use>
@@ -87,7 +87,7 @@ $roomArry = getRoomType();
                                                     </svg>
                                                     Checked-Out
                                                 </a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
 

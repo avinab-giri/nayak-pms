@@ -1268,6 +1268,9 @@ table.dummystuf tr:nth-child(even) {
   padding: 15px;
   overflow: auto;
 }
+#resorvationContent.active{
+  height: calc(80vh - 140px);
+}
 #resorvationContent a {
   position: relative;
   z-index: 5;
@@ -11084,5 +11087,13 @@ footer {
 }
 
 .companySection.show{
+  display: block;
+}
+
+#filterReservationContent{
+  display: none;
+}
+
+#filterReservationContent.show{
   display: block;
 }

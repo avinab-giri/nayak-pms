@@ -45,7 +45,7 @@ $grcLink = FRONT_SITE . '/grc';
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="reservationNav sNavBar">
                 <?php
@@ -285,10 +285,14 @@ $grcLink = FRONT_SITE . '/grc';
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-12" id="bookByContent"></div>
+
                                                     <div class="col-12">
                                                         <input type="checkbox" id="bookByOther" name="bookByOther" value="other">
                                                         <label for="bookByOther"> Other</label>
                                                     </div>
+
+                                                    
 
                                                     <div class="col-md-12" id="advanceFieldContent"></div>
 
@@ -418,6 +422,10 @@ $grcLink = FRONT_SITE . '/grc';
                                                                 <label for="guestAddress">Address</label>
                                                                 <textarea class="form-control" name="guestAddress" id="guestAddress" rows="1"></textarea>
                                                             </div>
+                                                            <div class="col-md-12">
+                                                                <label for="specialRequest">Guest Special Request</label>
+                                                                <textarea class="form-control" name="specialRequest" id="specialRequest" rows="3"></textarea>
+                                                            </div>
                                                         </div>
 
                                                         <div class="row py-2">
@@ -426,25 +434,25 @@ $grcLink = FRONT_SITE . '/grc';
                                                             </div>
                                                             <div class="col-12 d-flex ">
                                                                 <div class="form-check mR10">
-                                                                    <input class="form-check-input" type="checkbox" value="1" id="phoneCall" name="communication[]">
+                                                                    <input class="form-check-input" type="checkbox" value="Phone Call" id="phoneCall" name="communication[]">
                                                                     <label class="form-check-label" for="phoneCall">
                                                                         Phone Call
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mR10">
-                                                                    <input class="form-check-input" type="checkbox" value="2" id="whatsApp" name="communication[]">
+                                                                    <input class="form-check-input" type="checkbox" value="Whatsapp" id="whatsApp" name="communication[]">
                                                                     <label class="form-check-label" for="whatsApp">
                                                                         Whatsapp
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check mR10">
-                                                                    <input class="form-check-input" type="checkbox" value="3" id="eMail" name="communication[]">
+                                                                    <input class="form-check-input" type="checkbox" value="E-Mail" id="eMail" name="communication[]">
                                                                     <label class="form-check-label" for="eMail">
                                                                         E-Mail
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="4" id="resCounter" name="communication[]">
+                                                                    <input class="form-check-input" type="checkbox" value="Reservation Counter" id="resCounter" name="communication[]">
                                                                     <label class="form-check-label" for="resCounter">
                                                                         Reservation Counter
                                                                     </label>
@@ -505,8 +513,8 @@ $grcLink = FRONT_SITE . '/grc';
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <label for="specialRequest">Guest Special Request</label>
-                                                            <textarea class="form-control" name="specialRequest" id="specialRequest" rows="3"></textarea>
+                                                            <label for="billingInfo">Billing Info</label>
+                                                            <textarea class="form-control" name="billingInfo" id="billingInfo" rows="3"></textarea>
                                                         </div>
                                                     </div>
 
@@ -825,6 +833,84 @@ $grcLink = FRONT_SITE . '/grc';
             $("#loadAddResorvation").html("").hide();
             loadResorvation('all');
         }
+
+        function getDataForBookBy(type,value){
+            let data = `request_type=getDataForBookBy&value=${value}&type=${type}`;
+            if(value == 0){
+                $('#bookByContent').html('');
+            }else{
+                ajax_request(data).done(function (request) {
+                    let response = JSON.parse(request);
+                    let html = '';
+
+                    if(type == 'travelAgent'){
+                        let address = arrayToStr([response.travelagrntCity,response.travelagentState]);
+                        html = `
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="m0">Agent Name: ${response.agentName}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Contact Person: ${response.travelagentname}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Phone Number: ${response.travelagentPhoneno}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Email: ${response.travelagentemail}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Address: ${address}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    if(type == 'organisation'){
+                        let address = arrayToStr([response.organisationCity,response.organisationState]);
+                        html = `
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="m0">Comapany Name: ${response.name}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Contact Person: ${response.orgConName}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Phone Number: ${response.organisationNumber}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Email: ${response.organisationEmail}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m0">Address: ${response.agentName}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    $('#bookByContent').html(html);
+                });
+            }
+            
+        }
+
+
+        $(document).on('change', '#travelagent', function(e){
+            e.preventDefault();
+            let value = $(this).val();
+            getDataForBookBy('travelAgent',value);
+        });
+
+        $(document).on('change', '#organisation', function(e){
+            e.preventDefault();
+            let value = $(this).val();
+            getDataForBookBy('organisation',value);
+        });
+
+
+
+
+
     </script>
 
 

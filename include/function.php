@@ -531,26 +531,32 @@ function cashNavHtml($active=''){
 }
 
 
-function reservationLeftNav($active){
+function reservationLeftNav($active, $srcBtn=''){
     $links = [
-        ['id' => 'New', 'text' => 'New', 'link' => FRONT_SITE.'/walk-in'],
-        ['id' => 'all', 'text' => 'All Reservations', 'link' => FRONT_SITE.'/reservations'],
-        ['id' => 'noShow', 'text' => 'No Show', 'link' => FRONT_SITE.'/no-show'],
-        ['id' => 'void', 'text' => 'Void', 'link' => FRONT_SITE.'/void']
+        ['id' => 'New', 'class' => 'py-3', 'text' => 'New', 'link' => FRONT_SITE.'/walk-in'],
+        ['id' => 'all', 'class' => 'py-3', 'text' => 'All Reservations', 'link' => FRONT_SITE.'/reservations'],
+        ['id' => 'noShow','class' => 'py-3',  'text' => 'No Show', 'link' => FRONT_SITE.'/no-show'],
+        ['id' => 'void', 'class' => 'py-3', 'text' => 'Void', 'link' => FRONT_SITE.'/void'],
     ];
 
+    if($srcBtn != ''){
+        $srcBtnHtml = ['id' => 'filterRes', 'class' => 'btn btn-info', 'text' => 'Search', 'link' => 'javascript:void(0)'];
+        $links[] = $srcBtnHtml;
+    }
+    
     $leftNav = '<div class="mainNavContent">
         <ul id="loadReservationCountContent">';
     
     foreach ($links as $link) {
         $isActive = ($link['id'] === $active) ? 'active' : '';
-        $leftNav .= '<li><a id="'.$link['id'].'" href="'.$link['link'].'" class="reservationTab py-3 '.$isActive.'">'.$link['text'].'</a></li>';
+        $leftNav .= '<li><a id="'.$link['id'].'" href="'.$link['link'].'" class="reservationTab '.$link['class'].' '.$isActive.'">'.$link['text'].'</a></li>';
     }
 
     $leftNav .= '</ul></div>';
 
     return $leftNav;
 }
+
 
 
 function reservationRightNav($export = true, $print = true, $search = true){
@@ -926,7 +932,7 @@ function getStysBookingType($id = '', $satus = '')
     return QueryGen('sys_booking_type', $array);
 }
 
-function getStysReportList($id = '', $type = '', $key = ''){
+function getStysReportList($id = '', $type = '', $key = '', $deleteRec = ''){
     $array = array();
 
     if ($id != '') {
@@ -939,6 +945,10 @@ function getStysReportList($id = '', $type = '', $key = ''){
 
     if ($key != '') {
         $array[] = ['accesKey' => $key];
+    }
+
+    if ($deleteRec != '') {
+        $array[] = ['deleteRec' => $deleteRec];
     }
 
     return QueryGen('sys_report_list', $array);
@@ -1496,7 +1506,6 @@ function reservationReturnQuery($tab, $currentDate = '', $search = '', $paymentS
     $sql .= " group by booking.id";
 
     if($tab == 'all'){
-        // $sql .= " ORDER BY bookingdetail.checkIn DESC, booking.id DESC";
         $sql .= " ORDER BY booking.id DESC";
     }else{
         $sql .= " ORDER BY booking.id DESC ";
@@ -1506,8 +1515,7 @@ function reservationReturnQuery($tab, $currentDate = '', $search = '', $paymentS
     return $sql;
 }
 
-function checkPageBySupperAdmin($pg = '', $title = '', $ttext = '')
-{
+function checkPageBySupperAdmin($pg = '', $title = '', $ttext = ''){
     global $conDB;
     // $hotelId = $_SESSION['HOTEL_ID'];
     // $sql = "select * from hotel where status = '1' and hCode = '$hotelId'";
@@ -2935,6 +2943,8 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
     $kotPaidAmount = 0;
     $sumSubTotalPrice = 0;
 
+    $bookingSource = '';
+
     $bookBy = fetchData('bookingby', ['bid' => $bid])[0];
     $travelId = $bookBy['travelType'];
     $organizationId = $bookBy['organizationId'];
@@ -2977,6 +2987,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
             $roomNum[] = $row['room_number'];
 
             $roomPrice = $row['roomPrice'];
+            $noOfRooms = $row['noOfRooms'];
             $adultPrice = 0;
             $childPrice = 0;
             $couponPrice = 0;
@@ -3009,6 +3020,7 @@ function getBookingDetailById($bid = '', $roomNo = '', $bdid = '', $date = ''){
                 'roomName' => getRoomList('yes', $roomId)[0]['header'] ?? '',
                 'rateplan' => [$rateTypeS, $rateTypeF],
                 'room' => $roomPrice,
+                'noOfRooms' => $noOfRooms,
                 'couponPrice' => $couponPrice,
                 'roomWithCoupon' => $roomWithCoupon,
                 'adult' => $adult,
@@ -11921,39 +11933,159 @@ function posReportMake($fDate='',$eDate=''){
     return $data;
 }
 
+function getHotelTermAndCon($type){
+    $paymentTermHtml = '';
 
+    if($type == ''){
+        $paymentTermHtml = '
+            Full Payment: All reservations made must be paid in full at the time of Check-In. This includes, but is not limited to, the changes in the name and number of the occupants, dates for which the booking is made.
+        ';
+    }
 
-function orderEmail2Body($oid){
-    
+    if($type == 'agent'){
+        $paymentTermHtml = '
+            Full Payment: All reservations made must be paid in full immediately after Guest Check-In. This includes, but is not limited to, the changes in the name and number of the occupants, dates for which the booking is made.
+        ';
+    }
+
+    $html = 
+    '<table style="width: 95%; margin: 0 auto;">
+        <tbody>
+            <tr>
+                <td>
+                    <h4 style="margin: 0;">TERMS AND CONDITIONS </h4>
+                    <strong>Check-In and Check-Out</strong>
+                    <ul>
+                        <li><small>Check-in: 9:00AM, Check-out: 8:00AM</small></li>
+                        <li><small>Photo ID (Aadhar, Passport, Voter ID Only) of all members checking in has to be
+                        mandatorily furnished at the time of Check-in</small></li>
+                        <li><small>Copy of the booking voucher must be produced at the time of Check-In. </small></li>
+                    </ul> <br/>
+
+                    <strong>Payment Policy </strong> <br/>
+                    <small>'.$paymentTermHtml.'</small> <br/><br/>
+
+                    <strong>Non-transferability </strong> <br/>
+                    <small>Any booking made is strictly non-transferable.</small> <br/><br/>
+
+                    <strong>Allotment of Room</strong> <br/>
+                    <small>The category of room booked is confirmed, however the room number will only be allotted at the
+                    time of check-in. Any special requests made for the room (including but not limited to the floor
+                    the size, the view) will be. processed on the date of the check-in based on the availability and
+                    there is no guarantee extended for the same.</small> <br/><br/>
+
+                    <strong>Communicaton</strong> <br/>
+                    <small>All communicatons will be made to and replied to only when received from the registered e-mail
+                    ID as provided at the time of booking</small> <br/><br/>
+
+                    <strong>Pets</strong> <br/>
+                    <small>We strive to provide a comfortable and enjoyable experience for all our guests. We regret to
+                    inform you that we are not a pet-friendly hotel.</small> <br/><br/>
+
+                    <strong>Cancellaton</strong>
+                    <ul>
+                        <li><small>For booking cancellation can only be done manually, please send an email to:
+                        (info@nayakbeachresort.com I info@nayakhotels.com) and the amount shall be refunded
+                        to the customer’s account as per the refund policy of the hotel maximum within 10-14
+                        business days of the date of cancellation request.</small></li>
+                        <li><small>There will be no entertaining of cancellation request or refund if the same is made nine
+                        (9) days prior to the date when the intended stay commences. 
+                        </small></li>
+                        <li><small>There will be a 50% refund of the booking amount when a cancellation request is made
+                        between ten (10) - nineteen (19) days prior to the date when the intended stay
+                        commences.</small></li>
+                        <li><small>There will be a 75% refund of the booking amount when a cancellation request is made
+                        more than nineteen (19) days prior to the date when the intended stay commences. </small></li>
+                    </ul> <br/>
+
+                    <strong>No Show</strong> <br/>
+                    <small>The booking will be automatically cancelled if there is no-show and failure to occupy the room
+                    within twelve (12) hours from 9:00AM. There will be no refund of the booking amount paid in the
+                    case of a no-show. All late check-ins must be communicated to the hotel management on the day
+                    prior to the date when the intended stay commences by 8:30PM.</small> <br/><br/>
+
+                    <strong>Dispute</strong> <br/>
+                    <small>Any and all disputes arising from the stay, the booking, etc. will be subject to the jurisdiction of
+                    Puri, Odisha only. </small> <br/><br/>
+
+                    <strong>Refunds</strong> <br/>
+                    <small>All refunds will be made to the source account where the original booking was made from and
+                    shall be processed within 10-14 business days. </small>
+                </td>
+            </tr>
+        </tbody>
+    </table>';
+
+    return $html;
+}
+
+function voucherHeader($reservationNumber){
     $hotelDetailArray = fetchData('hotel', ['hCode'=>$_SESSION['HOTEL_ID']])[0];
     $hotelprofileArray = fetchData('hotelprofile', ['hotelId'=>$_SESSION['HOTEL_ID']])[0];
     $proLocarion = fetchData('propertylocation', ['hotelId'=>$_SESSION['HOTEL_ID']])[0];
-    $guestArray = (isset(fetchData('guest', ['bookId'=>$oid, 'groupadmin'=> 1])[0])) ? fetchData('guest', ['bookId'=>$oid, 'groupadmin'=> 1])[0] : array();
-    $onlyBookingArray = fetchData('booking', ['id'=>$oid])[0];
-    $bookingByArray = fetchData('bookingby', ['id'=>$oid])[0];
-    $travelagent = $onlyBookingArray['travelagent'];
+    $locationGr = FRONT_SITE.'/img/nayak-hotel-location.jpg';
+
+    $date = date('Y-m-d');
+
+    $googleMapLink = $proLocarion['mapLink'];
+    $hotelName = $hotelDetailArray['hotelName'];
+
+    $hotelMail=ucfirst($hotelDetailArray['hotelEmailId']);
+    $hotelPhonenumber = ucfirst($hotelDetailArray['hotelPhoneNum']);
+    $hotelWebsite = ucfirst($hotelDetailArray['website']);
+    $hotelAdd = ucfirst($proLocarion['address']);
+
+    $hotelDetails = '';
+
+    $hotelDetails.='<p><a style="text-decoration: none;color: black;font-weight: 700;" href="'.$googleMapLink.'">'.$hotelAdd.'</a></p>';
     
-    $name = (isset($guestArray['name'])) ? $guestArray['name']: '';
-    $email = (isset($guestArray['email'])) ? $guestArray['email']: '';
-    $phoneNumber = (isset($guestArray['phone'])) ? $guestArray['phone'] : '';
-    $whatsAppNumber = (isset($guestArray['whatsapp'])) ? $guestArray['whatsapp'] : '';
-    $guestAddress = toConvertArrayToStr([$guestArray['full_address'], $guestArray['district'], $guestArray['state']]);
-    $company_name = (isset($onlyBookingArray['compayName']))?$onlyBookingArray['compayName'] : '';
-    $gst = (isset($onlyBookingArray['gstno'])) ? $onlyBookingArray['gstno'] : '';
+    $hotelDetails.='
+                        <table style="width: 80%; margin: 0 auto;">
+                            <tr>
+                                <td style="text-align: left; width: 50%;">
+                                    <strong>RECEPTION</strong>
+                                    <p>Landline - 7682822209</p>
+                                    <p>Mobile - 7682822204</p>
+                                </td>
+                                <td style="text-align: left; width: 50%;">
+                                    <strong>RESERVATION</strong>
+                                    <p>Mobile -  7682822211, 7855833330</p>
+                                    <p>Email - info@nayakbeachresort.com, info@nayakhotels.com</p>
+                                </td>
+                            </tr>
+                        </table>
+                    ';
+
+    $logo = (isset(getHotelImageData('','','','',$hotelprofileArray['darklogo'])[0]['fullUrl'])) ? getHotelImageData('','','','',$hotelprofileArray['darklogo'])[0]['fullUrl'] : 'https://retrod.in/asset/img/demo-hotel.png';
     
-    $userPay = $onlyBookingArray['userPay'];
-    $grossCharge = $onlyBookingArray['totalPrice'];
-    $payStatus = $onlyBookingArray['payment_status'];
-    $add_on = date('d M, Y g:i A', strtotime($onlyBookingArray['add_on']));
-    $payment_id = $onlyBookingArray['payment_id'];
-    $bookingSource = $onlyBookingArray['bookingSource'];
+    $html = '
+        <table style="width:100%; border-collapse :collapse;">
+            <tbody>
+                <tr>
+                    <td style="width: 20%;">
+                        <img src="'.$logo.'" alt="logo">
+                        <p>Reservation number: '. $reservationNumber.'</p>
+                    </td>
+                    <td style="width: 60%; text-align: center;">
+                        <h1 style="margin: 0;">'. $hotelName.'</h1>
+                        '. $hotelDetails.'
+                    </td>
+                    <td style="width: 20%;">
+                        <img style="width:128px" src="'.$locationGr.'"/>
+                        <p>Date:'. $date.'</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    ';
 
-    $payStatusArray = fetchData('payment_status', ['id'=>$payStatus])[0];
+    return $html;
+}
 
-    $payment_status = $payStatusArray['name'];
-
+function voucherBookBy($bid,$user){
+    $bookingByArray = fetchData('bookingby', ['id'=>$bid])[0];
     $bookByDetailTable = '';
-
+    $staff = ($bookingByArray['staffName'] > 0) ? getHotelUserDetail($bookingByArray['staffName'])[0]['name'] : '';
     if($bookingByArray['travelType'] != 0){
         $travelId = $bookingByArray['travelType'];
         $travelArray = fetchData('travel_agents', ['id'=> $travelId])[0];
@@ -11974,7 +12106,8 @@ function orderEmail2Body($oid){
                     <tr>
                         <td style="text-align:left">Email : '.$travelArray['travelagentemail'].'</td>
                         <td style="text-align:left">Address : '.$address.'</td>
-                    </tr>
+                        <td style="text-align:left">Gst : '.$travelArray['travelagentGstNo'].'</td>
+                    </tr>                    
                 </table>
             </td>
         ';
@@ -11998,6 +12131,7 @@ function orderEmail2Body($oid){
                     <tr>
                         <td style="text-align:left">Email : '.$orgArray['organisationEmail'].'</td>
                         <td style="text-align:left">Address : '.$address.'</td>
+                        <td style="text-align:left">GST : '.$orgArray['organisationGstNo'].'</td>
                     </tr>
                 </table>
             </td>
@@ -12025,89 +12159,157 @@ function orderEmail2Body($oid){
     ';
     };
 
-    $bookByDetailHtml = '<table style="width:100%; border-collapse:collapse;">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <h3 style="margin: 0;">Booking Details</h3>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    '.$bookByDetailTable.'
-                                </tr>
-                            </tbody>
-                        </table>';
+    $bookByDetailHtml = 
+        '<table style="width:100%; border-collapse:collapse;">
+            <tbody>
+                <tr>
+                    <td>
+                        <h3 style="margin: 0;">Booking Details</h3>
+                    </td>
+                </tr>
+                <tr>
+                    '.$bookByDetailTable.'
+                </tr>
+                <tr>
+                    <td style="text-align:left">User : '.$user.'</td>
+                    <td style="text-align:left">Staff : '.$staff.'</td>
+                </tr>
+            </tbody>
+        </table>';
 
+    return $bookByDetailHtml;
+}
 
-    $sitename = SITE_NAME;
-    $bookingSite = FRONT_BOOKING_SITE;
+function guestVoucherGuestDetail($bid,$bookingDetailArry,$onlyBookingArray){
+    $guestArray = (isset(fetchData('guest', ['bookId'=>$bid, 'groupadmin'=> 1])[0])) ? fetchData('guest', ['bookId'=>$bid, 'groupadmin'=> 1])[0] : array();
 
-    $logo = (isset(getHotelImageData('','','','',$hotelprofileArray['darklogo'])[0]['fullUrl'])) ? getHotelImageData('','','','',$hotelprofileArray['darklogo'])[0]['fullUrl'] : 'https://retrod.in/asset/img/demo-hotel.png';
+     
+    $bookingStatus = fetchData('sys_check_in_status', ['id'=>$onlyBookingArray['status']])[0]['name'];
+    $travelagent = $onlyBookingArray['travelagent'];   
+    $checkInDetail = $onlyBookingArray['checkInDetail'];   
+    $checkOutDetail = $onlyBookingArray['checkOutDetail'];   
+    $specialRequest = $onlyBookingArray['specialRequest'];   
+
+    $userPay = $onlyBookingArray['userPay'];
+    $grossCharge = $onlyBookingArray['totalPrice'];
+    $payStatus = $onlyBookingArray['payment_status'];
+    $add_on = date('d M, Y g:i A', strtotime($onlyBookingArray['add_on']));
+    $payment_id = $onlyBookingArray['payment_id'];
+    $bookingSource = $onlyBookingArray['bookingSource'];
+    $company_name = (isset($onlyBookingArray['compayName']))?$onlyBookingArray['compayName'] : '';
+    $gst = (isset($onlyBookingArray['gstno'])) ? $onlyBookingArray['gstno'] : '';
+
     
-    $hotelName = $hotelDetailArray['hotelName'];
-
-
-
-    $roomdetailsHtml='';
-    
-
-    $bookingDetailArry = getBookingDetailById($oid);
     $paymentArry = $bookingDetailArry['paymentArry'];
     $total_price = $bookingDetailArry['totalPrice'];
-    $gst_price = $bookingDetailArry['gstPrice'];;
-    $couponBalance = 0;
-    $paymentBackupHtml = '';
-    $sn = 0;
-    $bookingStatus = '';
-
-    $paymentDetailTable = '';
-
-    if(count($paymentArry) > 0){
-        foreach($paymentArry as $Item){
-            $paidOn = date('d M, Y', strtotime($Item['paidOn']));
-            $paymentMethod = getPaymentTypeMethod($Item['paymentMethod'])[0]['name'];
-            $amount = $Item['amount'];
-
-            $paymentDetailTable .= "
-                <tr>
-                    <td style='padding:3px 5px'><strong>$paidOn</strong></td>
-                    <td style='padding:3px 5px'><strong>$paymentMethod</strong></td>
-                    <td style='padding:3px 5px'><strong>$amount</strong></td>
-                </tr>
-            ";
-        }        
-    }
-
-    $paymentDetailHtml = '<hr>
-                        <table  style="width:100%; border-collapse:collapse;">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <h3 style="margin: 0;">Payment Details</h3>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%; border-collapse:collapse;">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="padding: 5px;">Paid Date</td>
-                                                    <td style="padding: 5px;">Payment Method</td>
-                                                    <td style="padding: 5px;">Amount</td>
-                                                </tr>
-                                                <tr>
-                                                    '.$paymentDetailTable.'
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>';
+    $gst_price = $bookingDetailArry['gstPrice'];
     
+    $arrivalDate = date('d-M Y', strtotime($bookingDetailArry['checkIn']));
+    $arrivalTime = date('h:i A', strtotime($bookingDetailArry['checkInTime']));
+    $departureDate = date('d-M Y', strtotime($bookingDetailArry['checkOut']));
+    $departureTime = date('h:i A', strtotime($bookingDetailArry['checkOutTime']));
+    $night = $bookingDetailArry['night'];
+    $bookingType = getBookingSource($bookingSource)[0]['name'];
+    $bookedOn = $add_on;
+
+    $name = (isset($guestArray['name'])) ? $guestArray['name']: '';
+    $email = (isset($guestArray['email'])) ? $guestArray['email']: '';
+    $phoneNumber = (isset($guestArray['phone'])) ? $guestArray['phone'] : '';
+    $whatsAppNumber = (isset($guestArray['whatsapp'])) ? $guestArray['whatsapp'] : '';
+    $guestAddress = toConvertArrayToStr([$guestArray['full_address'], $guestArray['district'], $guestArray['state']]);
+
+    $html = '
+        <table style="width:100%; border-collapse:collapse;">
+            <tbody>
+                <tr>
+                    <td>
+                        <h3 style="margin: 0;">Guest Information</h3>
+                    </td>
+                    <td>
+                        <h3 style="margin: 0;">Stay Information</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+
+        <hr>
+        <table style="width:100%; border-collapse:collapse;">
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>'. $name.'</td>
+                    <td>Booking Status:</td>
+                    <td>'. $bookingStatus.'</td>
+                </tr>
+                <tr>
+                    <td>Phone Number::</td>
+                    <td>'. $phoneNumber.'</td>
+                    <td>Booked On:</td>
+                    <td>'. $bookedOn.'</td>
+                </tr>
+                <tr>
+                    <td>Whatsapp Number::</td>
+                    <td>'. $whatsAppNumber.'</td>
+                    <td>Arrival Date:</td>
+                    <td>'. $arrivalDate.', '.$arrivalTime.'</td>
+                </tr>
+                <tr>
+                    <td>Email::</td>
+                    <td>'. $email.'</td>
+                    <td>Departure Date:</td>
+                    <td>'. $departureDate.', '.$departureTime.'</td>                                        
+                </tr>
+                <tr>
+                    <td>Address::</td>
+                    <td>'. $guestAddress.'</td>
+                    <td>Night:</td>
+                    <td>'. $night.'</td>
+                </tr>
+                <tr>
+                    <td>Company:</td>
+                    <td>'. $company_name.'</td>
+                    <td>Booking Type:</td>
+                    <td>'. $bookingType.'</td>                                        
+                </tr>
+                <tr>
+                    <td>GST:</td>
+                    <td>'. $gst.'</td>
+                    
+                </tr>
+                <tr>
+                    <td>Arr. Details :</td>
+                    <td>'.$checkInDetail.'</td>
+                    <td>Dep. Details :</td>                   
+                    <td>'.$checkOutDetail.'</td>                   
+                </tr>
+                <tr>
+                    <td colspan="4">Guest Special Request</td>                  
+                </tr>
+                <tr>
+                    <td colspan="4">'.$specialRequest.'</td>                  
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>                    
+                </tr>
+
+            </tbody>
+        </table>
+    ';
+
+    return $html;
+
+}
+
+function roomDetailInVoucher($bid,$bookingDetailArry,$type=''){
+    
+    $sn = 0;
     foreach ($bookingDetailArry['roomDetailArry'] as $bidrow) {
         $sn ++;
         $roomName = $bidrow['roomName'];
+        $noOfRooms = $bidrow['noOfRooms'];
         $roomPrice = $bidrow['room'];
         $couponPrice = $bidrow['couponPrice'];
         $adult = $bidrow['adult'];
@@ -12124,9 +12326,9 @@ function orderEmail2Body($oid){
         $discount = ($bookingDetailArry['totalDiscount'] == 0) ? 0 : '&#x20b9; '.$bookingDetailArry['totalDiscount'];
 
         $extraCharge = 0.00;
-
-        if($travelagent == '' || $travelagent == 'other'){
-            $roomdetailsHtml.='
+        
+        if($type == '' || $type == 'view'){
+            $roomdetailsHtml='
                 <tr>
                     <td>
                         '.$sn.'. Room Type :'. $roomName.'
@@ -12139,7 +12341,7 @@ function orderEmail2Body($oid){
 
                 <tr>
                     <td>
-                        Plan: '. $plan.'
+                        Rooms: '.$noOfRooms.', Plan: '. $plan.'
                     </td>
                     <td>Discount:</td>
                     <td>'. $discount.'</td>
@@ -12173,7 +12375,7 @@ function orderEmail2Body($oid){
             
         ';
         }else{
-            $roomdetailsHtml.='
+            $roomdetailsHtml='
                 <tr>
                     <td>
                         '.$sn.'. Room Type :'. $roomName.'
@@ -12198,268 +12400,242 @@ function orderEmail2Body($oid){
         
     }
 
+
+    return $roomdetailsHtml;
+}
+
+function paymentDetailVoucher($bid, $paymentArry){
+    $paymentDetailTable = '';
+
+    if(count($paymentArry) > 0){
+        foreach($paymentArry as $Item){
+            $paidOn = date('d M, Y', strtotime($Item['paidOn']));
+            $paymentMethod = getPaymentTypeMethod($Item['paymentMethod'])[0]['name'];
+            $amount = $Item['amount'];
+
+            $paymentDetailTable .= "
+                <tr>
+                    <td style='padding:3px 5px'><strong>$paidOn</strong></td>
+                    <td style='padding:3px 5px'><strong>$paymentMethod</strong></td>
+                    <td style='padding:3px 5px'><strong>$amount</strong></td>
+                </tr>
+            ";
+        }     
+        
+        $paymentDetailHtml = '<hr>
+            <table  style="width:100%; border-collapse:collapse;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h3 style="margin: 0;">Payment Details</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="width:100%; border-collapse:collapse;">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 5px;">Paid Date</td>
+                                        <td style="padding: 5px;">Payment Method</td>
+                                        <td style="padding: 5px;">Amount</td>
+                                    </tr>
+                                    <tr>
+                                        '.$paymentDetailTable.'
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>';
+    }else{
+        $paymentDetailHtml = '';
+    }
+
+    
+
+    return $paymentDetailHtml;
+}
+
+function footerPriceInVoucher($total,$paid,$ToBePay){
+    $footerPrice = '
+        <hr>
+        <table style="width:100%; border-collapse:collapse;">
+            <tbody>
+                <tr style="width: 100%;">
+                    <td style="width: 33%;">
+                        <h3>Grand Total: &#x20b9; '. $total.'</h3>
+                    </td>
+                    <td style="width: 33%;">
+                        <h3>Total Advances: &#x20b9; '. $paid.'</h3>
+                    </td>
+                    <td style="width: 33%;">
+                        <h3>Est. Balance: &#x20b9; '. $ToBePay.'</h3>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    ';
+    return $footerPrice;
+}
+
+function communicationInVoucher($com, $sCare){
+    $sCareHtml = ($sCare) ? 'Special Care Guest' : 'Not Special Care Guest';
+    $html = '
+        <table style="width:100%">
+            <tr>
+                <td>Communication : '.$com.'</td>
+                <td>'.$sCareHtml.'</td>
+            </tr>
+        </table>
+    ';
+
+    return $html;
+}
+
+function billingInfomationVoucher($mode,$company,$gst,$info){
+    
+    $html = '
+            <table style="width:100%">
+                
+                <tr>
+                    <td colspan="100%"><h2>Billing Information</h2></td>
+                </tr>
+                <tr>
+                    <th style="text-align:left">Billing Mode</th>
+                    <th style="text-align:left">Company</th>
+                    <th style="text-align:left">Gst</th>
+                </tr>
+                <tr>
+                    <td style="text-align:left">'.$mode.' </td>
+                    <td style="text-align:left">'.$company.'</td>
+                    <td style="text-align:left">'.$gst.'</td>
+                </tr>
+                <tr>
+                    <th style="text-align:left" colspan="100%">Billing Info</th>
+                </tr>
+                <tr>
+                    <td style="text-align:left" colspan="100%"><p>'.$info.'</p></td>
+                </tr>
+            </table>
+    ';
+
+    return $html;
+}
+
+function orderEmail2Body($oid , $type=''){       
+   
+    $onlyBookingArray = fetchData('booking', ['id'=>$oid])[0]; 
+    $bookingDetailArry = getBookingDetailById($oid);
+    $paymentArry = $bookingDetailArry['paymentArry'];
+    $paymentArry = $bookingDetailArry['paymentArry'];
+    $total_price = $bookingDetailArry['totalPrice'];
+    $gst_price = $bookingDetailArry['gstPrice'];
+
+    $travelagent = $onlyBookingArray['travelagent'];  
+    $payStatus = $onlyBookingArray['payment_status'];
+    $userPay = $onlyBookingArray['userPay'];  
+    $mode =  ucfirst($onlyBookingArray['billingMode']);  
+    $company =  ucfirst($onlyBookingArray['compayName']);  
+    $gst =  $onlyBookingArray['gstno'];  
+    $info =  $onlyBookingArray['billingInfo'];  
+    $com =  $onlyBookingArray['communication'];  
+    $sCare =  $onlyBookingArray['specialCare'];  
+
+    $payStatusArray = fetchData('payment_status', ['id'=>$payStatus])[0];
+    $payment_status = $payStatusArray['name'];  
+
+    $userName = getAddByData($onlyBookingArray['addBy']);  
+
+    $sitename = SITE_NAME;
+    $bookingSite = FRONT_BOOKING_SITE;
+
+    $couponBalance = 0;
+    $paymentBackupHtml = '';
+    $sn = 0;
+
     $reservationNumber = printBooingId($oid);
     $date = date('Y-m-d');
-    $hotelMail=ucfirst($hotelDetailArray['hotelEmailId']);
-    $hotelPhonenumber = ucfirst($hotelDetailArray['hotelPhoneNum']);
-    $hotelWebsite = ucfirst($hotelDetailArray['website']);
-    $hotelAdd = ucfirst($proLocarion['address']);
-    $googleMapLink = $proLocarion['mapLink'];
-
-    $hotelDetails = '';
-
-    $hotelDetails.='<p><a style="text-decoration: none;color: black;font-weight: 700;" href="'.$googleMapLink.'">'.$hotelAdd.'</a></p>';
-    
-    $hotelDetails.='
-                        <table style="width: 80%; margin: 0 auto;">
-                            <tr>
-                                <td style="text-align: left; width: 50%;">
-                                    <strong>RECEPTION</strong>
-                                    <p>Landline - 7682822209</p>
-                                    <p>Mobile - 7682822204</p>
-                                </td>
-                                <td style="text-align: left; width: 50%;">
-                                    <strong>RESERVATION</strong>
-                                    <p>Mobile -  7682822211, 7855833330</p>
-                                    <p>Email - info@nayakbeachresort.com, info@nayakhotels.com</p>
-                                </td>
-                            </tr>
-                        </table>
-                    ';
-
-
-    $bookedOn = $add_on;
-    $arrivalDate = date('d-M Y', strtotime($bookingDetailArry['checkIn']));
-    $arrivalTime = date('h:i A', strtotime($bookingDetailArry['checkInTime']));
-    $departureDate = date('d-M Y', strtotime($bookingDetailArry['checkOut']));
-    $departureTime = date('h:i A', strtotime($bookingDetailArry['checkOutTime']));
-    $night = $bookingDetailArry['night'];
     
     $totalRoom = 2;
-    $bookingType = getBookingSource($bookingSource)[0]['name'];
-
-
-
+    
     $total = $total_price;
     $paid = $userPay;
     $ToBePay = $total - $paid;
 
 
-    if($travelagent == '' || $travelagent == 'other'){
-        $footerPrice = '
-            <hr>
-            <table style="width:100%; border-collapse:collapse;">
-                <tbody>
-                    <tr style="width: 100%;">
-                        <td style="width: 33%;">
-                            <h3>Grand Total: &#x20b9; '. $total.'</h3>
-                        </td>
-                        <td style="width: 33%;">
-                            <h3>Total Advances: &#x20b9; '. $paid.'</h3>
-                        </td>
-                        <td style="width: 33%;">
-                            <h3>Est. Balance: &#x20b9; '. $ToBePay.'</h3>
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-        ';
-    }else{
+    if($type == 'view'){
+        $termCon = '';
+        $paymentDetailHtml = paymentDetailVoucher($oid, $paymentArry);
+        $footerPrice = footerPriceInVoucher($total,$paid,$ToBePay);
+        $billingModeHtml = billingInfomationVoucher($mode,$company,$gst,$info);
+        $commnHtml = communicationInVoucher($com, $sCare);
+    }elseif($type == 'agent'){
+        $termCon = getHotelTermAndCon($type);
+        $paymentDetailHtml = '';
+        $billingModeHtml = '';
         $footerPrice = '';
+        $commnHtml = '';
+    }else{
+        $termCon = getHotelTermAndCon($type);
+        $footerPrice = footerPriceInVoucher($total,$paid,$ToBePay);
+        $paymentDetailHtml = paymentDetailVoucher($oid, $paymentArry);
+        $billingModeHtml = billingInfomationVoucher($mode,$company,$gst,$info);
+        $commnHtml = '';
     }
 
-        $html = '
-            <table style="width: 95%; border:2px solid black; margin: 0 auto;">
-                <tbody>
-                    <tr>
-                        <td>
-                            <table style="width:100%; border-collapse :collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 20%;">
-                                            <img src="'.$logo.'" alt="logo">
-                                            <p>Reservation number: '. $reservationNumber.'</p>
-                                        </td>
-                                        <td style="width: 60%; text-align: center;">
-                                            <h1 style="margin: 0;">'. $hotelName.'</h1>
-                                            '. $hotelDetails.'
-                                        </td>
-                                        <td style="width: 20%;">
-                                            <p>Date:'. $date.'</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+    $voucherHeader = voucherHeader($reservationNumber);
+    $bookByDetailHtml = voucherBookBy($oid,$userName);
+    $guestDetailHtml = guestVoucherGuestDetail($oid,$bookingDetailArry,$onlyBookingArray);
+    $roomdetailsHtml = roomDetailInVoucher($oid,$bookingDetailArry,$type);
 
-                            <hr style=" height: 3px; background: black;">
+    
 
-                            '.$bookByDetailHtml.'
+    $html = '
+        
+        <table style="width: 95%; border:2px solid black; margin: 0 auto;">
+            <tbody>
+                <tr>
+                    <td>    
+                        '.$voucherHeader.' 
+                        <hr style=" height: 3px; background: black;">
+                        '.$bookByDetailHtml.'   
+                        '.$guestDetailHtml.'       
+                        '.$commnHtml.'  
+                        <hr/>      
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <td style="40%">
+                                        <h3 style="margin: 0;">Room Details</h3>
+                                    </td>
+                                    <td style="30%"></td>
+                                    <td style="30%"></td>
+                                </tr>                            
+                            </thead>
+                            <tbody>'.$roomdetailsHtml.'</tbody>
+                        </table>                    
+                        '.$paymentDetailHtml.'
 
-                            <table style="width:100%; border-collapse:collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <h3 style="margin: 0;">Guest Information</h3>
-                                        </td>
-                                        <td>
-                                            <h3 style="margin: 0;">Stay Information</h3>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        '.$billingModeHtml.'
 
-                            <table style="width:100%; border-collapse:collapse;">
-                                <tbody>
-                                    <tr>
-                                        <td>Name:</td>
-                                        <td>'. $name.'</td>
-                                        <td>Booking Status:</td>
-                                        <td>'. $bookingStatus.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phone Number::</td>
-                                        <td>'. $phoneNumber.'</td>
-                                        <td>Booked On:</td>
-                                        <td>'. $bookedOn.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Whatsapp Number::</td>
-                                        <td>'. $whatsAppNumber.'</td>
-                                        <td>Arrival Date:</td>
-                                        <td>'. $arrivalDate.', '.$arrivalTime.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email::</td>
-                                        <td>'. $email.'</td>
-                                        <td>Departure Date:</td>
-                                        <td>'. $departureDate.', '.$departureTime.'</td>                                        
-                                    </tr>
-                                    <tr>
-                                        <td>Address::</td>
-                                        <td>'. $guestAddress.'</td>
-                                        <td>Night:</td>
-                                        <td>'. $night.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Company:</td>
-                                        <td>'. $company_name.'</td>
-                                        <td>Booking Type:</td>
-                                        <td>'. $bookingType.'</td>                                        
-                                    </tr>
-                                    <tr>
-                                        <td>GST:</td>
-                                        <td>'. $gst.'</td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        
-                                    </tr>
-
-                                </tbody>
-                            </table>
-
-                            <hr>
-
-                            <table style="width:100%; border-collapse:collapse;">
-                                <thead>
-                                    <tr>
-                                        <td style="40%">
-                                            <h3 style="margin: 0;">Room Details</h3>
-                                        </td>
-                                        <td style="30%"></td>
-                                        <td style="30%"></td>
-                                    </tr>                            
-                                </thead>
-                                <tbody>'.$roomdetailsHtml.'</tbody>
-                            </table>
+                        '.$footerPrice.'
                         
-                            '.$paymentDetailHtml.'
+                    </td>
+                </tr>
+            </tbody>
+        </table>   
 
-                            '.$footerPrice.'
+        '.$termCon.'        
+    ';
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table style="width: 95%; margin: 0 auto;">
-                <tbody>
-                    <tr>
-                        <td>
-                            <h4 style="margin: 0;">TERMS AND CONDITIONS </h4>
-                            <strong>Check-In and Check-Out</strong>
-                            <ul>
-                                <li><small>Check-in: 9:00AM, Check-out: 8:00AM</small></li>
-                                <li><small>Photo ID (Aadhar, Passport, Voter ID Only) of all members checking in has to be
-                                mandatorily furnished at the time of Check-in</small></li>
-                                <li><small>Copy of the booking voucher must be produced at the time of Check-In. </small></li>
-                            </ul> <br/>
-
-                            <strong>Payment Policy </strong> <br/>
-                            <small>Full Payment: All reservations made must be paid in full at the time of booking. This includes, but
-                            is not limited to, the changes in the name of the has been occupants, dates for which the booking
-                            is made. </small> <br/><br/>
-
-                            <strong>Non-transferability </strong> <br/>
-                            <small>Any booking made is strictly non-transferable.</small> <br/><br/>
-
-                            <strong>Allotment of Room</strong> <br/>
-                            <small>The category of room booked is confirmed, however the room number will only be allotted at the
-                            time of check-in. Any special requests made for the room (including but not limited to the floor
-                            the size, the view) will be. processed on the date of the check-in based on the availability and
-                            there is no guarantee extended for the same.</small> <br/><br/>
-
-                            <strong>Communicaton</strong> <br/>
-                            <small>All communicatons will be made to and replied to only when received from the registered e-mail
-                            ID as provided at the time of booking</small> <br/><br/>
-
-                            <strong>Pets</strong> <br/>
-                            <small>We strive to provide a comfortable and enjoyable experience for all our guests. We regret to
-                            inform you that we are not a pet-friendly hotel.</small> <br/><br/>
-
-                            <strong>Cancellaton</strong>
-                            <ul>
-                                <li><small>For booking cancellation can only be done manually, please send an email to:
-                                (info@nayakbeachresort.com I info@nayakhotels.com) and the amount shall be refunded
-                                to the customer’s account as per the refund policy of the hotel maximum within 10-14
-                                business days of the date of cancellation request.</small></li>
-                                <li><small>There will be no entertaining of cancellation request or refund if the same is made nine
-                                (9) days prior to the date when the intended stay commences. 
-                                </small></li>
-                                <li><small>There will be a 50% refund of the booking amount when a cancellation request is made
-                                between ten (10) - nineteen (19) days prior to the date when the intended stay
-                                commences.</small></li>
-                                <li><small>There will be a 75% refund of the booking amount when a cancellation request is made
-                                more than nineteen (19) days prior to the date when the intended stay commences. </small></li>
-                            </ul> <br/>
-
-                            <strong>No Show</strong> <br/>
-                            <small>The booking will be automatically cancelled if there is no-show and failure to occupy the room
-                            within twelve (12) hours from 9:00AM. There will be no refund of the booking amount paid in the
-                            case of a no-show. All late check-ins must be communicated to the hotel management on the day
-                            prior to the date when the intended stay commences by 8:30PM.</small> <br/><br/>
-
-                            <strong>Dispute</strong> <br/>
-                            <small>Any and all disputes arising from the stay, the booking, etc. will be subject to the jurisdiction of
-                            Puri, Odisha only. </small> <br/><br/>
-
-                            <strong>Refunds</strong> <br/>
-                            <small>All refunds will be made to the source account where the original booking was made from and
-                            shall be processed within 10-14 business days. </small>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        ';
     return  $html;
 
 }
 
- function orderEmail2($oid){    
-    $body = orderEmail2Body($oid);
+ function orderEmail2($oid, $type = ''){    
+    $body = orderEmail2Body($oid,$type);
     $html = '
     <!DOCTYPE html>
     <html lang="en">
@@ -12627,13 +12803,10 @@ function orderEmail2Body($oid){
 
     <!DOCTYPE html>
     <html lang="en">
-
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>demo</title>
-
-
+            <title>Vouchar</title>
         </head>
 
         <body>
@@ -12936,7 +13109,7 @@ function getOrganisationList(){
      return $html;
 }
 
-    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote='',$actionId=''){
+    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote='',$actionId='',$designation='',$cpwhatsappNumber='',$cpPhoneNumber=''){
         $hotelId = HOTEL_ID;
         global $conDB;
         if($actionId != ''){
@@ -12954,11 +13127,14 @@ function getOrganisationList(){
                         ratePlan = '$ratePlan',
                         salesManager = '$salesManager',
                         organisationDiscount = $organisationDiscount,
-                        organisationNote = '$organisationNote'
+                        organisationNote = '$organisationNote',
+                        designation = '$designation',
+                        cpwhatsappNumber = '$cpwhatsappNumber',
+                        cpPhoneNumber = '$cpPhoneNumber'
                     WHERE id = '$actionId'";
         }else{
-            $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote)
-        VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote');
+            $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote,designation,cpwhatsappNumber,cpPhoneNumber)
+        VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote', '$designation', '$cpwhatsappNumber', '$cpPhoneNumber');
         ";
         }
         

@@ -64,7 +64,7 @@ $retoprtLink = FRONT_SITE . '/report/';
                         <hr />
                     ';
 
-                    $getStysReportListArray = getStysReportList('',$rtid);
+                    $getStysReportListArray = getStysReportList('',$rtid,'',1);
 
                     $rlhtml = '';
 

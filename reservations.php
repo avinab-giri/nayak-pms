@@ -49,7 +49,7 @@ $grcLink = FRONT_SITE . '/grc';
             <div class="reservationNav sNavBar">
                 <?php
 
-                $leftNav = reservationLeftNav('all');
+                $leftNav = reservationLeftNav('all','yes');
 
                 $rightNav = reservationRightNav();
 
@@ -58,6 +58,60 @@ $grcLink = FRONT_SITE . '/grc';
             </div>
 
             <div class="row">
+
+                <div id="filterReservationContent" class="col-12">
+                    <form id="filterReservationForm">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="filterByStayDate">Stay Date</label>
+                                <input class="form-control" readonly type="text" id="filterByStayDate" name="filterByStayDate">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="filterByCheckInDate">Check In Date</label>
+                                <input class="form-control" readonly type="text" id="filterByCheckInDate" name="filterByCheckInDate">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="filterByCheckOutDate">Check Out Date</label>
+                                <input class="form-control" readonly type="text" id="filterByCheckOutDate" name="filterByCheckOutDate">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filterByTravelAgent">Travel Agent</label>
+                                <select class="customSelect" name="filterByTravelAgent" id="filterByTravelAgent">
+                                    <option value="">Select -- </option>
+                                    <?php
+                                    foreach (fetchData('travel_agents', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
+                                        $taId = $item['id'];
+                                        $name = $item['agentName'];
+                                        echo '<option value="' . $taId . '">' . $name . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="filterByOrganization">Organization</label>
+                                <select class="customSelect" name="filterByOrganization" id="filterByOrganization">
+                                    <option value="">Select -- </option>
+                                    <?php
+                                    foreach (fetchData('organisations', ['hotelId' => $_SESSION['HOTEL_ID']]) as $item) {
+                                        $orgId = $item['id'];
+                                        $name = $item['name'];
+                                        echo '<option value="' . $orgId . '">' . $name . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="filterByGuestAllDetail">Search - Guest Name, whatsapp No, Phone Number, Email, Company name, Gst</label>
+                                <input class="form-control" type="text" id="filterByGuestAllDetail" name="filterByGuestAllDetail">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filterByPaymentDate">Payment Date</label>
+                                <input class="form-control" readonly type="text" id="filterByPaymentDate" name="filterByPaymentDate">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="col-12 mb-1">
                     <?= clrPreviewHtml('resType') ?>
                 </div>
@@ -153,10 +207,13 @@ $grcLink = FRONT_SITE . '/grc';
 
 
                 </div> -->
+
+
                 <div class="col-12">
                     <div id="resorvationContent"></div>
                 </div>
             </div>
+
         </div>
 
 
@@ -172,6 +229,30 @@ $grcLink = FRONT_SITE . '/grc';
     <script>
         $('.linkBtn').removeClass('active');
         $('.resLink').addClass('active');
+
+        $('#filterByStayDate').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+        });
+
+        $('#filterByCheckInDate').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+        });
+
+        $('#filterByCheckOutDate').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+        });
+
+        $('#filterByPaymentDate').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+        });
 
 
         function exportFile() {
@@ -194,6 +275,69 @@ $grcLink = FRONT_SITE . '/grc';
 
         $(document).ready(() => {
             loadResorvation('all');
+
+            $(document).on('change', '#filterByStayDate', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'stayDate', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value);
+            });
+
+            $(document).on('change', '#filterByCheckInDate', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'checkIn', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value);
+            });
+
+            $(document).on('change', '#filterByCheckOutDate', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'checkOut', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value);
+            });
+
+            $(document).on('change', '#filterByPaymentDate', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'paymentDate', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value);
+            });
+
+            $(document).on('change', '#filterByTravelAgent', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'travelAgent', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value).attr('selected','selected');
+            });
+
+            $(document).on('change', '#filterByOrganization', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', '', '', 'organization', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value).attr('selected','selected');
+            });
+
+            $(document).on('change', '#filterByGuestAllDetail', function(e) {
+                e.preventDefault();
+                var value = $(this).val();
+                loadResorvation('all', value);
+                $('#filterReservationForm').trigger('reset');
+                $(this).val(value);
+            });
+
+            $(document).on('click','#filterRes', function(e){
+                e.preventDefault();
+                $('#filterReservationContent').toggleClass('show');
+                $('#resorvationContent').toggleClass('active');
+            });
+
         });
 
         $('#excelExport').click(function() {

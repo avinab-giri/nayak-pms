@@ -76,6 +76,7 @@ $district = safeData($_POST['district']);
 $state = safeData($_POST['state']);
 $communication = (isset($_POST['communication'])) ? $_POST['communication'] : [];
 $specialCare = safeData($_POST['specialCare']);
+$billingInfo = safeData($_POST['billingInfo']);
 
 
 $paymentMethod = ($_POST['paymentMethod'] == '') ? 0 : safeData($_POST['paymentMethod']);
@@ -119,6 +120,9 @@ $bookingDataArray = [
     'compayName' => $companyName,
     'gstno' => $gstnumber,
     'specialRequest' => $specialRequest,
+    'communication' => toConvertArrayToStr($communication),
+    'specialCare' => $specialCare,
+    'billingInfo' => $billingInfo,
 ];
 
 $lastId = insertData('booking', $bookingDataArray);
@@ -195,9 +199,7 @@ $guestDataArray = [
     'state' => $state,
     'full_address' => $guestAddress,
     'addOn' => $time,
-    'groupadmin' => 1,
-    'communication' => toConvertArrayToStr($communication),
-    'specialCare' => $specialCare
+    'groupadmin' => 1
 ];
 
 insertData('guest', $guestDataArray);

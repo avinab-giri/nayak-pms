@@ -16,75 +16,113 @@ if (isset($_POST['type'])) {
 
 if ($type == 'load_resorvation') {
     // pr($_POST);
-    $hotelId = $_SESSION['HOTEL_ID'];
     $currentDate = date('y-m-d');
     $search = $_POST['search'];
     $rTabType = $_POST['rTab'];
-    $reserveType = $_POST['reserveType'];
-    $bookingType = $_POST['bookingType'];
-    $currentDate = ($_POST['currentDate'] == '') ? date('Y-m-d') : $_POST['currentDate'];
+    $serchBy = $_POST['serchBy'];
+    $serchByValue = $_POST['serchByValue'];
     $paymentStatus = isset($_POST['payment_status']) ? $_POST['payment_status'] : '';
     
     $newResLink = FRONT_SITE.'/walk-in';
+    
 
-    if ($bookingType == '') {
-        $bookingType = 1;
+    $hotelId = HOTEL_ID;
+
+    $sql = "select booking.*,bookingdetail.*,bookingdetail.id as bookingDetailMainId,booking.id as bookingMainId,bookingby.travelType,bookingby.organizationId,guest.name,guest.email, guest.whatsapp, guest.phone , guest.company_name, guest.comGst,payment_timeline.addOn as paymentAddOn from booking,bookingdetail,bookingby,guest,payment_timeline where booking.hotelId = '$hotelId'";
+
+    $sql .= " and booking.id=bookingdetail.bid and bookingby.bid=booking.id and booking.id=guest.bookId and booking.id=payment_timeline.bid and booking.deleteRec = '1' ";
+
+    if($serchBy == 'stayDate'){
+        $serchByValue = date('Y-m-d', strtotime($serchByValue));
+        $preSearcByValue = date('Y-m-d', strtotime('+1 day', strtotime($serchByValue)));
+        $sql .= " and booking.mainCheckIn <= '$serchByValue' 
+        AND booking.mainCheckOut >= '$preSearcByValue'";
     }
 
-    if ($rTabType == 'reservation') {
-        $rTabType = 'all';
+    if($serchBy == 'checkIn'){
+        $serchByValue = date('Y-m-d', strtotime($serchByValue));
+        $sql .= " and booking.mainCheckIn = '$serchByValue'";
     }
 
-    $sql = reservationReturnQuery($rTabType, $currentDate, $search, $paymentStatus);
+    if($serchBy == 'checkOut'){
+        $serchByValue = date('Y-m-d', strtotime($serchByValue));
+        $sql .= " and booking.mainCheckOut = '$serchByValue'";
+    }
 
+    if($serchBy == 'paymentDate'){
+        $serchByValue = date('Y-m-d', strtotime($serchByValue));
+        $sql .= " and payment_timeline.addOn like '%$serchByValue%'";
+    }
+
+    if($serchBy == 'travelAgent'){
+        $sql .= " and bookingby.travelType = '$serchByValue'";
+    }
+
+    if($serchBy == 'organization'){
+        $sql .= " and bookingby.organizationId = '$serchByValue'";
+    }
+
+    if($search != ''){
+        $sql .= " and guest.name like '%$search%' or guest.email like '%$search%' or guest.whatsapp like '%$search%' or guest.phone like '%$search%' or guest.company_name like '%$search%' or guest.comGst like '%$search%'";
+    }
+    
+    $sql .= " group by booking.id";
+
+    $sql .= " ORDER BY booking.id DESC";
+    
     $limit_per_page = 20;
+
     $totalPage = ceil(mysqli_num_rows(mysqli_query($conDB, $sql)) / $limit_per_page);
 
     $pagination = '';    
     
-    $page = '';
+    $page = 1;
+
     if(isset($_POST['page'])){
-        $page = $_POST['page'];
+        $page = ($_POST['page'] == '') ? 1 : $_POST['page'];
     }else{
         $page = 1;
     }
 
-
     $offset = ($page -1) * $limit_per_page;
 
     $sql .= " limit $offset, {$limit_per_page}";
-
+   
     $clrPreviewHtml = clrPreviewHtml();
     $html = '<div class="row">';
    
     $query = mysqli_query($conDB, $sql);
 
     $resData = array();
+    
     while($row = mysqli_fetch_assoc($query)){
         $bid  = $row['bookingMainId'];
         $checkIn  = $row['mainCheckIn'];
         $checkOut  = $row['mainCheckOut'];
+        $totalRooms = 0;
+
         $bookingDetailArray = fetchData('bookingdetail', ['bid'=> $bid]);
         $guestArray = (isset(fetchData('guest', ['bookId'=>$bid, 'groupadmin' => 1])[0])) ? fetchData('guest', ['bookId'=>$bid, 'groupadmin' => 1])[0] : [];
         $totalAdult = 0;
         $totalChild = 0;
         $totalBookingPrice = 0;
         $totalExBd = 0;
-        $totalRooms = count($bookingDetailArray);
+        
         $bookingByArray = (isset(fetchData('bookingby', ['bid' => $bid])[0])) ? fetchData('bookingby', ['bid' => $bid])[0] : [];
         $travelId = $bookingByArray['travelType'];
         $organizationId = $bookingByArray['organizationId'];
+        $staffName = ($bookingByArray['staffName'] > 0) ? fetchData('hoteluser', ['id'=> $bookingByArray['staffName']])[0]['displayName'] : '';
 
         $travelAgent = '';
 
         if($travelId != 0){
             $travelArray = fetchData('travel_agents', ['id' => $travelId]);
             $travelAgent = (isset($travelArray[0])) ? $travelArray[0]['agentName'] : '';
-        }
-
-        if($organizationId != 0){
+        }elseif($organizationId != 0){
             $organizationArray = fetchData('organisations', ['id' => $organizationId]);
             $travelAgent = (isset($organizationArray[0])) ? $organizationArray[0]['name'] : '';
+        }else{
+            $travelAgent =(isset($bookingByArray['name'])) ? $bookingByArray['name'] : '';
         }
 
         foreach($bookingDetailArray as $item){
@@ -92,6 +130,7 @@ if ($type == 'load_resorvation') {
             $totalChild += $item['child'];
             $totalExBd += $item['exBd'];
             $totalBookingPrice += $item['totalPrice'];
+            $totalRooms += intval($row['noOfRooms']);
         }
 
         $advanceArray = [
@@ -102,8 +141,8 @@ if ($type == 'load_resorvation') {
             'totalRooms'=>intval($totalRooms),
             'nightCount'=> getNightCountByDay($checkIn,$checkOut),
             'guestName' => (isset($guestArray['name'])) ? $guestArray['name'] : '',
-            'bookRef'=> (isset($bookingByArray['name'])) ? $bookingByArray['name'] : '',
             'travelAgent'=> $travelAgent,
+            'staffName'=> $staffName,
         ];
 
         $resData[]= array_merge($row, $advanceArray);
@@ -1386,9 +1425,15 @@ if ($type == 'addNewOrganisation') {
     $salesManager = $_POST['salesManager'];
     $organisationDiscount = ($_POST['organisationDiscount'] == '') ? 0 : $_POST['organisationDiscount'];
     $organisationNote = $_POST['organisationNote'];
+
+    $designation = $_POST['designation'];
+    $cpwhatsappNumber = $_POST['cpwhatsappNumber'];
+    $cpPhoneNumber = $_POST['cpPhoneNumber'];
+
+
     $data = array();
     
-    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote,$actionId);
+    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote,$actionId,$designation,$cpwhatsappNumber,$cpPhoneNumber);
     
     $data = [
         'status'=>'error',

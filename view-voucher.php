@@ -6,8 +6,10 @@ include(SERVER_INCLUDE_PATH . 'function.php');
 // include(SA_SERVER_SCREEN_PATH . 'svg.php');
 
 $bid = '';
+
 if (isset($_GET['id'])) {
     $bid = $_GET['id'];
+    $type = (isset($_GET['type'])) ? $_GET['type'] : '';
 }
 
 ?>
@@ -32,7 +34,7 @@ if (isset($_GET['id'])) {
 <body>
 
     <div class="content" style="max-width: 1280px;margin: 0 auto;">
-        <?= orderEmail2($bid) ?>
+        <?= orderEmail2($bid,$type) ?>
         <a id="btnPrint" onclick="Print();" style="display: block; padding: 5px 10px; background-color: rgb(34, 186, 160); width: 40px; text-align: center; color: rgb(255, 255, 255); margin-top: 10px; cursor: pointer; float: left; clear: both;">Print</a>
     </div>
 

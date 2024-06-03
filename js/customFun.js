@@ -638,17 +638,21 @@ function loadTodayEventReport(tab = 'booking', name = '', room = '') {
         if (tab == 'booking') {
             inputGuestFiled.show();
             var tableHead = `
-                <tr>
-                    <th width="10%" style="text-align:center;">Reserve #</th>
-                    <th width="10%">Status</th>
-                    <th width="15%">Guest Name</th>
-                    <th width="15%">Phone</th>
-                    <th width="10%">Rooms</th>
-                    <th width="10%">To Arrive</th>
-                    <th width="10%">Check In</th>
-                    <th width="10%">Check Out</th>
-                    <th width="10%"></th>
-                </tr>
+                    <tr>
+                        <th>Booking No</th>
+                        <th>Guest Name</th>
+                        <th>Rooms</th>
+                        <th>Arrival</th>
+                        <th>Night</th>
+                        <th>Departure</th>
+                        <th>Pax</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Refer to</th>
+                        <th>Book By</th>
+                        <th>View</th>
+                        <th class="no-export">Action</th>
+                    </tr>
             `;
 
             if (response.length > 0) {
@@ -658,8 +662,9 @@ function loadTodayEventReport(tab = 'booking', name = '', room = '') {
                     var child = val.child;
                     var rooms = val.rooms;
                     var reciptNo = generateNumber(val.reciptNo);
-                    var checkIn = val.checkIn;
-                    var checkOut = val.checkOut;
+                    var checkIn = val.mainCheckIn;
+                    var checkOut = val.mainCheckOut;
+                    let night = val.nightCount;
                     var checkinstatusVal = val.checkinstatus;
                     var guestName = (val.guestName == undefined) ? 'NaN' : val.guestName;
                     var guestPhone = (val.guestPhone == undefined) ? 'NaN' : val.guestPhone;
@@ -673,33 +678,49 @@ function loadTodayEventReport(tab = 'booking', name = '', room = '') {
                     var resEditLink = generateEditReservationLinkInJs(bid);
                     var folioLink = generateFolioLinkInJs(bid);
 
+                    let total = rupeesFormat(1);
+
+                    let pax = adult + '/' + child;
+
+                    let travelAgent = val.travelagent;
+                    let staffName = val.staffName;
+
+                    let checkInTimeFormat = '';
+                    let checkOutTimeFormat = '';
+
+                    let voucherLink = `${webUrl}view-voucher?id=${bid}`;
+                    let agentLink = `${webUrl}view-voucher?id=${bid}&type=agent`;
+
                     var noShow = '';
                     if(checkinstatusVal == 1){
                         noShow = `<li><button onclick="noShowFunByBid(${bid})">No Show</button></li>`;
                     }
 
                     tableBody += `<tr>
-                        <td style="text-align: center;">${reciptNo}</td>
-                        <td style="text-align: center;"><span class="${checkinstatus.btnCls} badge">${checkinstatus.name}</span></td>
-                        <td style="text-align: center;">${guestName}</td>
-                        <td style="text-align: center;">${guestPhone}</td>
-                        <td style="text-align: center;">${rooms}</td>
-                        <td style="text-align: center;">${adult} / ${child}</td>
-                        <td style="text-align: center;">${formatDate}</td>
-                        <td style="text-align: center;">${formatDate2}</td>
-                        <td class="tEInhouseActionBtn" style="text-align: center;">
-                            <div class="btnGroup">
-                                <button>Action</button>
-                                <ul class="tEInhouseAction">
-                                    <li><button onclick="viewBookingReport(${bid})">View</button></li>
-                                    <li><button onclick="window.location = '${resEditLink}'">Edit</button></li>
-                                    <li><button onclick="guestCheckInByBid(${bid})">Check In</button></li>
-                                    <li><button onclick="window.location = '${folioLink}'">Folio</button></li>
-                                    ${noShow}
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>`;
+                                    <td>${reciptNo}</td>
+                                    <td>${guestName}</td>
+                                    <td>${rooms}</td>
+                                    <td>${checkIn}${checkInTimeFormat}</td>
+                                    <td>${night}</td>
+                                    <td>${checkOut}${checkOutTimeFormat}</td>
+                                    <td>${pax}</td>
+                                    <td>${total}</td>
+                                    <td><span style="border-radius: 2px;" class="${checkinstatus.btnCls} badge">${checkinstatus.name}</span></span></label></td>
+                                    <td>${travelAgent}</td>
+                                    <td>${staffName}</td>
+                                    <td><button data-tooltip-top="View Booking" onclick="viewBookingReport(${bid})"><i class="fas fa-eye"></i></button></td>
+                                    <td class="no-export">
+                                        <div class="customDropdown" style="display: flex;justify-content: center;">
+                                            <button class="btnCD reservationDetailActionBtn">
+                                                <span></span><span></span><span></span>
+                                            </button>
+                                            <ul>
+                                                <li> <a href="${voucherLink}" target="_blank">Guest Voucher</a></li>
+                                                <li><a target="_blank" href="${agentLink}">Agent Voucher</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>`;
 
                 });
             } else {
@@ -713,16 +734,21 @@ function loadTodayEventReport(tab = 'booking', name = '', room = '') {
         if (tab == 'inHouse') {
             inputGuestFiled.hide();
             var tableHead = `
-                <tr>
-                    <th width="10%" style="text-align:center;">Room</th>
-                    <th width="15%">Room Type</th>
-                    <th width="15%">Reserve #</th>
-                    <th width="20%">Guest Name</th>
-                    <th width="10%">No. of Guests</th>
-                    <th width="10%">Checked-In</th>
-                    <th width="10%">Exp. Checkout</th>
-                    <th width="10%"></th>
-                </tr>
+            <tr>
+                <th>Booking No</th>
+                <th>Guest Name</th>
+                <th>Rooms</th>
+                <th>Arrival</th>
+                <th>Night</th>
+                <th>Departure</th>
+                <th>Pax</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Refer to</th>
+                <th>Book By</th>
+                <th>View</th>
+                <th class="no-export">Action</th>
+            </tr>
             `;
 
             if (response.length > 0) {
@@ -4868,7 +4894,6 @@ function addTravelAgentForm(id=''){
                         <div class="form-group">
                             <label class="control-label" for="taConPerson">Contact person Name<span class="requireSym">*</span></label>
                             <input type="text" placeholder="Contact person Name" class="form-control" name="taConPerson" id="taConPerson" value="${travelagentname}">
-
                         </div>
                     </div>
 
@@ -5019,6 +5044,9 @@ function addCompanyForm(id=''){
         var organisationState = (data.organisationState) ? data.organisationState : '';
         var ratePlan = (data.ratePlan) ? data.ratePlan : '';
         var salesManager = (data.salesManager) ? data.salesManager : '';
+        var designation = (data.designation) ? data.designation : '';
+        var cpwhatsappNumber = (data.cpwhatsappNumber) ? data.cpwhatsappNumber : '';
+        var cpPhoneNumber = (data.cpPhoneNumber) ? data.cpPhoneNumber : '';
         
         var rateList = '';
         var ratePlan = response.ratePlan;
@@ -5050,18 +5078,38 @@ function addCompanyForm(id=''){
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Contact Person Name *</label>                     
-                        <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName" id="orgConName" value="${orgConName}">
-            
+                        <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName" id="orgConName" value="${orgConName}">            
                     </div>
-                </div>
-            
+                </div> 
+                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Email *</label>                     
-                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail" id="organisationemail" value="${organisationEmail}">
-            
+                        <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail" id="organisationemail" value="${organisationEmail}">            
                     </div>
-                </div>           
+                </div>  
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">CP Designation</label>                     
+                        <input type="text" placeholder="Enter Designation" class="form-control" name="designation" id="designation" value="${designation}">            
+                    </div>
+                </div>    
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="whatsappNumber" class="control-label">CP WhatsApp Number</label>                     
+                        <input type="text" placeholder="Enter WhatsApp Number" class="form-control" name="cpwhatsappNumber" id="whatsappNumber" value="${cpwhatsappNumber}">            
+                    </div>
+                </div>    
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cpPhoneNumber" class="control-label">CP Phone Number</label>                     
+                        <input type="text" placeholder="Enter Phone Number" class="form-control" name="cpPhoneNumber" id="cpPhoneNumber" value="${cpPhoneNumber}">            
+                    </div>
+                </div>    
             
             </div>
             
@@ -5070,20 +5118,16 @@ function addCompanyForm(id=''){
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">Address</label>                     
-                        <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress" value="${organisationAddress}">
-            
+                        <input type="text" placeholder="Organisation Address" class="form-control" name="organisationaddress" value="${organisationAddress}">            
                     </div>
                 </div>
             
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label">City</label>                     
-                        <input type="text" placeholder="City" class="form-control" name="organisationcity" value="${organisationCity}">
-            
+                        <input type="text" placeholder="City" class="form-control" name="organisationcity" value="${organisationCity}">            
                     </div>
-                </div>
-            
-            
+                </div>           
             </div>
             
             
@@ -5120,7 +5164,7 @@ function addCompanyForm(id=''){
             
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Phone Number</label>                     
+                        <label class="control-label">Office Phone Number</label>                     
                         <input type="text" placeholder="eg:+91 ***** *****" class="form-control" name="organisationNumber" value="${organisationNumber}">
             
                     </div>

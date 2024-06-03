@@ -3333,13 +3333,84 @@ function loadTodayEventReport() {
     $data = array();
 
     if($tab == 'booking'){
-        $data = getBookingData('','',$currentDate,'','yes');
+        $data = fetchData('booking', ['mainCheckIn' => $currentDate]);
+        foreach($data as $item){
+            $bid = $item['id'];
+            $bookingDetailArry = getBookingData($bid)[0];
+            $checkIn  = $bookingDetailArry['mainCheckIn'];
+            $checkOut  = $bookingDetailArry['mainCheckOut'];
+
+            $totalAdult = 0;
+            $totalChild = 0;
+            $totalBookingPrice = 0;
+            $totalExBd = 0;
+            $totalRooms = 0;
+
+            $bookingByArray = (isset(fetchData('bookingby', ['bid' => $bid])[0])) ? fetchData('bookingby', ['bid' => $bid])[0] : [];
+            $travelId = $bookingByArray['travelType'];
+            $organizationId = $bookingByArray['organizationId'];
+            $staffName = ($bookingByArray['staffName'] > 0) ? fetchData('hoteluser', ['id'=> $bookingByArray['staffName']])[0]['displayName'] : '';
+
+            $travelAgent = '';
+
+            if($travelId != 0){
+                $travelArray = fetchData('travel_agents', ['id' => $travelId]);
+                $travelAgent = (isset($travelArray[0])) ? $travelArray[0]['agentName'] : '';
+            }elseif($organizationId != 0){
+                $organizationArray = fetchData('organisations', ['id' => $organizationId]);
+                $travelAgent = (isset($organizationArray[0])) ? $organizationArray[0]['name'] : '';
+            }else{
+                $travelAgent =(isset($bookingByArray['name'])) ? $bookingByArray['name'] : '';
+            }
+
+            foreach(fetchData('bookingdetail', ['bid'=> $bid]) as $item){
+                $totalAdult += $item['adult'];
+                $totalChild += $item['child'];
+                $totalExBd += $item['exBd'];
+                $totalBookingPrice += $item['totalPrice'];
+                $totalRooms += intval($item['noOfRooms']);
+            }
+    
+            $advanceArray = [
+                'totalAdult'=>intval($totalAdult),
+                'totalChild'=>intval($totalChild),
+                'totalBookingPrice'=>intval($totalBookingPrice),
+                'totalExBd'=>intval($totalExBd),
+                'totalRooms'=>intval($totalRooms),
+                'nightCount'=> getNightCountByDay($checkIn,$checkOut),
+                'guestName' => (isset($guestArray['name'])) ? $guestArray['name'] : '',
+                'travelAgent'=> $travelAgent,
+                'staffName'=> $staffName,
+            ];
+
+            $data[] = array_merge($item, $advanceArray);
+        }
     }
 
     if($tab == 'inHouse'){
         $resuultData = getBookingDetail('','','','','','',2);
         foreach($resuultData as $item){
+            $bid = $item['bid'];
             $bookingDetailArry = getBookingData($item['bid'])[0];
+            $checkIn  = $bookingDetailArry['mainCheckIn'];
+            $checkOut  = $bookingDetailArry['mainCheckOut'];
+
+            $bookingByArray = (isset(fetchData('bookingby', ['bid' => $bid])[0])) ? fetchData('bookingby', ['bid' => $bid])[0] : [];
+            $travelId = $bookingByArray['travelType'];
+            $organizationId = $bookingByArray['organizationId'];
+            $staffName = ($bookingByArray['staffName'] > 0) ? fetchData('hoteluser', ['id'=> $bookingByArray['staffName']])[0]['displayName'] : '';
+
+            $travelAgent = '';
+
+            if($travelId != 0){
+                $travelArray = fetchData('travel_agents', ['id' => $travelId]);
+                $travelAgent = (isset($travelArray[0])) ? $travelArray[0]['agentName'] : '';
+            }elseif($organizationId != 0){
+                $organizationArray = fetchData('organisations', ['id' => $organizationId]);
+                $travelAgent = (isset($organizationArray[0])) ? $organizationArray[0]['name'] : '';
+            }else{
+                $travelAgent =(isset($bookingByArray['name'])) ? $bookingByArray['name'] : '';
+            }
 
             $advance = [
                 'bookinId'=> $bookingDetailArry['bookinId'],
@@ -3347,8 +3418,11 @@ function loadTodayEventReport() {
                 'editResLink'=> generateEditReservationLink($item['bid']),
                 'guestName'=> $bookingDetailArry['guestName'],
                 'guestPhone'=> $bookingDetailArry['guestPhone'],
+                'nightCount'=> getNightCountByDay($checkIn,$checkOut),
                 'roomTypeName'=> getRoomNameType($item['roomId'])['header'],
-                'checkInTime' => guestAmendReport('','',$item['bid'],$item['id'])['checkInTime']
+                'checkInTime' => guestAmendReport('','',$item['bid'],$item['id'])['checkInTime'],
+                'travelAgent'=> $travelAgent,
+                'staffName'=> $staffName,
              ];
 
             $data[] = array_merge($item, $advance);
@@ -4243,6 +4317,27 @@ function loadGuestDataReport(){
     }
 
     return $data;
+}
+
+
+function getDataForBookBy(){
+    global $conDB;
+    $type = $_POST['type'];
+    $value = $_POST['value'];
+
+    if($type == 'travelAgent'){
+        $sql = "select * from travel_agents where id = '$value'";
+    }
+    if($type == 'organisation'){
+        $sql = "select * from organisations where id = '$value'";
+    }
+
+    $query = mysqli_query($conDB, $sql);
+    $data = array();
+    while($row = mysqli_fetch_assoc($query)){
+        $data[] = $row;
+    }
+    return $data[0];
 }
 
 

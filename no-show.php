@@ -44,7 +44,7 @@ $grcLink = FRONT_SITE . '/grc';
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="reservationNav sNavBar">
                 <?php
