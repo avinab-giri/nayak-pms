@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 28, 2024 at 12:30 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Jul 13, 2024 at 04:29 AM
+-- Server version: 10.6.18-MariaDB-cll-lve
+-- PHP Version: 8.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nayak_hotel`
+-- Database: `nayakbeach`
 --
 
 -- --------------------------------------------------------
@@ -41,6 +41,20 @@ CREATE TABLE `activityfeed` (
   `addBy` varchar(50) DEFAULT '',
   `addOn` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `activityfeed`
+--
+
+INSERT INTO `activityfeed` (`id`, `hotelId`, `type`, `bid`, `bdid`, `oldData`, `changedata`, `ipaddres`, `result`, `reason`, `addBy`, `addOn`) VALUES
+(1, '12345', '1', 0, 0, '', '', '117.198.19.16', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-05 14:27:58'),
+(2, '12345', '1', 0, 0, '', '', '117.198.19.16', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-05 14:54:25'),
+(3, '12345', '1', 0, 0, '', '', '117.198.19.16', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-06 17:24:00'),
+(4, '12345', '6', 0, 0, '', '', '2401:4900:3bc2:7aa:ddbf:227d:d54f:f083', '', 'Reservation nayak-a1325f has been created', 'a_1', '2024-06-06 17:47:52'),
+(5, '12345', '1', 0, 0, '', '', '117.198.31.31', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-06 18:54:31'),
+(6, '12345', '1', 0, 0, '', '', '117.198.24.107', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-07 19:53:05'),
+(7, '12345', '1', 0, 0, '', '', '117.198.28.21', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-08 12:51:18'),
+(8, '12345', '1', 0, 0, '', '', '117.198.16.83', 'success', '<b>bhabesh_nayak</b> username is login.', 'a_1', '2024-06-13 11:27:58');
 
 -- --------------------------------------------------------
 
@@ -101,18 +115,30 @@ CREATE TABLE `booking` (
   `billingMode` varchar(250) NOT NULL DEFAULT '',
   `organisation` varchar(250) NOT NULL DEFAULT '',
   `companynameid` varchar(250) NOT NULL DEFAULT '',
+  `compayName` varchar(250) DEFAULT NULL,
   `gstno` varchar(250) NOT NULL DEFAULT '',
   `traveltype` varchar(250) NOT NULL DEFAULT '',
   `bookingref` varchar(250) NOT NULL DEFAULT '',
   `travelagent` varchar(250) NOT NULL DEFAULT '',
   `totalPrice` float DEFAULT NULL,
   `roundTotalPrice` int(11) DEFAULT NULL,
+  `communication` varchar(250) DEFAULT NULL,
+  `specialCare` int(11) NOT NULL DEFAULT 0,
+  `specialRequest` text DEFAULT NULL,
+  `billingInfo` text DEFAULT NULL,
   `addBy` text NOT NULL DEFAULT '',
   `actionOn` datetime DEFAULT NULL,
   `add_on` datetime DEFAULT current_timestamp(),
   `status` int(11) NOT NULL DEFAULT 1,
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`id`, `hotelId`, `bookinId`, `reciptNo`, `openFolio`, `mainCheckIn`, `checkInTime`, `checkInDetail`, `mainCheckOut`, `checkOutTime`, `checkOutDetail`, `userPay`, `nroom`, `couponCode`, `pickUp`, `payment_status`, `payment_id`, `bookingSource`, `paymethodId`, `reservationType`, `salesType`, `bussinessSource`, `voucherNumber`, `comPlanId`, `comValue`, `coompanyId`, `paytypeId`, `commission`, `extra_amount`, `booking_attr`, `billingMode`, `organisation`, `companynameid`, `compayName`, `gstno`, `traveltype`, `bookingref`, `travelagent`, `totalPrice`, `roundTotalPrice`, `communication`, `specialCare`, `specialRequest`, `billingInfo`, `addBy`, `actionOn`, `add_on`, `status`, `deleteRec`) VALUES
+(1, '12345', 'nayak-a1325f', 1, 1, '2024-06-06', '02:21:00', '', '2024-06-07', '17:21:00', '', 0, 0, NULL, NULL, '1', '', 8, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, '', 'guest', '0', '', '', '', '', '', '', NULL, NULL, 'Phone Call,Whatsapp', 1, '', '', 'a_1', NULL, '2024-06-06 10:47:52', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +150,10 @@ CREATE TABLE `bookingby` (
   `id` int(11) NOT NULL,
   `bid` int(11) NOT NULL,
   `hotelId` varchar(11) NOT NULL,
+  `type` enum('travelAgent','organisation','other') NOT NULL DEFAULT 'other',
   `travelType` int(11) NOT NULL,
+  `organizationId` int(11) NOT NULL DEFAULT 0,
+  `staffName` int(11) NOT NULL DEFAULT 0,
   `name` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `whatsapp` varchar(12) DEFAULT NULL,
@@ -135,6 +164,13 @@ CREATE TABLE `bookingby` (
   `district` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookingby`
+--
+
+INSERT INTO `bookingby` (`id`, `bid`, `hotelId`, `type`, `travelType`, `organizationId`, `staffName`, `name`, `email`, `whatsapp`, `number`, `pinCode`, `block`, `address`, `district`, `state`) VALUES
+(1, 1, '12345', 'other', 0, 0, 1, '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -152,11 +188,12 @@ CREATE TABLE `bookingdetail` (
   `roomDId` int(11) NOT NULL,
   `smoking` enum('no','yes') NOT NULL DEFAULT 'no',
   `room_number` int(11) NOT NULL DEFAULT 0,
-  `checkIn` date NOT NULL DEFAULT '0000-00-00',
-  `checkOut` date NOT NULL DEFAULT '0000-00-00',
+  `checkIn` date DEFAULT NULL,
+  `checkOut` date DEFAULT NULL,
   `adult` int(11) NOT NULL,
   `child` int(11) NOT NULL,
   `exBd` int(11) NOT NULL DEFAULT 0,
+  `noOfRooms` int(11) NOT NULL DEFAULT 1,
   `roomPrice` float NOT NULL DEFAULT 0,
   `adultPrice` float NOT NULL DEFAULT 0,
   `childPrice` float NOT NULL DEFAULT 0,
@@ -168,6 +205,13 @@ CREATE TABLE `bookingdetail` (
   `addOn` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bookingdetail`
+--
+
+INSERT INTO `bookingdetail` (`id`, `hotelId`, `bid`, `openFolio`, `hkId`, `roomId`, `roomDId`, `smoking`, `room_number`, `checkIn`, `checkOut`, `adult`, `child`, `exBd`, `noOfRooms`, `roomPrice`, `adultPrice`, `childPrice`, `gstPer`, `totalPrice`, `checkinstatus`, `checkinBy`, `checkOutBy`, `addOn`, `deleteRec`) VALUES
+(1, '12345', 1, 0, 0, 3, 0, 'no', 0, '2024-06-06', '2024-06-07', 8, 0, 0, 4, 20000, 0, 0, 12, 22400, 1, NULL, NULL, '2024-06-06 17:47:52', 1);
 
 -- --------------------------------------------------------
 
@@ -377,6 +421,13 @@ CREATE TABLE `guest` (
   `deleteRec` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `guest`
+--
+
+INSERT INTO `guest` (`id`, `hotelId`, `type`, `accessId`, `bookId`, `kotId`, `bookingdId`, `verify`, `serial`, `nameTitle`, `name`, `email`, `whatsapp`, `phone`, `gender`, `company_name`, `comGst`, `country`, `state`, `city`, `block`, `district`, `zip`, `full_address`, `image`, `kyc_file`, `kyc_number`, `kyc_type`, `file_upload_type`, `proof_file_upload_type`, `groupadmin`, `birthday`, `anniversary`, `addBy`, `addOn`, `deleteRec`) VALUES
+(1, '12345', NULL, 0, 1, 0, 1, '', '1', 'Mr.', 'test', 'test@gmail.com', '', '1234567890', NULL, NULL, NULL, NULL, 'Odisha', NULL, '', '', '', '', NULL, NULL, NULL, '0', NULL, NULL, 1, NULL, NULL, NULL, '2024-06-06 10:47:52', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -393,6 +444,13 @@ CREATE TABLE `guestamenddetail` (
   `addbycheckin` varchar(250) DEFAULT NULL,
   `addbycheckout` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guestamenddetail`
+--
+
+INSERT INTO `guestamenddetail` (`id`, `hotelId`, `bid`, `bdid`, `checkInTime`, `checkOutTime`, `addbycheckin`, `addbycheckout`) VALUES
+(1, '12345', 1, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1160,9 +1218,13 @@ CREATE TABLE `organisations` (
   `id` int(11) NOT NULL,
   `hotelId` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `orgType` varchar(250) DEFAULT NULL,
   `orgConName` varchar(500) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `organisationEmail` varchar(255) DEFAULT NULL,
+  `designation` varchar(250) DEFAULT NULL,
+  `cpwhatsappNumber` varchar(50) DEFAULT NULL,
+  `cpPhoneNumber` varchar(50) DEFAULT NULL,
   `organisationAddress` varchar(255) DEFAULT NULL,
   `organisationCity` varchar(100) DEFAULT NULL,
   `organisationState` varchar(100) DEFAULT NULL,
@@ -1175,16 +1237,6 @@ CREATE TABLE `organisations` (
   `organisationDiscount` decimal(10,2) DEFAULT NULL,
   `organisationNote` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `organisations`
---
-
-INSERT INTO `organisations` (`id`, `hotelId`, `name`, `orgConName`, `status`, `organisationEmail`, `organisationAddress`, `organisationCity`, `organisationState`, `organisationCountry`, `organisationPostCode`, `organisationNumber`, `organisationGstNo`, `ratePlan`, `salesManager`, `organisationDiscount`, `organisationNote`) VALUES
-(1, '12345', 'Test', 'Avi', 1, 'avi@gmail.com', '', '', '', '', '', '', '', '0', '', 0.00, ''),
-(2, '12345', 'Test2', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, ''),
-(3, '12345', 'Test3', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, ''),
-(4, '12345', 'Test4', '', 1, '', '', '', '', '', '', '', '', '0', '', 0.00, '');
 
 -- --------------------------------------------------------
 
@@ -1312,6 +1364,13 @@ CREATE TABLE `payment_timeline` (
   `addOn` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `payment_timeline`
+--
+
+INSERT INTO `payment_timeline` (`id`, `hotelId`, `billingNo`, `proId`, `proSubId`, `bid`, `posId`, `accessId`, `amount`, `tip`, `paymentMethod`, `openFolio`, `remark`, `payment_status`, `statusUpdateOn`, `paidOn`, `statusUpdateRemark`, `addBy`, `addOn`) VALUES
+(1, '12345', 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, NULL, 'success', NULL, '0000-00-00 00:00:00', NULL, 'a_1', '2024-06-06 17:47:52');
+
 -- --------------------------------------------------------
 
 --
@@ -1385,8 +1444,8 @@ CREATE TABLE `propertylocation` (
 --
 
 INSERT INTO `propertylocation` (`id`, `hotelId`, `address`, `address2`, `city`, `district`, `pincode`, `country`, `state`, `latitude`, `longitude`, `mapLink`, `mapIfrem`, `mapIfremStatus`) VALUES
-(1, '12345', 'Niladree Beach, ChakraTirtha Road (C.T.) Road, Puri - 752002, Odisha, India', NULL, '', '', '', '', '', '', '', '', '', 0),
-(2, '12346', 'Niladree Beach, ChakraTirtha Road (C.T.) Road, Puri - 752002, Odisha, India', NULL, '', '', '', '', '', '', '', '', '', 0);
+(1, '12345', 'Nayak Beach Resort, Niladri Beach, ChakraTirtha ( C.T.) Road, <br/> Puri - 752002 ( Landmark - Near Hotel Mayfair )', NULL, '', '', '', '', '', '', '', 'https://maps.app.goo.gl/ws85m1X5zDjDTrac6', '', 0),
+(2, '12346', 'Nayak Beach Resort, Niladri Beach, ChakraTirtha ( C.T.) Road, <br/> Puri - 752002 ( Landmark - Near Hotel Mayfair )', NULL, '', '', '', '', '', '', '', 'https://maps.app.goo.gl/ws85m1X5zDjDTrac6', '', 0);
 
 -- --------------------------------------------------------
 
@@ -2271,6 +2330,28 @@ INSERT INTO `sys_guestidproof` (`id`, `name`, `status`, `addOn`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sys_guest_communication`
+--
+
+CREATE TABLE `sys_guest_communication` (
+  `id` int(11) NOT NULL,
+  `accessCode` varchar(250) NOT NULL,
+  `name` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sys_guest_communication`
+--
+
+INSERT INTO `sys_guest_communication` (`id`, `accessCode`, `name`) VALUES
+(1, 'phoneCall', 'Phone Call'),
+(2, 'whatsapp', 'Whatsapp'),
+(3, 'eMail', 'E-Mail'),
+(4, 'reservationCounter', 'Reservation Counter');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sys_kotcategory`
 --
 
@@ -2580,7 +2661,7 @@ CREATE TABLE `sys_report_list` (
 --
 
 INSERT INTO `sys_report_list` (`id`, `typeId`, `accesKey`, `name`, `svg`, `addOn`, `deleteRec`) VALUES
-(1, 1, 'todays-events', 'Todays Events', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2023-04-01 09:26:17', 1),
+(1, 1, 'todays-events', 'Todays Events', '<svg>\n                                        <use xlink:href=\"#todayEventSvgIcon\"></use>\n                                    </svg>', '2023-04-01 09:26:17', 0),
 (2, 1, 'checkin', 'Arrival List', '<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 50 50\"\r\n    style=\"enable-background:new 0 0 50 50;\">\r\n    <g id=\"checkin\">\r\n        <path fill=\"currentColor\" d=\"M43.4,5.8h-5.1V3.4c0-0.6-0.4-1-1-1s-1,0.4-1,1v2.4H19.8V3.4c0-0.6-0.4-1-1-1s-1,0.4-1,1v2.4 h-5.2c-2.8,0-5.1,2.3-5.1,5.1v15.9c0,0.6,0.4,1,1,1s1-0.4,1-1v-5.6h37v21.5c0,1.7-1.4,3.1-3.1,3.1H12.6c-1.7,0-3.1-1.4-3.1-3.1 v-5.1c0-0.6-0.4-1-1-1s-1,0.4-1,1v5.1c0,2.8,2.3,5.1,5.1,5.1h30.8c2.8,0,5.1-2.3,5.1-5.1V10.9C48.5,8.1,46.2,5.8,43.4,5.8z M9.5,19.2v-8.3c0-1.7,1.4-3.1,3.1-3.1h5.2v2.6c-1.2,0.4-2.1,1.5-2.1,2.9c0,1.7,1.4,3.1,3.1,3.1s3.1-1.4,3.1-3.1 c0-1.3-0.9-2.5-2.1-2.9V7.8h16.5v2.6c-1.2,0.4-2.1,1.5-2.1,2.9c0,1.7,1.4,3.1,3.1,3.1s3.1-1.4,3.1-3.1c0-1.3-0.9-2.5-2.1-2.9V7.8 h5.1c1.7,0,3.1,1.4,3.1,3.1v8.3H9.5z M18.8,12.3c0.6,0,1.1,0.5,1.1,1.1s-0.5,1.1-1.1,1.1s-1.1-0.5-1.1-1.1S18.3,12.3,18.8,12.3z M37.3,12.3c0.6,0,1.1,0.5,1.1,1.1s-0.5,1.1-1.1,1.1s-1.1-0.5-1.1-1.1S36.7,12.3,37.3,12.3z\">\r\n        </path>\r\n        <path fill=\"#ff0000\" d=\"M17.9,36.9c-0.4,0.4-0.3,1,0.1,1.4c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l5-5.5 c0,0,0-0.1,0.1-0.1c0,0,0,0,0-0.1c0,0,0-0.1,0.1-0.1c0,0,0,0,0,0c0-0.1,0-0.1,0-0.2c0-0.1,0-0.1,0-0.2c0,0,0,0,0,0c0,0,0,0,0,0 c0-0.1,0-0.1,0-0.2c0-0.1,0-0.1,0-0.2c0,0,0,0,0,0c0,0-0.1-0.1-0.1-0.1c0,0,0,0,0-0.1c0,0,0-0.1-0.1-0.1l-5-5.3 c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.4,3.6H2c-0.6,0-1,0.4-1,1s0.4,1,1,1h19.4L17.9,36.9z\">\r\n        </path>\r\n    </g>\r\n</svg>', '2023-04-01 09:26:17', 1),
 (3, 1, 'checkout', 'Departure List', '<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 50 50\"\r\n    style=\"enable-background:new 0 0 50 50;\">\r\n    <g id=\"checkout\">\r\n        <path fill=\"currentColor\" d=\"M39.4,35.3c-0.6,0-1,0.4-1,1v4.9c0,1.6-1.3,2.9-2.9,2.9H6.1c-1.6,0-2.9-1.3-2.9-2.9V20.8h35.2 V26c0,0.6,0.4,1,1,1s1-0.4,1-1V10.9c0-2.7-2.2-4.9-4.9-4.9h-4.8V3.7c0-0.6-0.4-1-1-1s-1,0.4-1,1V6H13V3.7c0-0.6-0.4-1-1-1 s-1,0.4-1,1V6h-5c-2.7,0-4.9,2.2-4.9,4.9v30.3c0,2.7,2.2,4.9,4.9,4.9h29.4c2.7,0,4.9-2.2,4.9-4.9v-4.9 C40.4,35.8,39.9,35.3,39.4,35.3z M6.1,8h5v2.4c-1.1,0.4-2,1.5-2,2.8c0,1.6,1.3,3,3,3s3-1.3,3-3c0-1.3-0.8-2.4-2-2.8V8h15.6v2.4 c-1.1,0.4-2,1.5-2,2.8c0,1.6,1.3,3,3,3s3-1.3,3-3c0-1.3-0.8-2.4-2-2.8V8h4.8c1.6,0,2.9,1.3,2.9,2.9v7.9H3.1v-7.9 C3.1,9.3,4.5,8,6.1,8z M12,12.2c0.5,0,1,0.4,1,1c0,0.5-0.4,1-1,1c-0.5,0-1-0.4-1-1C11,12.6,11.5,12.2,12,12.2z M29.6,12.2 c0.5,0,1,0.4,1,1c0,0.5-0.4,1-1,1c-0.5,0-1-0.4-1-1C28.7,12.6,29.1,12.2,29.6,12.2z\">\r\n        </path>\r\n        <path fill=\"#de7500\" d=\"M48.4,30.1H30l3.2-3.4c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0l-4.8,5c0,0,0,0.1-0.1,0.1 c0,0,0,0,0,0.1c0,0-0.1,0.1-0.1,0.1c0,0,0,0,0,0c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2c0,0,0,0,0,0c0,0,0,0,0,0c0,0.1,0,0.1,0,0.2 c0,0.1,0,0.1,0,0.2c0,0,0,0,0,0c0,0,0,0.1,0.1,0.1c0,0,0,0,0,0.1c0,0,0,0.1,0.1,0.1l4.8,5.2c0.2,0.2,0.5,0.3,0.7,0.3 c0.2,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0.1-1.4L30,32.1h18.4c0.6,0,1-0.4,1-1S48.9,30.1,48.4,30.1z\">\r\n        </path>\r\n    </g>\r\n</svg>', '2023-04-01 09:32:13', 1),
 (5, 1, 'no-show', 'No Show', '<svg  width=\"15px\" height=\"15px\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-55 147 500 500\">\r\n    <g>\r\n        <path fill=\"currentColor\" d=\"M114.4,375.3c0,16.8,13.6,30.4,30.4,30.4c1.1,0,2.1-0.1,3.2-0.2l25.3-19.6c1.3-3.3,1.9-6.9,1.9-10.7\r\n		c0-16.8-13.6-30.4-30.4-30.4C128,344.9,114.4,358.5,114.4,375.3z M163.2,375.3c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4c0-10.2,8.3-18.4,18.4-18.4C155,356.9,163.2,365.1,163.2,375.3z\" />\r\n        <path fill=\"currentColor\" d=\"M50.3,456.6c6.1-0.7,11.7,1.6,15.5,5.7c2.1,2.2,5.6,2.5,8,0.6h0c2.8-2.2,3.1-6.3,0.7-8.8c-6-6.4-14.8-10.2-24.4-9.5\r\n		c-14.4,1.1-26.3,12.4-27.9,26.8c-0.8,7.3,1,14.1,4.5,19.7c1.9,3,5.9,3.6,8.7,1.5h0c2.4-1.9,3-5.3,1.4-7.9\r\n		c-2.2-3.5-3.2-7.7-2.6-12.2C35.3,464.1,42,457.5,50.3,456.6z\" />\r\n        <path fill=\"currentColor\" d=\"M237.3,393.7c-3.9,0-7.5-1.2-10.5-3.3c-2.1-1.5-5-1.5-7,0.1l-0.3,0.2c-3,2.4-3,7,0.1,9.3c5,3.6,11.1,5.7,17.7,5.7\r\n		c16.6,0,30.3-13.5,30.4-30.2c0,0,0-0.1,0-0.1c0,0,0-0.1,0-0.1c0-3.8-0.7-7.5-2-10.9c-1.4-3.7-6-4.9-9.1-2.5l-0.3,0.2\r\n		c-2,1.6-2.7,4.3-1.8,6.7c0.8,2,1.2,4.2,1.2,6.5v0.1C255.6,385.5,247.4,393.7,237.3,393.7z\" />\r\n        <path fill=\"currentColor\" d=\"M389.6,260.1v28.3h-35.8c-1.3,0-2.6,0.4-3.7,1.3v0c-4.5,3.5-2.1,10.7,3.7,10.7h35.8v237.3c0,6.7-5.4,12.1-12.1,12.1h-363\r\n		c-0.5,0-1,0.2-1.3,0.5l-9.9,7.7c-1.6,1.3-0.7,3.9,1.3,3.9l0.1,0h372.9c13.3,0,24.1-10.8,24.1-24.1V254.1c0,0,0,0,0,0\r\n		c0-1.7-2-2.7-3.4-1.6l-7.8,6C389.9,258.8,389.6,259.4,389.6,260.1z\" />\r\n        <path fill=\"currentColor\" d=\"M-7.5,300.4h289.3c1.3,0,2.6-0.4,3.7-1.3l0,0c4.5-3.5,2-10.7-3.7-10.7H-7.5v-34.3c0-6.7,5.4-12.1,12.1-12.1h37.1l0,15.4\r\n		c0,3.3,2.5,6.2,5.8,6.2c3.4,0.1,6.2-2.6,6.2-6V242H185l0,15.4c0,3.3,2.5,6.1,5.8,6.2c3.4,0.1,6.2-2.6,6.2-6V242h131.4v15.7l0,0.1\r\n		c0,3.3,3.9,5.2,6.5,3.2l3.9-3c1-0.8,1.6-2,1.6-3.3V242h16.9c1.3,0,2.6-0.4,3.7-1.3v0c4.5-3.5,2.1-10.7-3.7-10.7h-16.9v-15.1\r\n		c0-3.4-2.8-6.1-6.2-6c-3.3,0.1-5.8,3-5.8,6.2V230H197l0-14.9c0-3.3-2.5-6.2-5.8-6.2c-3.4-0.1-6.2,2.6-6.2,6V230H53.7l0-14.9\r\n		c0-3.3-2.5-6.2-5.8-6.2c-3.4-0.1-6.2,2.6-6.2,6V230H4.6c-13.3,0-24.1,10.8-24.1,24.1v268.7c0,5,5.7,7.8,9.7,4.7h0\r\n		c1.5-1.1,2.3-2.9,2.3-4.7V300.4z\" />\r\n        <path style=\"fill: var(--bs-danger);\" d=\"M420,215.4c-2-2.6-5.8-3.1-8.4-1.1L-33.1,558.2c-2.6,2-3.1,5.8-1.1,8.4c1.2,1.5,3,2.3,4.8,2.3\r\n		c1.3,0,2.6-0.4,3.7-1.3l444.6-343.9C421.5,221.7,422,218,420,215.4z\" />\r\n        <path fill=\"currentColor\" d=\"M52.4,344.9c-16.8,0-30.4,13.6-30.4,30.4c0,16.8,13.6,30.4,30.4,30.4c16.8,0,30.4-13.6,30.4-30.4\r\n		C82.8,358.5,69.2,344.9,52.4,344.9z M52.4,393.7c-10.1,0-18.4-8.3-18.4-18.4c0-10.2,8.3-18.4,18.4-18.4c10.1,0,18.4,8.3,18.4,18.4\r\n		C70.8,385.4,62.5,393.7,52.4,393.7z\" />\r\n        <path fill=\"currentColor\" d=\"M329.7,405.7c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C299.3,392,312.9,405.7,329.7,405.7z M329.7,356.9c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C311.3,365.1,319.6,356.9,329.7,356.9z\" />\r\n        <path fill=\"currentColor\" d=\"M175.2,476.7c0.9-14.5-8.5-27-21.5-30.9c-2.4-0.7-5.1-0.3-7.1,1.3l-29.8,23.1c-1.5,1.1-2.3,2.9-2.3,4.8l0,0\r\n		c0,17.4,14.7,31.5,32.4,30.3C162,504.2,174.3,491.9,175.2,476.7z M126.5,473c0.9-8.6,7.8-15.5,16.4-16.4\r\n		c11.6-1.2,21.4,8.6,20.2,20.2c-0.9,8.6-7.8,15.6-16.4,16.4C135.1,494.3,125.3,484.6,126.5,473z\" />\r\n        <path fill=\"currentColor\" d=\"M237.3,505.3c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C206.9,491.6,220.5,505.3,237.3,505.3z M237.3,456.5c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C218.9,464.7,227.2,456.5,237.3,456.5z\" />\r\n        <path fill=\"currentColor\" d=\"M329.7,505.3c16.8,0,30.4-13.6,30.4-30.4c0-16.8-13.6-30.4-30.4-30.4c-16.8,0-30.4,13.6-30.4,30.4\r\n		C299.3,491.6,312.9,505.3,329.7,505.3z M329.7,456.5c10.1,0,18.4,8.3,18.4,18.4c0,10.1-8.3,18.4-18.4,18.4\r\n		c-10.2,0-18.4-8.3-18.4-18.4C311.3,464.7,319.6,456.5,329.7,456.5z\" />\r\n      </g>\r\n</svg>', '2023-11-12 02:28:54', 1),
@@ -2851,15 +2932,6 @@ CREATE TABLE `travel_agents` (
   `travelagentGroup` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `travel_agents`
---
-
-INSERT INTO `travel_agents` (`id`, `agentName`, `travelagentname`, `hotelId`, `travelagentemail`, `travelagentAddress`, `travelagrntCity`, `travelagentState`, `travelagentCountry`, `travelagentPostCode`, `travelagentPhoneno`, `travelagentGstNo`, `travelagentcommission`, `travelaaagentGstonCommision`, `travelaaagentTcs`, `travelaaagentTds`, `travelagentNote`, `travelagentGroup`, `status`) VALUES
-(1, 'Nayak Travels', 'Bhabesh Nayak', '12345', 'bhabesh.nayak@gmail.com', '', 'Puri', 'Odisha', '', '', '7682822202', '', 0.00, 0.00, 0.00, 0.00, '', NULL, 1),
-(2, 'Nayak Travels', 'Girish Chandra Nayak', '12345', '', '', 'Puri', 'Odisha', '', '', '7682822201', '', 0.00, 0.00, 0.00, 0.00, '', NULL, 1),
-(4, 'test', 'test', '12345', '', '', '', '', '', '', '1234567890', '', 0.00, 0.00, 0.00, 0.00, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -3760,6 +3832,12 @@ ALTER TABLE `sys_guestidproof`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sys_guest_communication`
+--
+ALTER TABLE `sys_guest_communication`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sys_kotcategory`
 --
 ALTER TABLE `sys_kotcategory`
@@ -3971,7 +4049,7 @@ ALTER TABLE `wb_slider`
 -- AUTO_INCREMENT for table `activityfeed`
 --
 ALTER TABLE `activityfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `amenities`
@@ -3983,19 +4061,19 @@ ALTER TABLE `amenities`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bookingby`
 --
 ALTER TABLE `bookingby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bookingdetail`
 --
 ALTER TABLE `bookingdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `booking_folio`
@@ -4055,13 +4133,13 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `guestamenddetail`
 --
 ALTER TABLE `guestamenddetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `guest_review`
@@ -4289,7 +4367,7 @@ ALTER TABLE `mailinvoice`
 -- AUTO_INCREMENT for table `organisations`
 --
 ALTER TABLE `organisations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `package`
@@ -4319,7 +4397,7 @@ ALTER TABLE `payment_status`
 -- AUTO_INCREMENT for table `payment_timeline`
 --
 ALTER TABLE `payment_timeline`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_verify`
@@ -4562,6 +4640,12 @@ ALTER TABLE `sys_guestidproof`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `sys_guest_communication`
+--
+ALTER TABLE `sys_guest_communication`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `sys_kotcategory`
 --
 ALTER TABLE `sys_kotcategory`
@@ -4697,7 +4781,7 @@ ALTER TABLE `travelagentgroup`
 -- AUTO_INCREMENT for table `travel_agents`
 --
 ALTER TABLE `travel_agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `url_mapping`

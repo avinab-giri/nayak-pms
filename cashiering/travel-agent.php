@@ -49,7 +49,7 @@ if (isset($_GET['edate'])) {
     <?php include(FO_SERVER_SCREEN_PATH . 'navbar.php') ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <div class="container">
+        <div class="container-fluid">
 
             <?php echo backNavbarUi('', 'Travel Agent'); ?>
 

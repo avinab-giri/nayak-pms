@@ -1,4 +1,4 @@
-var webUrl = 'http://localhost/nayak-pms/';
+var webUrl = 'https://admin.nayakhotels.com/';
 var loadingGif = webUrl + 'img/loading.gif';
 
 window.loader = `<div class="loadingCon"><div class="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;
@@ -451,9 +451,9 @@ function loadResorvation($rTab = '', $search = '',  $page = 1, serchBy = '', ser
                                         ${cancelResBtn}
                                         ${addPaymentBtn}
                                         <li><a href="${grcLink}" target="_blank" >GRC</a></li>
-                                        <li> <a href="${voucherLink}" target="_blank">Guest Voucher</a></li>
                                         <li><a onclick="viewBookingReport(${bid})" href="javascript:void(0)">View Booking</a></li>
                                         <li><a target="_blank" href="${agentLink}">Agent Voucher</a></li>
+                                        <li> <a href="${voucherLink}" target="_blank">Guest Voucher</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -1334,8 +1334,8 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
         e.preventDefault();
     }else{
 
-        // $(this).html('Loading...');
-        // $(this).addClass('disabled');
+        $(this).html('Loading...');
+        $(this).addClass('disabled');
 
         if (roomId == '') {
             sweetAlert("Please select Room.", "error");
@@ -1368,26 +1368,26 @@ $(document).on('click', '#addReservationSubmitBtn', function (e) {
                 type: 'post',
                 data: $('#addReservationForm').serialize(),
                 success: function (data) {
-                    // $('#loadAddResorvation').html('').hide();
-                    // $('#addReservationForm').trigger('reset');
-                    // sweetAlert("Successfull Add Reservation.");
+                    $('#loadAddResorvation').html('').hide();
+                    $('#addReservationForm').trigger('reset');
+                    sweetAlert("Successfull Add Reservation.");
     
-                    // $(this).html('Save');
-                    // $(this).removeClass('disabled');
+                    $(this).html('Save');
+                    $(this).removeClass('disabled');
     
-                    // if (page == 'reservations') {
-                    //     $('#loadReservationCountContent a').removeClass('active');
-                    //     loadResorvation('all');
-                    //     $('#loadReservationCountContent #all').addClass('active');
-                    //     $('.nav-indicator').css({"width": "99px", "left": "45px"});
-                    // }else if (page == 'walk-in'){
-                    //     window.location.href = `${webUrl}reservations`;
-                    // }else if (page == 'stay-view'){
-                    //     var date = $('#currentDateStart').val();
-                    //     loadStayView(date);
-                    // }else if(page == 'room-view'){
-                    //     loadRoomView();
-                    // }
+                    if (page == 'reservations') {
+                        $('#loadReservationCountContent a').removeClass('active');
+                        loadResorvation('all');
+                        $('#loadReservationCountContent #all').addClass('active');
+                        $('.nav-indicator').css({"width": "99px", "left": "45px"});
+                    }else if (page == 'walk-in'){
+                        window.location.href = `${webUrl}reservations`;
+                    }else if (page == 'stay-view'){
+                        var date = $('#currentDateStart').val();
+                        loadStayView(date);
+                    }else if(page == 'room-view'){
+                        loadRoomView();
+                    }
     
                 }
             });

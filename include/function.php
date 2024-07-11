@@ -13038,7 +13038,7 @@ function getOrganisationListData($id='',$name='',$state = ''){
      }
      
      if($name != ''){
-         $query .= " and name like '%$name%'";
+         $query .= " and name like '%$name%' or orgType like '%$name%' or orgConName like '%$name%' or organisationEmail like '%$name%' or designation like '%$name%' or cpwhatsappNumber like '%$name%' or cpPhoneNumber like '%$name%' or organisationState like '%$name%'";
      }
      
      if($state != ''){
@@ -13109,7 +13109,7 @@ function getOrganisationList(){
      return $html;
 }
 
-    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote='',$actionId='',$designation='',$cpwhatsappNumber='',$cpPhoneNumber=''){
+    function setOrganisationDetails($organisationName, $conName, $organisationEmail='', $organisationAddress='', $organisationCity='', $organisationState='', $organisationCountry='', $organisationPostCode='', $organisationNumber='', $organisationGstNo='', $ratePlan='', $salesManager='', $organisationDiscount='', $organisationNote='',$actionId='',$designation='',$cpwhatsappNumber='',$cpPhoneNumber='',$orgType=''){
         $hotelId = HOTEL_ID;
         global $conDB;
         if($actionId != ''){
@@ -13130,11 +13130,12 @@ function getOrganisationList(){
                         organisationNote = '$organisationNote',
                         designation = '$designation',
                         cpwhatsappNumber = '$cpwhatsappNumber',
-                        cpPhoneNumber = '$cpPhoneNumber'
+                        cpPhoneNumber = '$cpPhoneNumber',
+                        orgType = '$orgType'
                     WHERE id = '$actionId'";
         }else{
-            $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote,designation,cpwhatsappNumber,cpPhoneNumber)
-        VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote', '$designation', '$cpwhatsappNumber', '$cpPhoneNumber');
+            $query = "INSERT INTO organisations (hotelId,name,orgConName,organisationEmail, organisationAddress, organisationCity, organisationState, organisationCountry, organisationPostCode, organisationNumber, organisationGstNo, ratePlan, salesManager, organisationDiscount, organisationNote,designation,cpwhatsappNumber,cpPhoneNumber,orgType)
+        VALUES ('$hotelId','$organisationName', '$conName', '$organisationEmail', '$organisationAddress', '$organisationCity', '$organisationState', '$organisationCountry', '$organisationPostCode', '$organisationNumber', '$organisationGstNo', '$ratePlan', '$salesManager', $organisationDiscount, '$organisationNote', '$designation', '$cpwhatsappNumber', '$cpPhoneNumber', '$orgType');
         ";
         }
         

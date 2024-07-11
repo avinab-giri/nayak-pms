@@ -1429,11 +1429,12 @@ if ($type == 'addNewOrganisation') {
     $designation = $_POST['designation'];
     $cpwhatsappNumber = $_POST['cpwhatsappNumber'];
     $cpPhoneNumber = $_POST['cpPhoneNumber'];
+    $orgType = $_POST['orgType'];
 
 
     $data = array();
     
-    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote,$actionId,$designation,$cpwhatsappNumber,$cpPhoneNumber);
+    $response = setOrganisationDetails($organisationName, $oConPerName,$organisationEmail, $organisationAddress, $organisationCity, $organisationState, $organisationCountry, $organisationPostCode, $organisationNumber, $organisationGstNo, $ratePlan, $salesManager, $organisationDiscount, $organisationNote,$actionId,$designation,$cpwhatsappNumber,$cpPhoneNumber,$orgType);
     
     $data = [
         'status'=>'error',

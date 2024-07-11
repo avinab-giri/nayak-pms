@@ -5047,6 +5047,7 @@ function addCompanyForm(id=''){
         var designation = (data.designation) ? data.designation : '';
         var cpwhatsappNumber = (data.cpwhatsappNumber) ? data.cpwhatsappNumber : '';
         var cpPhoneNumber = (data.cpPhoneNumber) ? data.cpPhoneNumber : '';
+        var orgType = (data.orgType) ? data.orgType : '';
         
         var rateList = '';
         var ratePlan = response.ratePlan;
@@ -5067,7 +5068,7 @@ function addCompanyForm(id=''){
     html =`
         <form action="" id="organisationForm" autocomplete="off">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="organisationName" class="control-label">Name *</label>                     
                         <input type="text" placeholder="Organisation Name" class="form-control" name="organisationname" value="${name}" id="organisationName">
@@ -5075,14 +5076,20 @@ function addCompanyForm(id=''){
                         <ul id="organisationDropDown" class="inputDropDown"></ul >
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Org Type</label>                     
+                        <input type="text" placeholder="Org Type" class="form-control" name="orgType" id="orgType" value="${orgType}">            
+                    </div>
+                </div> 
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Contact Person Name *</label>                     
                         <input type="text" placeholder="Contact person Name" class="form-control" name="oConPerName" id="orgConName" value="${orgConName}">            
                     </div>
                 </div> 
                 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Email *</label>                     
                         <input type="text" placeholder="Organisation Email" class="form-control" name="organisationemail" id="organisationemail" value="${organisationEmail}">            
@@ -5090,7 +5097,7 @@ function addCompanyForm(id=''){
                 </div>  
 
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">CP Designation</label>                     
                         <input type="text" placeholder="Enter Designation" class="form-control" name="designation" id="designation" value="${designation}">            

@@ -1,119 +1,28 @@
-[03-Jun-2024 18:32:47 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:32:47 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:32:48 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:32:48 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:32:48 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:32:48 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 18:33:00 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
-[03-Jun-2024 18:33:00 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
-[03-Jun-2024 18:33:19 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:33:19 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:33:24 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:33:24 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:33:33 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
-[03-Jun-2024 18:33:33 Asia/Kolkata] PHP Notice:  Undefined index: organizationId in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 2940
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:13 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:38:40 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:20 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:39:54 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:45:47 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:45:47 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:45:47 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 18:57:10 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:14:09 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:14:09 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:14:09 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 132
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 133
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 134
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 135
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 136
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 137
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 138
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 139
-[03-Jun-2024 19:15:08 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/uiFunction.php on line 140
-[03-Jun-2024 19:15:24 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 19:15:24 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:34 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:15:41 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:41 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:41 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:42 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:42 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:45 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:58 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:58 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:15:58 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:16:00 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:16:00 Asia/Kolkata] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 13932
-[03-Jun-2024 19:23:49 Asia/Kolkata] Email sending failed: SMTP Error: Could not connect to SMTP host. Failed to connect to server
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined index: id in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/grc.php on line 7
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: guestName in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1090
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: guestPhone in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1094
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: guestEmail in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1098
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: full_address in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1102
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: bookOn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1154
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckIn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1158
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckOut in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1162
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: rooms in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1166
-[03-Jun-2024 19:26:37 Asia/Kolkata] PHP Notice:  Undefined variable: bookingRef in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1170
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined index: id in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/grc.php on line 7
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: guestName in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1090
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: guestPhone in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1094
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: guestEmail in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1098
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: full_address in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1102
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: bookOn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1154
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckIn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1158
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckOut in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1162
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: rooms in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1166
-[03-Jun-2024 19:27:00 Asia/Kolkata] PHP Notice:  Undefined variable: bookingRef in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1170
-[03-Jun-2024 19:37:29 Asia/Kolkata] PHP Notice:  Undefined index: id in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/grc.php on line 7
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: guestName in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1090
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: guestPhone in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1094
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: guestEmail in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1098
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: full_address in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1102
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: bookOn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1154
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckIn in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1158
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: mainCheckOut in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1162
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: rooms in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1166
-[03-Jun-2024 19:37:30 Asia/Kolkata] PHP Notice:  Undefined variable: bookingRef in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/mailFunction.php on line 1170
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[03-Jun-2024 19:39:46 Asia/Kolkata] PHP Notice:  Undefined variable: bookingSource in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 3063
-[04-Jun-2024 10:31:17 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[04-Jun-2024 10:31:17 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[04-Jun-2024 10:31:18 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
-[04-Jun-2024 10:31:18 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 797
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 16:27:54 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:13 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:13 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:14 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:14 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:14 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[13-Jun-2024 20:08:14 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[20-Jun-2024 19:59:27 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[20-Jun-2024 19:59:27 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[20-Jun-2024 19:59:27 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[20-Jun-2024 19:59:27 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:14 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:14 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:14 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:14 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:15 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 17:27:15 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:37 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:37 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:38 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:38 Asia/Kolkata] PHP Notice:  Undefined index: ADMIN_ID in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803
+[24-Jun-2024 23:25:38 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/wrs4rx5blwlo/public_html/admin.nayakhotels.com/include/function.php on line 803

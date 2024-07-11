@@ -44,7 +44,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg scrollBar">
 
 
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="row mt-2">
                 <?php
